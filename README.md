@@ -16,18 +16,18 @@ This section lists all projects in the repo. The list will always update in time
 
 ### External Cookie Services
 
-ASP.NET 5 Identity Service (`Microsoft.AspNet.Identity` package) already added support for external cookie services, which is required for 3rd application authentication scheme (e.g. Microsoft of Fackbook account). You may use `AddIdentity` and `UseIdentity` method to enable external cookie services. However, in sometimes you may wish to enable external services indivindually without full ASP.NET Identity Service enabled. This project seperates the external cookie services from ASP.NET Identity Services, and may be used in more complex authentication scenes.
+ASP.NET Core Identity Service (`Microsoft.AspNet.Identity` package) already added support for external cookie services, which is required for 3rd application authentication scheme (e.g. Microsoft of Fackbook account). You may use `AddIdentity` and `UseIdentity` method to enable external cookie services. However, in sometimes you may wish to enable external services indivindually without full ASP.NET Identity Service enabled. This project seperates the external cookie services from ASP.NET Identity Services, and may be used in more complex authentication scenes.
 
 The major feature of this project contains:
 
-* Configure ASP.NET 5 Application to support ApplicationCookie and ExternalCookie services (provides extension methods can be used in `ConfigureServices` method of ASP.NET Startup class)
+* Configure ASP.NET Core Application to support ApplicationCookie and ExternalCookie services (provides extension methods can be used in `ConfigureServices` method of ASP.NET Startup class)
 * Enable ApplicationCookie and ExternalCookie seperately (provides extension methods can be used in `Configure` method of ASP.NET Startup class)
 * Provide ExternalCookieSignInManager service to simpify external cookie ticket management.
 
 
-### ASP.NET MVC 6 TagHelper Extension Library
+### ASP.NET Core MVC TagHelper Extension Library
 
-Add various addtional TagHelper classes to simplify strong type model based ASP.NET MVC 6 web application development, including:
+Add various addtional TagHelper classes to simplify strong type model based ASP.NET Core MVC web application development, including:
 
 * `EnumSelectForTagHelper`: You can now use `asp-enum-for` attribute to generate a HTML select list with options for an enum  type, the type is specified by the given model expression. You can apply `DisplayAttribute` on enum items and specify `asp-text-source` to support custom display texts. The `asp-value-source` can be used to specify the format of option values.
 
@@ -52,7 +52,7 @@ This project provides the `EnhancedSessionStateTempDataProvider` service provide
  Internally, it uses certain serializer techinque to convert complex data into string value, and store it together with its type full name. When application loading its content, it will deserialize the string to recover the object data structure. The default implmementation uses `JsonObjectSerializer`, and you may also replace it with your own implementation if necessary.
 
 
-### ASP.NET MVC Messages Package
+### ASP.NET Core MVC Messages Package
 
 This project add the feature of common operation message response in web applications, as well as tag helpers to simplify message presentations. The detailed features includes:
 
@@ -64,11 +64,11 @@ This project add the feature of common operation message response in web applica
 *NOTE: To use this package, your `ITempDataProvider` implementation must have the ability to store and load `ICollection<OperationMessage>` instance. Defaultly, the ASP.NET5 `SessionStateTempDataProvider` cannot support data operation of complex objects. You may change into another `ITempDataProvider` implementation, or just use `EnhancedSessionStateTempDataProvider` in the `ASP.NET TempData Extension Package` project.
 
 
-### ASP.NET PagedList Core Package
+### ASP.NET Core PagedList Core Package
 
 This project provides the `IPagedList` core interface to represent as a data page for a large data source. In order to improve the performance, two different implemention as `PagedList` and `QueryablePagedList` are designed for `IEnumerable<T>` and `IQueryable<T>`, respectively.
 
-### ASP.NET MVC PagedList Pager Package
+### ASP.NET Core MVC PagedList Pager Package
 
 This project provide the `PagerTagHelper` to provide simple paging navigation implementation for ASP.NET MVC6 Project. the standalone `pager` HTML element can be used to insert an pager object. The `options` attribute can be used to define HTML generation options for this pager. You can use `AddBootstrapPagerGenerator` function in `ConfigureServices` to enabled default bootstrap theme HTML generators, or you may also implement your own generators for pager.
 
@@ -77,9 +77,8 @@ This project provide the `PagerTagHelper` to provide simple paging navigation im
 ---
 
 ## Issues and Important Notes
-* Since ASP.NET 5 has not in RTM ring, all codes in this repo may change rapidly following the ASP.NET core classes upgration.
-* Currently all the comments in the source code are in simplified Chinese. The author will consider transfering them into English in the near future.
-* ASP.NET 5 Localization module has not been a stable state, thus localization support for all projects (including error messages and UI strings) are not proceeded yet.
+* Since ASP.NET Core has not in RTM ring, all codes in this repo may change rapidly following the ASP.NET Core framework upgration.
+* ASP.NET Core Localization module has not been a stable state, thus localization support for all projects (including error messages and UI strings) are not proceeded yet.
 
 ## Contribution and Discussion
 
