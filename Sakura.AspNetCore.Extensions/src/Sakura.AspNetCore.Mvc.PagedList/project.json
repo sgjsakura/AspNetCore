@@ -1,0 +1,31 @@
+{
+	"title": "ASP.NET 5 MVC6 Pager",
+	"version": "2.0.0-rc2",
+	"description": "This library provides data-paging functionality and pager UI for ASP.NET 5 MVC6 projects.",
+	"authors": ["Iris Sakura"],
+
+	"packOptions": {
+		"summary": "This library provides data-paging functionality and pager UI for ASP.NET 5 MVC6 projects.",
+		"authors": ["Iris Sakura"],
+		"releaseNotes":
+			"In this realse, the core framework is updated to ASP.NET Core RC2. What's more, the usage of the library has a breaking change. Please visit the demo page to learn more.",
+		"owners": ["Iris Sakura"],
+		"tags": ["ASP.NET", "ASP.NET5", "MVC6", "MVC6", "Paging", "Page", "Pager", "Bootstrap"],
+		"projectUrl": "https://github.com/sgjsakura/aspnet5",
+		"licenseUrl": "https://github.com/sgjsakura/aspnet5/blob/master/LICENSE.txt"
+	},
+
+	"dependencies": {
+		"Microsoft.AspNetCore.Html.Abstractions": "1.0.0-rc2-final",
+		"Microsoft.AspNetCore.Mvc.ViewFeatures": "1.0.0-rc2-final",
+		"Microsoft.AspNetCore.Razor.Runtime": "1.0.0-rc2-final",
+		"NETStandard.Library": "1.5.0-rc2-24027",
+		"Sakura.AspNetCore.PagedList.Abstractions": "1.0.0-rc2"
+	},
+
+	"frameworks": {
+		"netstandard1.5": {
+			"imports": "dnxcore50"
+		}
+	}
+}

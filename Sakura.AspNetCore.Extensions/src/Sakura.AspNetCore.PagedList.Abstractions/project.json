@@ -1,0 +1,26 @@
+﻿{
+	"version": "1.0.0-rc2",
+	"title": "ASP.NET 5 PagedList Core Abstraction Layer",
+	"description":
+		"ASP.NET 5 PagedList abstraction layer defines the IPagedList interface and useful extension methods for ASP.NET 5 targeted projects. This project does not contains the implementation for creating paged list from a certain data source.",
+
+	"packOptions": {
+		"summary": "Update to ASP.NET Core RC2",
+		"releaseNotes": "Rename the namespace 'AspNet' to 'AspNetCore'",
+		"authors": ["Iris Sakura"],
+		"owners": ["Iris Sakura"],
+		"tags": ["ASP.NET", "ASP.NET5", "Page", "Paging"],
+		"projectUrl": "https://github.io/sgjsakura/aspnet5",
+		"licenseUrl": "https://github.com/sgjsakura/aspnet5/blob/master/LICENSE.txt"
+	},
+
+	"dependencies": {
+		"NETStandard.Library": "1.5.0-rc2-24027"
+	},
+
+	"frameworks": {
+		"netstandard1.5": {
+			"imports": "dnxcore50"
+		}
+	}
+}

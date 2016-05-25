@@ -1,0 +1,25 @@
+﻿{
+  "title": "ASP.NET 5 Operation Message Abstraction Layer",
+  "version": "1.0.0-rc2",
+  "description":
+    "This library contains the operation message type definitions and service interfaces for ASP.NET 5 projects.",
+  "authors": ["Iris Sakura"],
+
+  "packOptions": {
+    "owners": ["Iris Sakura"],
+    "tags": ["ASP.NET", "ASP.NET5", "Message", "Messages"],
+    "projectUrl": "https://github.com/sgjsakura/aspnet5",
+    "licenseUrl": "https://github.com/sgjsakura/aspnet5/blob/master/LICENSE.txt",
+    "releaseNotes": "Rename the namespace 'AspNet' to 'AspNetCore'"
+  },
+
+  "dependencies": {
+    "NETStandard.Library": "1.5.0-rc2-24027"
+  },
+
+  "frameworks": {
+    "netstandard1.5": {
+      "imports": "dnxcore50"
+    }
+  }
+}

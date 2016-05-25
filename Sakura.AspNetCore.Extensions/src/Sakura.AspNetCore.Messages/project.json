@@ -1,0 +1,27 @@
+{
+  "title": "ASP.NET 5 Operation Message Core Library",
+  "version": "1.0.1-rc2",
+  "description":
+    "This library contains the default implementation for operation message services for ASP.NET 5 projects.",
+  "authors": ["Iris Sakura"],
+
+  "packOptions": {
+    "owners": ["Iris Sakura"],
+    "tags": ["ASP.NET", "ASP.NET5", "Message", "Messages"],
+    "projectUrl": "https://github.com/sgjsakura/aspnet5",
+    "licenseUrl": "https://github.com/sgjsakura/aspnet5/blob/master/LICENSE.txt",
+    "releaseNotes": "Fix a bug caused by framework services change."
+  },
+
+  "dependencies": {
+    "Microsoft.AspNetCore.Mvc.ViewFeatures": "1.0.0-rc2-final",
+    "NETStandard.Library": "1.5.0-rc2-24027",
+    "Sakura.AspNetCore.Messages.Abstractions": "1.0.0-rc2"
+  },
+
+  "frameworks": {
+    "netstandard1.5": {
+      "imports": "dnxcore50"
+    }
+  }
+}
