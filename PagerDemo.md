@@ -9,7 +9,7 @@ This page will give you a step-by-step guide to use ASP.NET Core MVC Data Paging
 
 ## Data Paging
 
-To use MVC6 Pager, you must first paging your data source (which may come from a EntityFramework or memory query) into an `IPagedList` instance. The easiest way to create it is using the extension methods defined in `Sakura.AspNetCore.PagedListCreationHelper` class. The following code shows the basic way to use them:
+Before using the ASP.NET Core MVC Pager, usually you may want to paging your data source (which may come from a EntityFramework or memory query) first. The `Sakura.AspNetCore.PagedList` package provides a interface named `IPagedList` to represent as a paged data source. The easiest way to create an instance of it is to use the extension methods defined in `Sakura.AspNetCore.PagedListCreationHelper` class. The following code shows the basic usage:
 
 ```C#
 // Import extension methods in PagedListCreationHelper class.
@@ -18,10 +18,10 @@ using Sakura.AspNetCore;
 var pageNumber = 1; // Note that page number starts from 1 (not zero!)
 var pageSize = 10;
 
-// data is assumed as coming from an EntityFramework DbSet here. All data source with IEnumerable<T> and IQueryable<T> are both supported with different implementations.
+// data is assumed as coming from an EntityFramework DbSet here. Any object with type IEnumerable<T> or IQueryable<T> is supported with different implementations.
 var data = from i in SportsManageModel.Players select i;
 
-// The IPagedList type, which contains a partial view for the current page, and the paging information.
+// The created IPagedList object, which contains a partial view for the current page, and the paging information.
 var pagedData = data.ToPagedList(pageSize, pageNumber);
 ```
 ## Paged Data Access
