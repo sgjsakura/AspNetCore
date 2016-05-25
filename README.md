@@ -1,6 +1,6 @@
-# ASP.NET 5 Utility
+# ASP.NET Core Utility
 
-This solution add some useful features for ASP.NET 5 (vNext) projects. All projects in this solution are designed for most CLR platform (including CoreCLR5 and .NET 4.5.1).
+This solution add some useful features for ASP.NET Core projects. All projects in this solution are designed for cross-platform  "netstandard1.5" target framework, which can be used in both Full CLR and CoreCLR systems.
 
 This solution contains the following aspects:
 
