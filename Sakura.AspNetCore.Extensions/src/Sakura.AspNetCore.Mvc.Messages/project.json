@@ -1,15 +1,15 @@
 {
   "version": "1.0.1-rc2",
-  "title": "ASP.NET Message Extension Library",
+  "title": "ASP.NET Core MVC Message Extension Library",
   "description":
-    "This library provides HTML generator and tag helpers to display bootstrap-styled operation message alerts.",
+    "This library provides HTML generator and tag helpers to display bootstrap-styled operation message alerts for ASP.NET Core MVC projects.",
   "authors": ["Iris Sakura"],
 
   "packOptions": {
-    "tags": [ "ASP.NET", "ASP.NET5", "MVC", "MVC6", "Bootstrap", "Message", "Messages" ],
+    "tags": [ "ASP.NET", "ASP.NETCore", "MVC", "MVCCore", "Bootstrap", "Message", "Messages" ],
     "owners": [ "Iris Sakura" ],
-    "projectUrl": "https://github.com/sgjsakura/aspnet5",
-    "licenseUrl": "https://github.com/sgjsakura/aspnet5/blob/master/LICENSE.txt",
+    "projectUrl": "https://github.com/sgjsakura/AspNetCore",
+    "licenseUrl": "https://github.com/sgjsakura/AspNetCore/blob/master/LICENSE.txt",
     "releaseNotes": "Fix a bug caused by framework services change."
   },
 

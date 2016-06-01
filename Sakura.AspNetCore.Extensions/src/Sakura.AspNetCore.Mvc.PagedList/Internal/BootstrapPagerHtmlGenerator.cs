@@ -144,7 +144,12 @@ namespace Sakura.AspNetCore.Mvc.Internal
 			TagBuilder linkTag;
 
 			// Generate <a> or <span> according to its state
-			if (CanLink(item))
+		    if (item.State == PagerRenderingItemState.Active)
+		    {
+                itemTag.AddCssClass("active"); // active CSS class
+                linkTag = new TagBuilder("span");
+            }
+            else if (CanLink(item))
 			{
 				linkTag = new TagBuilder("a");
 				linkTag.Attributes["href"] = item.Link;

@@ -62,9 +62,9 @@ namespace Sakura.AspNetCore.Mvc.Internal
 								$"The value of '{nameof(context.PagerItemOptions.ActiveMode)}' property cannot be a valid enum item for a pager item of type '{context.PagerItem.ItemType}'.");
 					}
 				case PagerItemType.Next:
-					return context.PagerItem.PageNumber == context.TotalPage;
+					return context.CurrentPage == context.TotalPage;
 				case PagerItemType.Previous:
-					return context.PagerItem.PageNumber == 1;
+			        return context.CurrentPage == 1;
 				default:
 					return false;
 			}
@@ -86,7 +86,7 @@ namespace Sakura.AspNetCore.Mvc.Internal
 					var disabled = ItemShouldBeDisabled(context);
 					if (!disabled)
 					{
-						return PagerRenderingItemState.Active;
+						return PagerRenderingItemState.Normal;
 					}
 					switch (context.PagerItemOptions.InactiveBehavior)
 					{

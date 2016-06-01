@@ -1,19 +1,18 @@
 {
 	"version": "1.0.0-rc2",
-	"title": "ASP.NET 5 TempData Extension Library",
-	"description": "This package add the data type compatibility for ASP.NET 5 TempData feature.",
+	"title": "ASP.NET Core TempData Extension Library",
+	"description": "This package add the data type compatibility for ASP.NET Core TempData feature.",
 	"authors": ["Iris Sakura"],
 
 
-	"packOptions": {
-		"owners": ["Iris Sakura"],
-		"releaseNotes": "Rename the namespace 'AspNet' to 'AspNetCore'",
-		"tags": ["ASP.NET", "ASP.NET5", "MVC", "MVC6", "TempData", "ITempDataProvider"],
-		"summary":
-			"Using AddEnhancedTempData method to enhance TempData support in your ASP.NET 5 web application. This module will replace the default SessionStateTempDataProvider, and more data type now can be stored into TempData dictionary.",
-		"projectUrl": "https://github.com/sgjsakura/aspnet5",
-		"licenseUrl": "https://github.com/sgjsakura/aspnet5/blob/master/LICENSE.txt"
-	},
+  "packOptions": {
+    "owners": [ "Iris Sakura" ],
+    "releaseNotes": "Rename the namespace 'AspNet' to 'AspNetCore'",
+    "tags": [ "ASP.NET", "ASP.NETCore", "MVC", "MVCCore", "TempData", "ITempDataProvider" ],
+    "summary": "Using AddEnhancedTempData method to enhance TempData support in your ASP.NET Core web application. This module will replace the default SessionStateTempDataProvider, and more data type now can be stored into TempData dictionary.",
+    "projectUrl": "https://github.com/sgjsakura/AspNetCore",
+    "licenseUrl": "https://github.com/sgjsakura/AspNetCore/blob/master/LICENSE.txt"
+  },
 
 	"dependencies": {
 		"Microsoft.AspNetCore.Mvc.ViewFeatures": "1.0.0-rc2-final",
