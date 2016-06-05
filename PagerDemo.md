@@ -79,8 +79,13 @@ public void ConfigureServices(IServiceCollection services)
    });
 }
 ```
+Next, you should add the `PagerTagHelper` into your view processing pipeline, you may add a new line in the `_ViewImports.cs` like:
+```HTML
+@addTagHelper *, Sakura.AspNetCore.Mvc.PagedList
+```
+Note the above line will enabled the `<pager>` tag for all view pages. If you want to enable it only in a few views, you may add this line to each view file invididually.
 
-And then, in your MVC View (.cshtml) file, use the following code to display a pager.
+Finally, in your MVC View (.cshtml) file, use the following code to display a pager.
 ```HTML
 <!-- The "source" attribute must be a C# expression with return type of `IPagedList` (no "@" perfix is needed) -->
 <pager source="youDataModel" />
