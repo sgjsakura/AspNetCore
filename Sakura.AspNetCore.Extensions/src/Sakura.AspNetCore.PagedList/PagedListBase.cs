@@ -88,7 +88,7 @@ namespace Sakura.AspNetCore
 		///     When be derived, Cache the data page.
 		/// </summary>
 		/// <param name="source">The data page to be cached.</param>
-		/// <returns>The cached copy of <see cref="source" />.</returns>
+		/// <returns>The cached copy of <paramref name="source"/>.</returns>
 		protected abstract TCollection CacheData(TCollection source);
 
 		#endregion

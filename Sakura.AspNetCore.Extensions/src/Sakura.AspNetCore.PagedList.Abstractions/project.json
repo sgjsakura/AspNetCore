@@ -1,26 +1,25 @@
 ﻿{
-	"version": "1.0.0-rc2",
+	"version": "1.0.1-rc2",
 	"title": "ASP.NET Core PagedList Core Abstraction Layer",
-	"description":
-		"ASP.NET Core PagedList abstraction layer defines the IPagedList interface and useful extension methods for ASP.NET Core targeted projects. This project does not contains the implementation for creating paged list from a certain data source.",
-
+	"description": "ASP.NET Core PagedList abstraction layer defines the IPagedList interface and useful extension methods for ASP.NET Core targeted projects. This project does not contains the implementation for creating paged list from a certain data source.",
 	"packOptions": {
-		"summary": "Update to ASP.NET Core RC2",
-		"releaseNotes": "Rename the namespace 'AspNet' to 'AspNetCore'",
+		"summary": "This package provide IPagedList interface abstractions for data paging and pager.",
+		"releaseNotes": "Update supported framework list.",
 		"authors": [ "Iris Sakura" ],
 		"owners": [ "Iris Sakura" ],
 		"tags": [ "ASP.NET", "ASP.NETCore", "Page", "Paging" ],
-		"projectUrl": "https://github.io/sgjsakura/AspNetCore",
+		"projectUrl": "https://github.com/sgjsakura/AspNetCore",
 		"licenseUrl": "https://github.com/sgjsakura/AspNetCore/blob/master/LICENSE.txt"
 	},
-
 	"dependencies": {
 		"NETStandard.Library": "1.5.0-rc2-24027"
 	},
-
 	"frameworks": {
-		"netstandard1.5": {
-			"imports": "dnxcore50"
-		}
+			"netstandard1.0": {
+			}
+	},
+	"buildOptions": {
+		"xmlDoc": true,
+		"optimize": true
 	}
 }
