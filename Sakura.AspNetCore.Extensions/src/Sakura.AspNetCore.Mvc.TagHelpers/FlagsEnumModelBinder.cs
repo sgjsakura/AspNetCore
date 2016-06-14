@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Sakura.AspNetCore.Mvc.TagHelpers
 {
+	/// <summary>
+	///     Support binding a flags enum value with multiple flag inputs.
+	/// </summary>
 	public class FlagsEnumModelBinder : IModelBinder
 	{
 		/// <summary>

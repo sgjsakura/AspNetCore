@@ -24,6 +24,9 @@ namespace Sakura.AspNetCore.Mvc.Internal
 			List = list;
 		}
 
+		/// <summary>
+		///     Get the owner list for the current pager item.
+		/// </summary>
 		[NotNull]
 		public PagerRenderingList List { get; }
 
@@ -42,6 +45,9 @@ namespace Sakura.AspNetCore.Mvc.Internal
 		/// </summary>
 		public PagerRenderingItemState State { get; set; }
 
-		public Dictionary<string, string> Settings { get; set; } = new Dictionary<string, string>();
+		/// <summary>
+		///     Get or set the dictionary used to store all additional settings.
+		/// </summary>
+		public IDictionary<string, string> Settings { get; set; } = new Dictionary<string, string>();
 	}
 }

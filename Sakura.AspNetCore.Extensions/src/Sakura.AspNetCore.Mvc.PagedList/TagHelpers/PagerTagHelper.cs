@@ -39,6 +39,9 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 
 		#endregion
 
+		/// <summary>
+		///     Get or set the current view context.
+		/// </summary>
 		[HtmlAttributeNotBound]
 		[ViewContext]
 		public ViewContext ViewContext { get; set; }

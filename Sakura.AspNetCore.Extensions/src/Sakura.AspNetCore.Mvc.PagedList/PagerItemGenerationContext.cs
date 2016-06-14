@@ -38,6 +38,9 @@ namespace Sakura.AspNetCore.Mvc
 		/// </summary>
 		public PagerItem PagerItem { get; }
 
+		/// <summary>
+		///     Get the options for the current pager item.
+		/// </summary>
 		public PagerItemOptions PagerItemOptions { get; }
 	}
 }

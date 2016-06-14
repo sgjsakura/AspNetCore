@@ -1,27 +1,30 @@
 ﻿{
-  "version": "1.0.0-rc2",
-  "title": "ASP.NET Core External Cookie Library",
-  "description": "ASP.NET Core External Cookie Library",
-  "authors": [ "Iris Sakura" ],
+	"version": "1.0.1-rc2",
+	"title": "ASP.NET Core External Cookie Library",
+	"description": "ASP.NET Core External Cookie Library",
+	"authors": ["Iris Sakura"],
 
 
-  "packOptions": {
-    "tags": [ "ASP.NET", "ASP.NETCore", "Identity", "External Cookie" ],
-    "projectUrl": "https://github.com/sgjsakura/AspNetCore",
-    "licenseUrl": "https://github.com/sgjsakura/AspNetCore/blob/master/LICENSE.txt",
-    "releaseNotes": "Rename the namespace 'AspNet' to 'AspNetCore'",
-    "owners": [ "Iris Sakura" ]
-  },
+	"packOptions": {
+		"tags": ["ASP.NET", "ASP.NETCore", "Identity", "External Cookie"],
+		"projectUrl": "https://github.com/sgjsakura/AspNetCore",
+		"licenseUrl": "https://github.com/sgjsakura/AspNetCore/blob/master/LICENSE.txt",
+		"releaseNotes": "Update supportd framework list.",
+		"owners": ["Iris Sakura"]
+	},
 
 
-  "dependencies": {
-    "Microsoft.AspNetCore.Identity": "1.0.0-rc2-final",
-    "NETStandard.Library": "1.5.0-rc2-24027"
-  },
+	"dependencies": {
+		"Microsoft.AspNetCore.Identity": "1.0.0-rc2-final",
+		"NETStandard.Library": "1.5.0-rc2-24027"
+	},
 
-  "frameworks": {
-    "netstandard1.5": {
-      "imports": "dnxcore50"
-    }
-  }
+	"frameworks": {
+		"netstandard1.3": {},
+		"net451": {}
+	},
+	"buildOptions": {
+		"optimize": true,
+		"xmlDoc": true
+	}
 }

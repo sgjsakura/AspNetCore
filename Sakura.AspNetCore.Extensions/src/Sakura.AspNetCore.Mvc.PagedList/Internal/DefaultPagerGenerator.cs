@@ -2,10 +2,13 @@
 
 namespace Sakura.AspNetCore.Mvc.Internal
 {
+	/// <summary>
+	///     Default implementation for <see cref="IPagerGenerator" />.
+	/// </summary>
 	public class DefaultPagerGenerator : IPagerGenerator
 	{
 		/// <summary>
-		///     Provide default implementation for <see cref="IPagerGenerator" />.
+		///     Initialize a new instance with all required services.
 		/// </summary>
 		/// <param name="listGenerator">
 		///     A generator used to generate collection of <see cref="PagerItem" /> from the generation
@@ -15,7 +18,10 @@ namespace Sakura.AspNetCore.Mvc.Internal
 		///     A generator used to generate <see cref="PagerRenderingList" /> from a collection
 		///     of <see cref="PagerItem" />.
 		/// </param>
-		/// <param name="htmlGenerator"></param>
+		/// <param name="htmlGenerator">
+		///     A generator used to generate final <see cref="IHtmlContent" /> from a
+		///     <see cref="PagerRenderingList" />.
+		/// </param>
 		public DefaultPagerGenerator(IPagerListGenerator listGenerator, IPagerRenderingListGenerator renderingListGenerator,
 			IPagerHtmlGenerator htmlGenerator)
 		{

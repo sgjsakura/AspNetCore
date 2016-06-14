@@ -22,6 +22,9 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		/// </summary>
 		public static object SelectedValueItemKey { get; } = new object();
 
+		/// <summary>
+		///     Get the key object to retrieve selected value compare mode from the executing context.
+		/// </summary>
 		public static object SelectedValueCompareModeKey { get; } = new object();
 
 		/// <summary>

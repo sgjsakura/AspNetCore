@@ -1,27 +1,32 @@
 {
-  "version": "1.0.1-rc2",
-  "title": "ASP.NET Core MVC Message Extension Library",
-  "description":
-    "This library provides HTML generator and tag helpers to display bootstrap-styled operation message alerts for ASP.NET Core MVC projects.",
-  "authors": ["Iris Sakura"],
+	"version": "1.0.2-rc2",
+	"title": "ASP.NET Core MVC Message Extension Library",
+	"description":
+		"This library provides HTML generator and tag helpers to display bootstrap-styled operation message alerts for ASP.NET Core MVC projects.",
+	"authors": ["Iris Sakura"],
 
-  "packOptions": {
-    "tags": [ "ASP.NET", "ASP.NETCore", "MVC", "MVCCore", "Bootstrap", "Message", "Messages" ],
-    "owners": [ "Iris Sakura" ],
-    "projectUrl": "https://github.com/sgjsakura/AspNetCore",
-    "licenseUrl": "https://github.com/sgjsakura/AspNetCore/blob/master/LICENSE.txt",
-    "releaseNotes": "Fix a bug caused by framework services change."
-  },
+	"packOptions": {
+		"tags": ["ASP.NET", "ASP.NETCore", "MVC", "MVCCore", "Bootstrap", "Message", "Messages"],
+		"owners": ["Iris Sakura"],
+		"projectUrl": "https://github.com/sgjsakura/AspNetCore",
+		"licenseUrl": "https://github.com/sgjsakura/AspNetCore/blob/master/LICENSE.txt",
+		"releaseNotes": "Update supportd framework list."
+	},
 
-  "dependencies": {
-    "Microsoft.AspNetCore.Razor.Runtime": "1.0.0-rc2-final",
-    "NETStandard.Library": "1.5.0-rc2-24027",
-    "Sakura.AspNetCore.Messages": "1.0.1-rc2"
-  },
+	"dependencies": {
+		"Microsoft.AspNetCore.Razor.Runtime": "1.0.0-rc2-final",
+		"NETStandard.Library": "1.5.0-rc2-24027",
+		"Sakura.AspNetCore.Messages": "1.0.2-rc2"
+	},
 
-  "frameworks": {
-    "netstandard1.5": {
-      "imports": "dnxcore50"
-    }
-  }
+	"frameworks": {
+		"netstandard1.5": {
+			"imports": "portable-net45+wp80+win8+wpa81+dnxcore50"
+		},
+		"net451": {}
+	},
+	"buildOptions": {
+		"optimize": true,
+		"xmlDoc": true
+	}
 }

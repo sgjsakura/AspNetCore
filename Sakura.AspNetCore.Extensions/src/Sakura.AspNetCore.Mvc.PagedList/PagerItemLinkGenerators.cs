@@ -14,10 +14,10 @@ namespace Sakura.AspNetCore.Mvc
 		#region Congfiguration
 
 		/// <summary>
-		/// Generate a <see cref="IPagerItemLinkGenerator"/> from a configuration string.
+		///     Generate a <see cref="IPagerItemLinkGenerator" /> from a configuration string.
 		/// </summary>
 		/// <param name="configurationText">The configuration string.</param>
-		/// <returns>The converted <see cref="IPagerItemLinkGenerator"/>.</returns>
+		/// <returns>The converted <see cref="IPagerItemLinkGenerator" />.</returns>
 		public static IPagerItemLinkGenerator FromConfiguration(string configurationText)
 		{
 			if (configurationText == null)
@@ -85,10 +85,10 @@ namespace Sakura.AspNetCore.Mvc
 		/// <param name="queryParameterValueFormatProvider">The format provider for format value generation.</param>
 		/// <returns>The generated <see cref="FormattedQueryValueLinkGenerator" /> instance.</returns>
 		public static FormattedQueryValueLinkGenerator QueryNameAndValueFormat([NotNull] string queryParameterName,
-			[NotNull] string queryParameterValueFormat, IFormatProvider queryParameterValueFormatProvider = null)
+				[NotNull] string queryParameterValueFormat, IFormatProvider queryParameterValueFormatProvider = null)
 			=>
-				new FormattedQueryValueLinkGenerator(queryParameterName, queryParameterValueFormat,
-					queryParameterValueFormatProvider);
+			new FormattedQueryValueLinkGenerator(queryParameterName, queryParameterValueFormat,
+				queryParameterValueFormatProvider);
 
 		/// <summary>
 		///     Get the generator that uses a fixed string as a query parameter name and a page number as a query parameter value.

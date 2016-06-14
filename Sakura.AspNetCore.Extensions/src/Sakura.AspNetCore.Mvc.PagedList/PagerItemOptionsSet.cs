@@ -10,6 +10,9 @@ namespace Sakura.AspNetCore.Mvc
 	/// </summary>
 	public class PagerItemOptionsSet
 	{
+		/// <summary>
+		///     Initialize a new set with all empty settings.
+		/// </summary>
 		public PagerItemOptionsSet()
 		{
 			Default = new PagerItemOptions();

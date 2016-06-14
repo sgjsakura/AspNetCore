@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Sakura.AspNetCore.Mvc.TagHelpers
 {
+	/// <summary>
+	///     Add support for set automatically mark selected state for options.
+	/// </summary>
 	[HtmlTargetElement("select", Attributes = ValueAttributeName)]
 	[UsedImplicitly(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature)]
 	public class SelectValueTagHelper : TagHelper

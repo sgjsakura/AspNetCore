@@ -6,12 +6,15 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Sakura.AspNetCore.Mvc.TagHelpers
 {
+	/// <summary>
+	///     Provide select options geneartions for enum items.
+	/// </summary>
 	[HtmlTargetElement("select", Attributes = EnumTypeAttributeName)]
 	[UsedImplicitly(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature)]
 	public class EnumTypeSelectTagHelper : EnumSelectTagHelper
 	{
 		/// <summary>
-		///     When derived, return the actual enum type for generating the list.
+		///     Return the actual enum type for generating the list.
 		/// </summary>
 		/// <returns></returns>
 		protected override Type GetEnumType()
@@ -73,6 +76,9 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		[HtmlAttributeName(EnumTypeAttributeName)]
 		public Type EnumType { get; set; }
 
+		/// <summary>
+		///     Get or set the the selected value for the select tag.
+		/// </summary>
 		[HtmlAttributeName(EnumValueAttributeName)]
 		public Enum EnumValue { get; set; }
 

@@ -1,5 +1,9 @@
 ﻿namespace Sakura.AspNetCore.Mvc.Internal
 {
+	/// <summary>
+	///     Define the necessary features used to generate a <see cref="PagerList" /> from the
+	///     <see cref="PagerGenerationContext" />.
+	/// </summary>
 	public interface IPagerListGenerator
 	{
 		/// <summary>

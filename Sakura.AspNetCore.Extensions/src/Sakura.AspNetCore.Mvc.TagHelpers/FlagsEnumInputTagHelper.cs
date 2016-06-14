@@ -38,8 +38,11 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		/// </remarks>
 		public override int Order => new InputTagHelper(HtmlGenerator).Order - 10;
 
+		/// <summary>
+		///     The <see cref="IHtmlGenerator" /> Service object.
+		/// </summary>
 		[PublicAPI]
-		protected IHtmlGenerator HtmlGenerator { get; set; }
+		protected IHtmlGenerator HtmlGenerator { get; }
 
 		/// <summary>
 		///     Get or set the model expression to retrieve the enum flag value from model.

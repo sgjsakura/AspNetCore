@@ -64,7 +64,7 @@ namespace Sakura.AspNetCore.Mvc.Internal
 				case PagerItemType.Next:
 					return context.CurrentPage == context.TotalPage;
 				case PagerItemType.Previous:
-			        return context.CurrentPage == 1;
+					return context.CurrentPage == 1;
 				default:
 					return false;
 			}

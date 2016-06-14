@@ -30,7 +30,7 @@ namespace Sakura.AspNetCore
 		/// <param name="creationOptions">Options for the paged list.</param>
 		/// <returns>A <see cref="QueryablePagedList{T}" /> object created by paging the <paramref name="source" /> object.</returns>
 		public static QueryablePagedList<T> ToPagedList<T>(this IQueryable<T> source, int pageSize, int pageIndex = 1,
-			PagedListCreationOptions creationOptions = null)
+				PagedListCreationOptions creationOptions = null)
 			=> new QueryablePagedList<T>(source, pageSize, pageIndex, creationOptions);
 	}
 }

@@ -27,7 +27,7 @@ namespace Sakura.AspNetCore.Mvc
 		/// <exception cref="ArgumentNullException">The <paramref name="configurationText" /> is <c>null</c>.</exception>
 		/// <exception cref="ArgumentException">The <paramref name="configurationText" /> cannot be parsed into excepted format.</exception>
 		/// <exception cref="NotSupportedException">
-		///     The generator type specified in <see cref="configurationText" /> is not
+		///     The generator type specified in <paramref name="configurationText" /> is not
 		///     supported.
 		/// </exception>
 		public static IPagerItemContentGenerator FromConfiguration(string configurationText)

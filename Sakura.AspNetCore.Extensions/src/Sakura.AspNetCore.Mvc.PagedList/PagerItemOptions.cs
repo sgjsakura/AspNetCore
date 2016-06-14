@@ -58,7 +58,7 @@ namespace Sakura.AspNetCore.Mvc
 		///     instance.
 		/// </param>
 		/// <returns>A new <see cref="PagerItemOptions" /> to represent as the merging result.</returns>
-		/// <remarks>This method will not change either <paramref name="baseOptions" /> or <see cref="additionalOptions" />.</remarks>
+		/// <remarks>This method will not change either <paramref name="baseOptions" /> or <paramref name="additionalOptions" />.</remarks>
 		[Pure]
 		[NotNull]
 		public static PagerItemOptions Merge([CanBeNull] PagerItemOptions baseOptions,

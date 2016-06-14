@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Sakura.AspNetCore.Mvc.TagHelpers
 {
+	/// <summary>
+	///     Provide select options geneartions for a model expression with enum type.
+	/// </summary>
 	[HtmlTargetElement("select", Attributes = EnumForAttributeName)]
 	public class EnumForSelectTagHelper : EnumSelectTagHelper
 	{
@@ -33,7 +36,7 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		protected IHtmlGenerator Generator { get; }
 
 		/// <summary>
-		///     When derived, return the actual enum type for generating the list.
+		///     Return the actual enum type for generating the list.
 		/// </summary>
 		/// <returns></returns>
 		protected override Type GetEnumType()

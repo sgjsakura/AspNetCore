@@ -84,7 +84,7 @@ namespace Sakura.AspNetCore.Mvc.Internal
 		/// <param name="element">The <see cref="PagerLayoutElement" /> to generate the <see cref="PagerItem" />.</param>
 		/// <returns>The generated <see cref="PagerItem" /> for the <paramref name="element" />.</returns>
 		/// <exception cref="ArgumentException">
-		///     The <see cref="element" /> is <see cref="PagerLayoutElement.Items" />, or it is not
+		///     The <paramref name="element" /> is <see cref="PagerLayoutElement.Items" />, or it is not
 		///     a valid enum item.
 		/// </exception>
 		private PagerItem GenerateSpecialItems(int currentPage, int totalPage, PagerLayoutElement element)
