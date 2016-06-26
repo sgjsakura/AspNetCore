@@ -200,7 +200,7 @@ In `appsettings.json`:
         "Content": "TextFormat:{0}",
         "Link": "QueryName:page",
         "InactiveBehavior": "Hide",
-        "ActiveMode": "Alaways"
+        "ActiveMode": "Always"
       },
       "GoToLastPage": {
         "Content": "Text:Go To Last Page"
