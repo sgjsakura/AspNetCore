@@ -1,6 +1,6 @@
 ﻿{
 	"title": "ASP.NET Core Operation Message Abstraction Layer",
-	"version": "1.0.1-rc2",
+	"version": "1.0.1",
 	"description":
 		"This library contains the operation message type definitions and service interfaces for ASP.NET Core projects.",
 	"authors": ["Iris Sakura"],
@@ -10,11 +10,11 @@
 		"tags": ["ASP.NET", "ASP.NETCore", "Message", "Messages"],
 		"projectUrl": "https://github.com/sgjsakura/AspNetCore",
 		"licenseUrl": "https://github.com/sgjsakura/AspNetCore/blob/master/LICENSE.txt",
-		"releaseNotes": "Update supportd framework list."
+		"releaseNotes": "Update to .NET Core 1.0 RTM"
 	},
 
 	"dependencies": {
-		"NETStandard.Library": "1.5.0-rc2-24027"
+		"System.Runtime": "4.1.0"
 	},
 
 	"frameworks": {

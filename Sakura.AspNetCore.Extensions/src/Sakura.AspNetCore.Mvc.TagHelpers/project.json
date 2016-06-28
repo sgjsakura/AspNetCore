@@ -1,5 +1,5 @@
 {
-	"version": "1.1.1-rc2",
+	"version": "1.1.1",
 	"title": "ASP.NET Core MVC Extensions Library",
 	"description":
 		"ASP.NET Core MVC Extensions Library provides addtional tag helpers and utility for simplify ASP.NET Core web application development.",
@@ -10,20 +10,17 @@
 			"This project adds support for enum based selector, checkbox, select option labels, conditional class tags, and other useful addtional tag helpers to simplify ASP.NET Core web application development.",
 		"owners": ["Iris Sakura"],
 		"tags": ["ASP.NET", "ASP.NETCore", "MVC", "MVCCore", "TagHelper", "Enum", "Flags", "OptionLabel", "Select", "Option"],
-		"releaseNotes": "Update supportd framework list.",
+		"releaseNotes": "Update to .NET Core 1.0 RTM",
 		"projectUrl": "https://github.com/sgjsakura/AspNetCore",
 		"licenseUrl": "https://github.com/sgjsakura/AspNetCore/blob/master/LICENSE.txt"
 	},
 
 	"dependencies": {
-		"NETStandard.Library": "1.5.0-rc2-24027",
-		"Microsoft.AspNetCore.Mvc.TagHelpers": "1.0.0-rc2-final"
+		"Microsoft.AspNetCore.Mvc.TagHelpers": "1.0.0"
 	},
 
 	"frameworks": {
-		"netstandard1.5": {
-			"imports": "portable-net45+wp80+win8+wpa81+dnxcore50"
-		},
+		"netstandard1.6": {},
 		"net451": {}
 	},
 	"buildOptions": {

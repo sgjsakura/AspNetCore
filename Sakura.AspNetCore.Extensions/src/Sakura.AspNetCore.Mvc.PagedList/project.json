@@ -1,13 +1,13 @@
 {
 	"title": "ASP.NET Core MVC Pager",
-	"version": "2.0.2-rc2",
+	"version": "2.0.2",
 	"description": "This library provides data-paging functionality and pager UI for ASP.NET Core MVC projects.",
 	"authors": ["Iris Sakura"],
 
 	"packOptions": {
 		"summary": "This library provides data-paging functionality and pager UI for ASP.NET Core MVC projects.",
 		"authors": ["Iris Sakura"],
-		"releaseNotes": "Update supportd framework list.",
+		"releaseNotes": "Update to .NET Core 1.0 RTM",
 		"owners": ["Iris Sakura"],
 		"tags": ["ASP.NET", "ASP.NETCore", "MVC", "MVCCore", "Paging", "Page", "Pager", "Bootstrap"],
 		"projectUrl": "https://github.com/sgjsakura/AspNetCore",
@@ -15,17 +15,13 @@
 	},
 
 	"dependencies": {
-		"Microsoft.AspNetCore.Html.Abstractions": "1.0.0-rc2-final",
-		"Microsoft.AspNetCore.Mvc.ViewFeatures": "1.0.0-rc2-final",
-		"Microsoft.AspNetCore.Razor.Runtime": "1.0.0-rc2-final",
-		"NETStandard.Library": "1.5.0-rc2-24027",
-		"Sakura.AspNetCore.PagedList.Abstractions": "1.0.1-rc2"
+		"Microsoft.AspNetCore.Mvc.ViewFeatures": "1.0.0",
+		"Microsoft.AspNetCore.Razor.Runtime": "1.0.0",
+		"Sakura.AspNetCore.PagedList.Abstractions": "1.0.1"
 	},
 
 	"frameworks": {
-		"netstandard1.5": {
-			"imports": "portable-net45+wp80+win8+wpa81+dnxcore50"
-		},
+		"netstandard1.6": {},
 		"net451": {}
 	},
 	"buildOptions": {

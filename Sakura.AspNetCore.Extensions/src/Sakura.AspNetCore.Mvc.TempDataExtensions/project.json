@@ -1,5 +1,5 @@
 {
-	"version": "1.0.1-rc2",
+	"version": "1.0.1",
 	"title": "ASP.NET Core TempData Extension Library",
 	"description": "This package add the data type compatibility for ASP.NET Core TempData feature.",
 	"authors": ["Iris Sakura"],
@@ -7,7 +7,7 @@
 
 	"packOptions": {
 		"owners": ["Iris Sakura"],
-		"releaseNotes": "Update supportd framework list.",
+		"releaseNotes": "Update to .NET Core 1.0 RTM",
 		"tags": ["ASP.NET", "ASP.NETCore", "MVC", "MVCCore", "TempData", "ITempDataProvider"],
 		"summary":
 			"Using AddEnhancedTempData method to enhance TempData support in your ASP.NET Core web application. This module will replace the default SessionStateTempDataProvider, and more data type now can be stored into TempData dictionary.",
@@ -16,17 +16,12 @@
 	},
 
 	"dependencies": {
-		"Microsoft.AspNetCore.Mvc.ViewFeatures": "1.0.0-rc2-final",
-		"NETStandard.Library": "1.5.0-rc2-24027"
+		"Microsoft.AspNetCore.Mvc.ViewFeatures": "1.0.0"
 	},
 
 	"frameworks": {
-		"netstandard1.5": {
-			"imports": "portable-net45+wp80+win8+wpa81+dnxcore50"
-		},
-		"net451": {
-		
-		}
+		"netstandard1.6": {},
+		"net451": {}
 	},
 	"buildOptions": {
 		"optimize": true,
