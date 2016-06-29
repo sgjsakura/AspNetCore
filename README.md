@@ -77,7 +77,6 @@ This project provide the `PagerTagHelper` to provide simple paging navigation im
 ---
 
 ## Issues and Important Notes
-* Since ASP.NET Core has not in RTM ring, all codes in this repo may change rapidly following the ASP.NET Core framework upgration.
 * ASP.NET Core Localization module has not been a stable state, thus localization support for all projects (including error messages and UI strings) are not proceeded yet.
 
 ## Contribution and Discussion
