@@ -262,27 +262,27 @@ Name|Description
 ----|-----------
 `item-default-content`|The default content generator. It refers `PagerOptions.ItemOptions.Default.Content`
 `item-default-link`|The defualt link generator. It refers `PagerOptoins.ItemOptions.Default.Link`
-`settings` and `setting-*`|Additional settings for `PagerOptions.` You may use `settings` to set the entire dictionary, or use `setting-*` to set one item. e.g. You can use `setting-mydata="1"` to set item "mydata" with value "1" (Just like the design of MVC `asp-route-0*` attributes).
+`settings` and `setting-*`|Additional settings for `PagerOptions.` You may use `settings` to set the entire dictionary, or use `setting-*` to set one item. e.g. You can use `setting-mydata="1"` to set item "mydata" with value "1" (Just like the design of MVC `asp-route-*` attributes).
 
 ### Generators and Customization
 
-Pager are complex objects. It building process consists of many steps, include calculating page numbers, generate button link and content, and build-up the HTML struture. All these work are done by a service named `IPagerGenrator`. In order to generate a pager, you must register one implementation of this service at application startup time, or specify one in the tag like:
+Pagers are complex objects. Its building process consists of many steps, including calculating page numbers, generating button links and contents, and building-up HTML strutures. All these work is done by a service named `IPagerGenrator`. In order to generate a pager, you must register one implementation of this service at application startup time, or specify one in the tag like:
 ```HTML
 <pager generator="yourGenrator" />
 ```
-The default generator is named `DefaultPagerGenrator`, which is included in this package. If you would like to use another generator to get a pager of new style, you may register a new one to instead it.
+The default generator is named `DefaultPagerGenrator`, which is included in this package. If you would like to use another generator to get a pager of new style, you may register a new one and replace it.
 
 #### Default Generator and Partial Cusomization
-Here, I would like to provide a brief introduction to the default generator. It uses 3 different sub-service to finally get the complete pager HTML. These services are:
+Here, I would like to provide a brief introduction to the default generator. It uses 3 different sub-services to finally generate the complete pager HTML. These services are:
 
 ##### `IPagerListGenerator`
-This service is used to generate a logical `PagerList` according to the pager information provided in the tag context. The logical `PagerList` describe the type and number (if any) of each pager item, and their content and link generation manner. However, the visual information (e.g. the visual state and actual content) is not included. The `DefaultPagerListGenerator` class implements it by default.
+This service is used to generate a logical `PagerList` according to the pager information provided in the tag context. The logical `PagerList` describe the type and page number (if any) of each pager item, and their content and link generation manner. However, the visual information (e.g. the visual state and actual content) is not included. The `DefaultPagerListGenerator` class implements it by default.
 
 ##### `IPagerRenderingListGenerator`
 This service is used to generate the visual `PagerRenderingList`, in which the visual information for the pager is generated, including its content HTML ,its link address, and visual state. The logical information like page number is no longer accessible. The `DefaultPagerRenderingListGenerator` class implements it by default.
 
 ##### `IPagerHtmlGenerator`
-This service is used to finally build-up the entire HTML result. Since the `PagerRenderingList` only describe the information for the pager elements, there is still lack of the entire HTML structure, and this service take the responsibility for generating them. This service may take a lot of HTML operations, and the final result are usually very limited by its implementation. If you just want to generate a pager with a different style, you may consider to find a new implementation for this service and register it before the default `BootstrapPagerHtmlGenerator` works.
+This service is used to finally build-up the entire HTML result. Since the `PagerRenderingList` only describe the information for the pager elements, it is still lack of the entire HTML structure, while this service take the responsibility for generating them. This service may take a lot of HTML operations, and the style of the final result is usually very limited by its implementation. If you just want to generate a pager with a different style, you may consider to find a new implementation for this service and register it before the default `BootstrapPagerHtmlGenerator` works.
 
 #### Customization for Default Implementation
 
