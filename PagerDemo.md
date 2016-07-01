@@ -62,7 +62,9 @@ Pager feature is much more complex, since it is related with data handling, HTML
 
 ### Simple Usage
 
-For the most simple usage, you may add the following code into your `Startup.cs` file:
+First of all, you need to install the package for MVC pager, you should add the package `Sakura.AspNetCore.Mvc.PagedList` into your `project.json`.
+
+Adn then, for the most simple usage, you may add the following code into your `Startup.cs` file:
 ```C#
 // Add the following line at the top area of the file to import extension methods.
 using Sakura.AspNetCore.Mvc;
