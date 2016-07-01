@@ -211,7 +211,7 @@ In `appsettings.json`:
 ```
 In `Startup.cs`:
 ```C#
-// You need to add the "Microsoft.Extensions.Options.ConfigurationExtensions" package in RC2
+// You need to the "Microsoft.Extensions.Options.ConfigurationExtensions" package, which is pre-loaded in ASP.NET Core RTM.
 
 public void ConfigureServices(IServiceCollection services)
 {
