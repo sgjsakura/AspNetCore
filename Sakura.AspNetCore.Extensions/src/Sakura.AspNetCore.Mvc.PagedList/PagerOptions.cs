@@ -48,10 +48,16 @@ namespace Sakura.AspNetCore.Mvc
 		public int PagerItemsForEndings { get; set; }
 
 		/// <summary>
-		///     Get or set a value that indicates whether the pager numbers should reverse the normal order (minimum to maximum) to
-		///     reversed (maximum to minimum). This setting does not affect other layout elements.
+		///     Get or set a value that indicates whether the pager should reverse the layout and all items (including the
+		///     numbers).
 		/// </summary>
-		public bool PageNumberReversed { get; set; }
+		public bool IsReversed { get; set; }
+
+		/// <summary>
+		///     Get or set a value that indicates whether the pager should generate nothing if there is a single page in the
+		///     source.
+		/// </summary>
+		public bool HideOnSinglePage { get; set; }
 
 		/// <summary>
 		///     Get a clone of this object.

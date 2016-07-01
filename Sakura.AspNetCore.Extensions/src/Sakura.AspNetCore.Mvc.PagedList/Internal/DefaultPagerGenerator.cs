@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Html;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Html;
 
 namespace Sakura.AspNetCore.Mvc.Internal
 {
@@ -42,7 +43,20 @@ namespace Sakura.AspNetCore.Mvc.Internal
 		/// <returns>The entire HTML content for the generated pager.</returns>
 		public IHtmlContent GeneratePager(PagerGenerationContext context)
 		{
+			// Hide Handling
+			if (context.TotalPage == 1 && context.Options.HideOnSinglePage)
+			{
+				return new HtmlString(string.Empty);
+			}
+
 			var list = ListGenerator.GeneratePagerItems(context);
+
+			// Reverse handling
+			if (context.Options.IsReversed)
+			{
+				list = new PagerList(list.Items.Reverse());
+			}
+
 			var renderingList = RenderingListGenerator.GenerateRenderingList(list, context);
 			var html = HtmlGenerator.GeneratePager(renderingList, context);
 
