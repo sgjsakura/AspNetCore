@@ -139,6 +139,8 @@ Setting|Description|Typical Usage
 `ExpandPageItemsForCurrentPage`|How many pages arround the current page (in both side) will be displayed. Set to 1 means one extra page for both left and right side will be generated. Set to 0 will display no extra pages (the current page is always displayed).|2
 `PagerItemsForEndings`|How many pages at the ending will be displayed. Set to 1 means only the 1st first and last page will be displayed. Set to 0 will disable this feature.|3
 `Layout`|The layout of the pager controls the element(s) will be displayed in the pager and their display order. For more information, please see the documentation of `PagerLayoutElement` class.|`PagerLayouts.Default`, `PargerLayouts.Custom()`
+`IsReversed`|If true, all pager items (including number items and special buttons) will be reversed. |*N/A*
+`HideOnSinglePage`|If true, the pager will supress all output when the pager source only has one page.|*N/A*
 `ItemOptions`|Controls the content and link generation for different types of pager items.|*See below*
 `AdditionalSettings`|Provide additional settings used for 3rd and expaned handlers.|An example can be found in `Enabling Ajax` section
 
