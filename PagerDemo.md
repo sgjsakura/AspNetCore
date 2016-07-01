@@ -303,20 +303,20 @@ For example, you may use the following code to set the `id` of the generated `<u
 ```
 
 #### Enabling AJAX
-AJAX nagivation is an important feature for mordern web application. It should be pointed out that navigation is not the core business for a pager, but a feature on HTML interaction. Thus, this feature is not provided in the `PagerOptions` level, and you should ask the `IPagerHtmlGenerator` service to support AJAX navigation.
+AJAX navigation is an common feature for a lots of mordern web applications. It should be pointed out that navigation is not the core business for a pager, but a feature on HTML interaction. Thus, this feature is not provided in the `PagerOptions` level, and you should ask the `IPagerHtmlGenerator` service to support AJAX navigation.
 
-For the default `BootstrapPagerHtmlGenerator`, we would like to suggest you use the **Microsoft jQuery Unobtrusive Ajax** library as your AJAX support library. This library allows you to add static HTML attributes to control the AJAX behavior, which is especially compatible with this package. For example, a simple way to just enable AJAX nagivation is like:
+For the default `BootstrapPagerHtmlGenerator`, it is suggested that use the **Microsoft jQuery Unobtrusive Ajax** library as your AJAX support library. This library allows you to add static HTML attributes to control the AJAX behavior, which is highly compatible with this package. For example, a simple way to just enable AJAX nagivation is like:
 ```HTML
 <pager setting-link-attr-data-ajax="true" />
 ```
-The above code will generate all `<a>` element with a setting of `data-ajax="true"`, which can enable the AJAX navigation for links. For more detailed AJAX control, please read the offical documentation of **Microsoft jQuery Unobtrusive Ajax** library.
+The above code will generate all `<a>` element with a setting of `data-ajax="true"`, which can enable the AJAX navigation for links. For more detailed information about AJAX behaviour controlling, please read the offical documentation of **Microsoft jQuery Unobtrusive Ajax** library.
 
 *** Feature Works and Contribution
 
 The author is planned to add the following new features:
 - [ ] Hash (Fragment) based URL generators
 - [ ] `FormatProvider` controlling for generators
-- [ ] `Reversed` property for `PagerOptions`
+- [x] `IsReversed` property for `PagerOptions`
 - [ ] Extenders for pager generators
 
 Anyone who want to help improve the library is very welcome~
