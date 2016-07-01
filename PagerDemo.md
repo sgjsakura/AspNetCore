@@ -161,7 +161,7 @@ Setting|Description|Typical Usage
 -------|-----------|-------------
 `Content`|A content generator used to generate the content of each pager item|`PagerItemContentGenerators.XXX`
 `Link`|A link generator used to generate the link of each pager item, if the generator returns a null string, the pager will has no link effect|`PagerItemLinkGenerators.XXX`
-`InactiveBehavior`|How to handle the pager item if itscurrent state is not meanful (e.g. the state of "go to next page" button when you are already in the last page), this setting only affects "go to first/last/next/previous page button"|*Please see documentation*
+`InactiveBehavior`|How to handle the pager item if its current state is not meanful (e.g. the state of "go to next page" button when you are already in the last page), this setting only affects "go to first/last/next/previous page button"|*Please see documentation*
 `ActiveMode`|How to determine if the current pager item is meanful (for further handling of `InactiveBehavior` setting), this setting only affect "go to first/last page button"|*Please see documentation*
 
 #### Configure Default Options using Setup Actions
@@ -179,7 +179,7 @@ public void ConfigureServices(IServiceCollection services)
   });
 }
 ```
-You may also to to use the setup delegate in the `AddBootstrapPagerGenerator` method (see the example in the `Simple Usage` section), it is a shortcut meaner with the same effect as `Configure` method.
+You may also to to use the setup delegate in the `AddBootstrapPagerGenerator` method (see the example in the `Simple Usage` section), it is a shortcut manner with the same effect as `Configure` method.
 
 #### Configure Options using Config File
 ASP.NET Core application provide the ability to load configuration from setting files (usually named as `appsettings.json`). This pager framework also supports set most of the options in the settings file, a example is shown as below:
