@@ -252,6 +252,8 @@ Format|Description|Example
 `Query:{name}={format}`|Add a query parameter with a fixed name and a formatted query parameter value as link.|`Query:page={0:d}` will generate append(or replace) a query parameter `page=3` of the 3rd page on the current URL
 `QueryName:{name}`|Add a query parameter with a fixed name, the value of the parameter will be the page number.|`QueryName:page`  will generate append(or replace) a query parameter `page=3` of the 3rd page on the current URL
 `Default`|Use the default setting (equivelent to `QueryName:page`)|*N/A*
+`Format`|Use a format string as item link, the placeholder `{0}` will be the page number.|`Format:/Index?page={0:d}` will generate a link `/Index?page=3` for the 3rd page
+`Fixed`|Use a fixed string as item link.|`Fixed:/Index/Home` will generate a link `/Index/Home` for the pager item
 `Disabled`|Generate a null string as link, which will cause the button non clickable|*N/A*
 
 #### Additional Settings
