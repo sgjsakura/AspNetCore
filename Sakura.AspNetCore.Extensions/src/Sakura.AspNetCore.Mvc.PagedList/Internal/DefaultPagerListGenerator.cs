@@ -29,7 +29,7 @@ namespace Sakura.AspNetCore.Mvc.Internal
 		/// <param name="expandForCurrentPage">How many pages should be expanded for current page.</param>
 		/// <param name="expandForEnding">How many pages should be expanded for ending.</param>
 		/// <returns></returns>
-		private IEnumerable<PagerItem> GeneratePagerNormalItems(int currentPage, int totalPage, int expandForCurrentPage,
+		private static IEnumerable<PagerItem> GeneratePagerNormalItems(int currentPage, int totalPage, int expandForCurrentPage,
 			int expandForEnding)
 		{
 			var pageNumberList = new SortedSet<int> {currentPage};
@@ -38,7 +38,7 @@ namespace Sakura.AspNetCore.Mvc.Internal
 			for (var i = 1; i <= expandForCurrentPage; i++)
 			{
 				pageNumberList.Add(currentPage + i);
-				pageNumberList.Add(currentPage - 1);
+				pageNumberList.Add(currentPage - i);
 			}
 
 			// Expand for ending
@@ -52,6 +52,7 @@ namespace Sakura.AspNetCore.Mvc.Internal
 			pageNumberList.RemoveWhere(i => i < 1 || i > totalPage);
 
 			var lastPageNumber = 0;
+
 			foreach (var i in pageNumberList)
 			{
 				// Skipped some item
@@ -73,6 +74,16 @@ namespace Sakura.AspNetCore.Mvc.Internal
 
 				// Set last page
 				lastPageNumber = i;
+			}
+
+			// last page omit handling
+			if (lastPageNumber < totalPage)
+			{
+				yield return new PagerItem
+				{
+					ItemType = PagerItemType.Omitted,
+					PageNumber = -1
+				};
 			}
 		}
 

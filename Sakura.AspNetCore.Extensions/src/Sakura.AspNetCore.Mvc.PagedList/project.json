@@ -1,13 +1,13 @@
 {
 	"title": "ASP.NET Core MVC Pager",
-	"version": "2.0.3",
+	"version": "2.0.5",
 	"description": "This library provides data-paging functionality and pager UI for ASP.NET Core MVC projects.",
 	"authors": ["Iris Sakura"],
 
 	"packOptions": {
 		"summary": "This library provides data-paging functionality and pager UI for ASP.NET Core MVC projects.",
 		"authors": ["Iris Sakura"],
-		"releaseNotes": "Add IsReversed property and HideOnSinglePage property",
+		"releaseNotes": "Fix a bug that pager list is not correctly generated",
 		"owners": ["Iris Sakura"],
 		"tags": ["ASP.NET", "ASP.NETCore", "MVC", "MVCCore", "Paging", "Page", "Pager", "Bootstrap"],
 		"projectUrl": "https://github.com/sgjsakura/AspNetCore",
