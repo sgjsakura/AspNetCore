@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using JetBrains.Annotations;
 using Sakura.AspNetCore.Mvc.Generators;
+using Sakura.AspNetCore.Mvc.Internal;
 
 namespace Sakura.AspNetCore.Mvc
 {
@@ -62,6 +64,10 @@ namespace Sakura.AspNetCore.Mvc
 					return QueryNameAndValueFormat(m2.Groups["name"].Value, m2.Groups["value"].Value);
 				case "queryname":
 					return QueryName(exp);
+				case "format":
+					return Format(exp);
+				case "fixed":
+					return Fixed(exp);
 				case "default":
 					return Default;
 				case "disabled":
@@ -108,6 +114,48 @@ namespace Sakura.AspNetCore.Mvc
 		///     Get the generator that disable the link generation feature.
 		/// </summary>
 		public static DisabledLinkGenerator Disabled { get; } = new DisabledLinkGenerator();
+
+		/// <summary>
+		///     Create a pager item link generator that generates link using a format string.
+		/// </summary>
+		/// <param name="format">The format string used to generate the link.</param>
+		/// <param name="formatProvider">
+		///     The format provider object. If this parameter is <c>null</c>,
+		///     <see cref="CultureInfo.InvariantCulture" /> will be used.
+		/// </param>
+		/// <returns>The pager item link generator object.</returns>
+		public static FormattedLinkGenerator Format([NotNull]string format, IFormatProvider formatProvider = null) => new FormattedLinkGenerator(format, formatProvider);
+
+		/// <summary>
+		/// Create a pager item link generator that generates link using a fixed string.
+		/// </summary>
+		/// <param name="text">The link url string.</param>
+		/// <returns>The pager item link generator object.</returns>
+		public static SimpleLinkGenerator Fixed([NotNull]string text) => new SimpleLinkGenerator(text);
+
+		/// <summary>
+		///     Create a pager item link generator that generates link using a custom generating method.
+		/// </summary>
+		/// <param name="linkGenerator">The generation method.</param>
+		/// <returns>The pager item link generator object.</returns>
+		public static CustomLinkGenerator Custom([NotNull]Func<PagerItemGenerationContext, string> linkGenerator)
+			=> new CustomLinkGenerator(linkGenerator);
+
+		/// <summary>
+		///     Create a pager item link generator that generates link using a custom generating method.
+		/// </summary>
+		/// <param name="linkGenerator">The generation method.</param>
+		/// <returns>The pager item link generator object.</returns>
+		public static CustomLinkGenerator Custom([NotNull]Func<PagerItem, string> linkGenerator)
+			=> Custom(context => linkGenerator(context.PagerItem));
+
+		/// <summary>
+		///     Create a pager item link generator that generates link using a custom generating method.
+		/// </summary>
+		/// <param name="linkGenerator">The generation method.</param>
+		/// <returns>The pager item link generator object.</returns>
+		public static CustomLinkGenerator Custom([NotNull]Func<int, string> linkGenerator)
+			=> Custom(context => linkGenerator(context.PagerItem.PageNumber));
 
 		#endregion
 	}

@@ -6,15 +6,14 @@ using Microsoft.AspNetCore.Html;
 namespace Sakura.AspNetCore.Mvc.Generators
 {
 	/// <summary>
-	///     Generate <see cref="IHtmlContent" /> from a formatted string. The page number will be used as the format argument
-	///     {0}.
+	///     Generate <see cref="IHtmlContent" /> from a formatted string. The page number will be used as the format argument {0}.
 	/// </summary>
 	public class FormattedStringContentGenerator : StringContentGenerator
 	{
 		/// <summary>
 		///     Initialize a new generator with specified parameters.
 		/// </summary>
-		/// <param name="format">The format string used to be generate the content string..</param>
+		/// <param name="format">The format string used to be generate the content string.</param>
 		/// <param name="encodeText">Whether the format result should be HTML encoded before be written to page.</param>
 		/// <param name="formatProvider">
 		///     The format provider used to generate the content string. If this parameter is <c>null</c>,

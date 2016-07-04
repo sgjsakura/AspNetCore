@@ -10,6 +10,7 @@ namespace Sakura.AspNetCore.Mvc.Generators
 	public class CustomStringContentGenerator : StringContentGenerator
 	{
 		/// <summary>
+		/// Initialize a new instance of <see cref="CustomStringContentGenerator"/>.
 		/// </summary>
 		/// <param name="stringContentGenerator">The string generator callback delegate.</param>
 		/// <param name="encodeText">Whether the format result should be HTML encoded before be written to page.</param>
