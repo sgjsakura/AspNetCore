@@ -16,6 +16,8 @@ This section lists all projects in the repo. The list will always update in time
 
 ### External Cookie Services
 
+*Nuget Package Name: `Sakura.AspNetCore.Authentication.ExternalCookie`*
+
 ASP.NET Core Identity Service (`Microsoft.AspNet.Identity` package) already added support for external cookie services, which is required for 3rd application authentication scheme (e.g. Microsoft of Fackbook account). You may use `AddIdentity` and `UseIdentity` method to enable external cookie services. However, in sometimes you may wish to enable external services indivindually without full ASP.NET Identity Service enabled. This project seperates the external cookie services from ASP.NET Identity Services, and may be used in more complex authentication scenes.
 
 The major feature of this project contains:
@@ -26,6 +28,8 @@ The major feature of this project contains:
 
 
 ### ASP.NET Core MVC TagHelper Extension Library
+
+*Nuget Package Name: `Sakura.AspNetCore.Mvc.TagHelpers`*
 
 Add various addtional TagHelper classes to simplify strong type model based ASP.NET Core MVC web application development, including:
 
@@ -47,12 +51,16 @@ Add various addtional TagHelper classes to simplify strong type model based ASP.
 
 ### ASP.NET TempData Extension Package
 
+*Nuget Package Name: `Sakura.AspNetCore.Mvc.TempDataExtensions`*
+
 This project provides the `EnhancedSessionStateTempDataProvider` service provider, with can replace the original `SessionBasedTempDataProvider`, in order to enhance the type compatibility for session data. The original TempData provider can only work with primitive types, arrays, and one-level plain-objects, objects with complex properties are not supported. The `EnhancedSessionStateTempDataProvider` can successfully work with most data objects with arbitray level structures.
 
  Internally, it uses certain serializer techinque to convert complex data into string value, and store it together with its type full name. When application loading its content, it will deserialize the string to recover the object data structure. The default implmementation uses `JsonObjectSerializer`, and you may also replace it with your own implementation if necessary.
 
 
 ### ASP.NET Core MVC Messages Package
+
+*Nuget Package Name: `Sakura.AspNetCore.Mvc.Messages`*
 
 This project add the feature of common operation message response in web applications, as well as tag helpers to simplify message presentations. The detailed features includes:
 
@@ -63,16 +71,27 @@ This project add the feature of common operation message response in web applica
 
 *NOTE: To use this package, your `ITempDataProvider` implementation must have the ability to store and load `ICollection<OperationMessage>` instance. Defaultly, the ASP.NET5 `SessionStateTempDataProvider` cannot support data operation of complex objects. You may change into another `ITempDataProvider` implementation, or just use `EnhancedSessionStateTempDataProvider` in the `ASP.NET TempData Extension Package` project.
 
-
 ### ASP.NET Core PagedList Core Package
+
+*Nuget Package Name: `Sakura.AspNetCore.PagedList`*
 
 This project provides the `IPagedList` core interface to represent as a data page for a large data source. In order to improve the performance, two different implemention as `PagedList` and `QueryablePagedList` are designed for `IEnumerable<T>` and `IQueryable<T>`, respectively.
 
 ### ASP.NET Core MVC PagedList Pager Package
 
+*Nuget Package Name: `Sakura.AspNetCore.Mvc.PagedList`*
+
 This project provide the `PagerTagHelper` to provide simple paging navigation implementation for ASP.NET MVC6 Project. the standalone `pager` HTML element can be used to insert an pager object. The `options` attribute can be used to define HTML generation options for this pager. You can use `AddBootstrapPagerGenerator` function in `ConfigureServices` to enabled default bootstrap theme HTML generators, or you may also implement your own generators for pager.
 
 *For detailed usage, please visit the [Demo](PagerDemo.md) page. Notice: this package has been updated to version 2 (the recommended version)． For usage of version 1, please visit the [Version 1 Demo](PagerDemov1.md) page.*
+
+### ASP.NET ActionResult Extensions Package
+
+*Nuget Package Name: `Sakura.AspNetCore.Mvc.ActionResultExceptionExtensions`*
+
+In MVC Projects, you need to return a instance of `IActionResult` to finish the action pipeline, this design made it difficult to add common helper functions to make argument or permission checking and then report a specified status code directly to end user. This library allows you to terminate action executing pipeline directly with a specified result through the standard exception handling system. 
+
+In order to enable this feature, all you need is adding an `EnableActionResultException` attribute on a controller or action, and then you can throw an `ActionResultException`instance to terminate a action executing pipeline directly and provide the final action result. If you need to enable this feature globally, you can use `EnableActionResultExceptionFilter` extension method on `MvcOptions` parameter when you add the MVC middleware.
 
 ---
 
