@@ -1,16 +1,14 @@
 ﻿{
 	"version": "1.0.2",
 	"title": "ASP.NET Core PagedList Core Library",
-	"description":
-		"ASP.NET Core PagedList core library provides data paging functionality for ASP.NET Core targeted projects.",
+	"description": "ASP.NET Core PagedList core library provides data paging functionality for ASP.NET Core targeted projects.",
 
 	"packOptions": {
-		"summary":
-			"This project provides PagedList and QueryablePagedList class to add data paging and caching support for IEnumerable and IQueryable data sources.",
+		"summary": "This project provides PagedList and QueryablePagedList class to add data paging and caching support for IEnumerable and IQueryable data sources.",
 		"releaseNotes": "Update to .NET Core 1.0 RTM",
-		"authors": ["Iris Sakura"],
-		"owners": ["Iris Sakura"],
-		"tags": ["ASP.NET", "ASP.NETCore", "Page", "Paging", "Cache", "Caching"],
+		"authors": [ "Iris Sakura" ],
+		"owners": [ "Iris Sakura" ],
+		"tags": [ "ASP.NET", "ASP.NETCore", "Page", "Paging", "Cache", "Caching" ],
 		"projectUrl": "https://github.com/sgjsakura/AspNetCore",
 		"licenseUrl": "https://github.com/sgjsakura/AspNetCore/blob/master/LICENSE.txt"
 	},
@@ -24,8 +22,23 @@
 	"frameworks": {
 		"netstandard1.0": {}
 	},
-	"buildOptions": {
-		"xmlDoc": true,
-		"optimize": true
+
+	"configurations": {
+		"Debug": {
+			"buildOptions": {
+				"optimize": false,
+				"xmlDoc": false
+			}
+		},
+		"Release": {
+			"buildOptions": {
+				"optimize": true,
+				"xmlDoc": true
+			}
+		}
+	},
+
+	"scripts": {
+		"postcompile": [ "dotnet pack --no-build -c Release" ]
 	}
 }

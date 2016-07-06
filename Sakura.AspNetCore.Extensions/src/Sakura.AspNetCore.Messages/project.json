@@ -1,13 +1,12 @@
 {
 	"title": "ASP.NET Core Operation Message Core Library",
 	"version": "1.0.2",
-	"description":
-		"This library contains the default implementation for operation message services for ASP.NET Core projects.",
-	"authors": ["Iris Sakura"],
+	"description": "This library contains the default implementation for operation message services for ASP.NET Core projects.",
+	"authors": [ "Iris Sakura" ],
 
 	"packOptions": {
-		"owners": ["Iris Sakura"],
-		"tags": ["ASP.NET", "ASP.NETCore", "Message", "Messages"],
+		"owners": [ "Iris Sakura" ],
+		"tags": [ "ASP.NET", "ASP.NETCore", "Message", "Messages" ],
 		"projectUrl": "https://github.com/sgjsakura/AspNetCore",
 		"licenseUrl": "https://github.com/sgjsakura/AspNetCore/blob/master/LICENSE.txt",
 		"releaseNotes": "Update to .NET Core 1.0 RTM"
@@ -22,8 +21,23 @@
 		"netstandard1.6": {},
 		"net451": {}
 	},
-	"buildOptions": {
-		"optimize": true,
-		"xmlDoc": true
+
+	"configurations": {
+		"Debug": {
+			"buildOptions": {
+				"optimize": false,
+				"xmlDoc": false
+			}
+		},
+		"Release": {
+			"buildOptions": {
+				"optimize": true,
+				"xmlDoc": true
+			}
+		}
+	},
+
+	"scripts": {
+		"postcompile": [ "dotnet pack --no-build -c Release" ]
 	}
 }

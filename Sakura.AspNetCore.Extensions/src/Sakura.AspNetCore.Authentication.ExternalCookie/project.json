@@ -1,16 +1,16 @@
 ﻿{
-	"version": "1.0.1",
+	"version": "2.0.0",
 	"title": "ASP.NET Core External Cookie Library",
-	"description": "ASP.NET Core External Cookie Library",
-	"authors": ["Iris Sakura"],
+	"description": "This library is used to simplify the pipeline to use external cookie identity as application identity directly.",
+	"authors": [ "Iris Sakura" ],
 
 
 	"packOptions": {
-		"tags": ["ASP.NET", "ASP.NETCore", "Identity", "External Cookie"],
+		"tags": [ "ASP.NET", "ASP.NETCore", "Identity", "External Cookie" ],
 		"projectUrl": "https://github.com/sgjsakura/AspNetCore",
 		"licenseUrl": "https://github.com/sgjsakura/AspNetCore/blob/master/LICENSE.txt",
-		"releaseNotes": "Update to .NET Core 1.0 RTM",
-		"owners": ["Iris Sakura"]
+		"releaseNotes": "Add external signing-in mangaer service.",
+		"owners": [ "Iris Sakura" ]
 	},
 
 
@@ -22,8 +22,23 @@
 		"netstandard1.3": {},
 		"net451": {}
 	},
-	"buildOptions": {
-		"optimize": true,
-		"xmlDoc": true
+
+	"configurations": {
+		"Debug": {
+			"buildOptions": {
+				"optimize": false,
+				"xmlDoc": false
+			}
+		},
+		"Release": {
+			"buildOptions": {
+				"optimize": true,
+				"xmlDoc": true
+			}
+		}
+	},
+
+	"scripts": {
+		"postcompile": [ "dotnet pack --no-build -c Release" ]
 	}
 }

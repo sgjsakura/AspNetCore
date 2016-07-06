@@ -24,5 +24,24 @@
 	"buildOptions": {
 		"optimize": true,
 		"xmlDoc": true
+	},
+
+	"configurations": {
+		"Debug": {
+			"buildOptions": {
+				"optimize": false,
+				"xmlDoc": false
+			}
+		},
+		"Release": {
+			"buildOptions": {
+				"optimize": true,
+				"xmlDoc": true
+			}
+		}
+	},
+
+	"scripts": {
+		"postcompile": [ "dotnet pack --no-build -c Release" ]
 	}
 }

@@ -1,15 +1,13 @@
 {
 	"version": "1.1.1",
 	"title": "ASP.NET Core MVC Extensions Library",
-	"description":
-		"ASP.NET Core MVC Extensions Library provides addtional tag helpers and utility for simplify ASP.NET Core web application development.",
-	"authors": ["Iris Sakura"],
+	"description": "ASP.NET Core MVC Extensions Library provides addtional tag helpers and utility for simplify ASP.NET Core web application development.",
+	"authors": [ "Iris Sakura" ],
 
 	"packOptions": {
-		"summary":
-			"This project adds support for enum based selector, checkbox, select option labels, conditional class tags, and other useful addtional tag helpers to simplify ASP.NET Core web application development.",
-		"owners": ["Iris Sakura"],
-		"tags": ["ASP.NET", "ASP.NETCore", "MVC", "MVCCore", "TagHelper", "Enum", "Flags", "OptionLabel", "Select", "Option"],
+		"summary": "This project adds support for enum based selector, checkbox, select option labels, conditional class tags, and other useful addtional tag helpers to simplify ASP.NET Core web application development.",
+		"owners": [ "Iris Sakura" ],
+		"tags": [ "ASP.NET", "ASP.NETCore", "MVC", "MVCCore", "TagHelper", "Enum", "Flags", "OptionLabel", "Select", "Option" ],
 		"releaseNotes": "Update to .NET Core 1.0 RTM",
 		"projectUrl": "https://github.com/sgjsakura/AspNetCore",
 		"licenseUrl": "https://github.com/sgjsakura/AspNetCore/blob/master/LICENSE.txt"
@@ -23,8 +21,23 @@
 		"netstandard1.6": {},
 		"net451": {}
 	},
-	"buildOptions": {
-		"optimize": true,
-		"xmlDoc": true
+
+	"configurations": {
+		"Debug": {
+			"buildOptions": {
+				"optimize": false,
+				"xmlDoc": false
+			}
+		},
+		"Release": {
+			"buildOptions": {
+				"optimize": true,
+				"xmlDoc": true
+			}
+		}
+	},
+
+	"scripts": {
+		"postcompile": [ "dotnet pack --no-build -c Release" ]
 	}
 }
