@@ -270,6 +270,13 @@ Name|Description
 `item-default-link`|The defualt link generator. It refers `PagerOptoins.ItemOptions.Default.Link`
 `settings` and `setting-*`|Additional settings for `PagerOptions.` You may use `settings` to set the entire dictionary, or use `setting-*` to set one item. e.g. You can use `setting-mydata="1"` to set item "mydata" with value "1" (Just like the design of MVC `asp-route-*` attributes).
 
+Here's a sample to use shortcut settings:
+```HTML
+<pager item-default-link='PagerItemLinkGenerators.QueryName("datapage")' />
+```
+
+In the above code, the pager will change use a custom link generator instead of the default generator configured globally.
+
 ### Generators and Customization
 
 Pagers are complex objects. Its building process consists of many steps, including calculating page numbers, generating button links and contents, and building-up HTML strutures. All these work is done by a service named `IPagerGenrator`. In order to generate a pager, you must register one implementation of this service at application startup time, or specify one in the tag like:
