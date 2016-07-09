@@ -23,8 +23,7 @@ ASP.NET Core Identity Service (`Microsoft.AspNet.Identity` package) already adde
 The major feature of this project contains:
 
 * Configure ASP.NET Core Application to support ApplicationCookie and ExternalCookie services (provides extension methods can be used in `ConfigureServices` method of ASP.NET Startup class)
-* Enable ApplicationCookie and ExternalCookie seperately (provides extension methods can be used in `Configure` method of ASP.NET Startup class)
-* Provide ExternalCookieSignInManager service to simpify external cookie ticket management.
+* Provide ExternalSignInManager service to simpify external cookie ticket management.
 
 
 ### ASP.NET Core MVC TagHelper Extension Library
@@ -71,17 +70,17 @@ This project add the feature of common operation message response in web applica
 
 *NOTE: To use this package, your `ITempDataProvider` implementation must have the ability to store and load `ICollection<OperationMessage>` instance. Defaultly, the ASP.NET5 `SessionStateTempDataProvider` cannot support data operation of complex objects. You may change into another `ITempDataProvider` implementation, or just use `EnhancedSessionStateTempDataProvider` in the `ASP.NET TempData Extension Package` project.
 
-### ASP.NET Core PagedList Core Package
+### ASP.NET Core PagedList Packages
 
 *Nuget Package Name: `Sakura.AspNetCore.PagedList`*
-
-This project provides the `IPagedList` core interface to represent as a data page for a large data source. In order to improve the performance, two different implemention as `PagedList` and `QueryablePagedList` are designed for `IEnumerable<T>` and `IQueryable<T>`, respectively.
-
-### ASP.NET Core MVC PagedList Pager Package
-
+*Nuget Package Name: `Sakura.AspNetCore.PagedList.Async`*
 *Nuget Package Name: `Sakura.AspNetCore.Mvc.PagedList`*
 
-This project provide the `PagerTagHelper` to provide simple paging navigation implementation for ASP.NET MVC6 Project. the standalone `pager` HTML element can be used to insert an pager object. The `options` attribute can be used to define HTML generation options for this pager. You can use `AddBootstrapPagerGenerator` function in `ConfigureServices` to enabled default bootstrap theme HTML generators, or you may also implement your own generators for pager.
+The `Sakura.AspNetCore.PagedList` package provides the `IPagedList` core interface to represent as a data page for a large data source. Some extension methods are also provided to generate instance from any `IEnumerable<T>` or `IQueryable<T>` data sources.
+
+The `Sakura.AspNetCore.PagedList.Async` package helpes you to generate `IPagedList` using async extension method (`ToArrayAsync`, etc.) defined in `Microsoft.EntityFrameworkCore` package.
+
+The `Sakura.AspNetCore.Mvc.PagedList` allows you to use `<pager>` tag in your MVC view page to generate a full featured pager structure.
 
 *For detailed usage, please visit the [Demo](PagerDemo.md) page. Notice: this package has been updated to version 2 (the recommended version)． For usage of version 1, please visit the [Version 1 Demo](PagerDemov1.md) page.*
 
