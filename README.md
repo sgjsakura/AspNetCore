@@ -72,9 +72,10 @@ This project add the feature of common operation message response in web applica
 
 ### ASP.NET Core PagedList Packages
 
-*Nuget Package Name: `Sakura.AspNetCore.PagedList`*
-*Nuget Package Name: `Sakura.AspNetCore.PagedList.Async`*
-*Nuget Package Name: `Sakura.AspNetCore.Mvc.PagedList`*
+*Nuget Package Name: *
+- *`Sakura.AspNetCore.PagedList`*
+- *`Sakura.AspNetCore.PagedList.Async`*
+- *`Sakura.AspNetCore.Mvc.PagedList`*
 
 The `Sakura.AspNetCore.PagedList` package provides the `IPagedList` core interface to represent as a data page for a large data source. Some extension methods are also provided to generate instance from any `IEnumerable<T>` or `IQueryable<T>` data sources.
 
