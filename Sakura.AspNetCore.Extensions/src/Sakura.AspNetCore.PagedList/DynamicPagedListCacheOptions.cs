@@ -3,7 +3,7 @@
 	/// <summary>
 	///     Define additional creation options when create a paged list.
 	/// </summary>
-	public class PagedListCreationOptions
+	public class DynamicPagedListCacheOptions
 	{
 		/// <summary>
 		///     The default cache mode for total count.

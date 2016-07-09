@@ -1,3 +1,4 @@
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
@@ -10,26 +11,30 @@ namespace Sakura.AspNetCore
 	public interface IPagedList : IList
 	{
 		/// <summary>
-		///     The current data paged.
+		///     Get the index of the current page in the original data source.
 		/// </summary>
+		/// <remarks>
+		/// The index is start from one (not zero).
+		/// </remarks>
 		[PublicAPI]
-		int PageIndex { get; set; }
+		int PageIndex { get; }
 
 		/// <summary>
-		///     The size of each page.
+		///     Get the size of each page.
 		/// </summary>
 		[PublicAPI]
-		int PageSize { get; set; }
+		int PageSize { get; }
 
 		/// <summary>
-		///     The total page count.
+		///     Get the total page count.
 		/// </summary>
 		[PublicAPI]
 		int TotalPage { get; }
 
 		/// <summary>
-		///     The total count of data source.
+		///     Get the total item count of data source.
 		/// </summary>
+		/// 
 		[PublicAPI]
 		int TotalCount { get; }
 	}
@@ -38,7 +43,6 @@ namespace Sakura.AspNetCore
 	///     Extend <see cref="IPagedList" /> in order to provide strong-typed data access.
 	/// </summary>
 	/// <typeparam name="T">The element type in the data page.</typeparam>
-	// ReSharper disable once PossibleInterfaceMemberAmbiguity
 	public interface IPagedList<out T> : IPagedList, IReadOnlyList<T>
 	{
 	}
