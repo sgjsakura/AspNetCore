@@ -72,7 +72,7 @@ This project add the feature of common operation message response in web applica
 
 ### ASP.NET Core PagedList Packages
 
-*Nuget Package Name: *
+*Nuget Package Name:*
 - *`Sakura.AspNetCore.PagedList`*
 - *`Sakura.AspNetCore.PagedList.Async`*
 - *`Sakura.AspNetCore.Mvc.PagedList`*
