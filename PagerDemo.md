@@ -1,11 +1,16 @@
 # ASP.NET Core Data Paging and Pager Usage Guide
 
-*Note: this is for `Sakura.AspNetCore.Mvc.PagedList` package version 2. For usage of version 1, please click [here](PagerDemov1.md).*
+*Note: here is the guide of version 2. For the version 1 guide, please click [here](PagerDemov1.md).*
 
 This page will give you a step-by-step guide to use ASP.NET Core MVC Data Paging and Pager features. This guide includes the following topics:
 - How to paging your data source
 - How to enumerate your data page and get paging information
 - How to show a pager in your ASP.NET Core MVC Web Page
+
+The following packages are required for this guide:
+- `Sakura.AspNetCore.PagedList`: for data paging
+- `Sakura.AspNetCore.PagedList.Async`: for async data paging
+- `Sakura.AspNetCore.Mvc.PagedList`: for HTML pager generation
 
 ## Data Paging
 
@@ -24,6 +29,19 @@ var data = from i in SportsManageModel.Players select i;
 // The created IPagedList object, which contains a partial view for the current page, and the paging information.
 var pagedData = data.ToPagedList(pageSize, pageNumber);
 ```
+
+**Note:** actually, the content of `IEnumerable<T>` or `IQueryable<T>` may vary if they represent as a unstable source (e.g. the result a query from a database may change when another thread added new data). However, the the `ToPagedList` method always creates a static snapshot from the source at the creation time, which means the all the information of the `IPagedList` (including the total page count and the content of current page) never changes after you created it. If you want to capture a dynamic reference of the source, please see the next section.
+
+### Dynamic Data Paging
+
+For advanced scenes, you may try to track the change of the data source. Under such circumstance, you may use `IDynamicPagedList`. Another additional feature of this interface is you can change paging settings (page size and page index) even after you created it and receive data in new page. In order to use create a dynamic paged list, you may use `ToDynamicPagedList` extension method on either `IEnumerable<T>` or `IQueryable<T>` object.
+
+### Async Data Paging
+
+Entity Framework provides some extention method to quey data asynchronously (e.g. `ToArrayAsync`). If you would like to take advantage for these async operations, you may add the `Sakura.AspNetCore.PagedList.Async` package into your project, and use `ToPagedListAsync` method to generate `IPagedList` asynchronously.
+
+**Note:** it is similar with the `ToPageList` method that the async method also creates snapshot for data source. Async operation on  dynamic paged lists is currently not supported, since there is no way to set a property value asynchronously.
+
 ## Paged Data Access
 
 In MVC Projects, you may pass the paged data source from your controller into your view, and iterates the current pages easily. The following code shows the basic way:
@@ -64,7 +82,7 @@ Pager feature is much more complex, since it is related with data handling, HTML
 
 First of all, you need to install the package for MVC pager, you should add the package `Sakura.AspNetCore.Mvc.PagedList` into your `project.json`.
 
-Adn then, for the most simple usage, you may add the following code into your `Startup.cs` file:
+And then, for the most simple usage, you may add the following code into your `Startup.cs` file:
 ```C#
 // Add the following line at the top area of the file to import extension methods.
 using Sakura.AspNetCore.Mvc;
@@ -285,7 +303,7 @@ Pagers are complex objects. Its building process consists of many steps, includi
 ```
 The default generator is named `DefaultPagerGenrator`, which is included in this package. If you would like to use another generator to get a pager of new style, you may register a new one and replace it.
 
-#### Default Generator and Partial Cusomization
+#### Default Generator and Partial Customization
 Here, I would like to provide a brief introduction to the default generator. It uses 3 different sub-services to finally generate the complete pager HTML. These services are:
 
 ##### `IPagerListGenerator`
