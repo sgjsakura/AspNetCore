@@ -44,7 +44,7 @@ namespace Sakura.AspNetCore.Mvc.Internal
 		public IHtmlContent GeneratePager(PagerGenerationContext context)
 		{
 			// Hide Handling
-			if (context.TotalPage == 1 && context.Options.HideOnSinglePage)
+			if (context.TotalPage <= 1 && context.Options.HideOnSinglePage)
 			{
 				return new HtmlString(string.Empty);
 			}

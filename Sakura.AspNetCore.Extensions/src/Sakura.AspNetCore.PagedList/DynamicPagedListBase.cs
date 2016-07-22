@@ -6,11 +6,11 @@ using System.Linq;
 namespace Sakura.AspNetCore
 {
 	/// <summary>
-	///     Provide base common features for <see cref="PagedList{T}" /> and <see cref="QueryablePagedList{T}" />.
+	///     Provide base common features for <see cref="DynamicPagedListBase{T}" /> and <see cref="DynamicQueryablePagedList{T}" />.
 	/// </summary>
 	/// <typeparam name="TCollection">The collection type of the list.</typeparam>
 	/// <typeparam name="TElement">The element type of the list.</typeparam>
-	public abstract class PagedListBase<TCollection, TElement> : IPagedList<TElement>
+	public abstract class DynamicPagedListBase<TCollection, TElement> : IPagedList<TElement>
 		where TCollection : IEnumerable<TElement>
 	{
 		#region Constructors
@@ -21,9 +21,9 @@ namespace Sakura.AspNetCore
 		/// <param name="source">The data source to be paging.</param>
 		/// <param name="pageSize">The size of each page.</param>
 		/// <param name="pageIndex">The index of the current page, start from 1.</param>
-		/// <param name="creationOptions">Additional creationOptions for the paged list.</param>
-		protected PagedListBase(TCollection source, int pageSize, int pageIndex = 1,
-			PagedListCreationOptions creationOptions = null)
+		/// <param name="cacheOptions">Additional cacheOptions for the paged list.</param>
+		protected DynamicPagedListBase(TCollection source, int pageSize, int pageIndex = 1,
+			DynamicPagedListCacheOptions cacheOptions = null)
 		{
 			// Exception handling
 			if (source == null)
@@ -32,14 +32,14 @@ namespace Sakura.AspNetCore
 			}
 
 			// Default parameters
-			var defaultOptions = new PagedListCreationOptions
+			var defaultOptions = new DynamicPagedListCacheOptions
 			{
 				CurrentPageCacheMode = CacheMode.Manual,
 				TotalCountCacheMode = CacheMode.Manual
 			};
 
-			// Merge creationOptions
-			creationOptions = creationOptions ?? defaultOptions;
+			// Merge cacheOptions
+			cacheOptions = cacheOptions ?? defaultOptions;
 
 			// Initialize the data source
 			Source = source;
@@ -51,9 +51,9 @@ namespace Sakura.AspNetCore
 
 
 			// Caching total count for first time
-			TotalCountCacheInternal = new Cacheable<int>(GetTotalCount, cacheMode: creationOptions.TotalCountCacheMode);
+			TotalCountCacheInternal = new Cacheable<int>(GetTotalCount, cacheMode: cacheOptions.TotalCountCacheMode);
 			// Caching current page for first time
-			CurrentPageCacheInternal = new Cacheable<TCollection>(GetCurrentPage, CacheData, creationOptions.CurrentPageCacheMode);
+			CurrentPageCacheInternal = new Cacheable<TCollection>(GetCurrentPage, CacheData, cacheOptions.CurrentPageCacheMode);
 
 			// Set initialized flag
 			IsInitialized = true;

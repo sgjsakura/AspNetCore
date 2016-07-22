@@ -1,11 +1,11 @@
 ﻿{
-	"version": "2.0.0",
-	"title": "ASP.NET Core PagedList Core Library",
-	"description": "ASP.NET Core PagedList core library provides data paging functionality for ASP.NET Core targeted projects.",
+	"version": "1.0.0",
+	"title": "ASP.NET Core PagedList Async Extension Library",
+	"description": "This package provides extension method to create PagedList using EntityFramework async method.",
 
 	"packOptions": {
-		"summary": "This project provides PagedList and DynamiPagedList class to add data paging and caching support for IEnumerable and IQueryable currentPage sources.",
-		"releaseNotes": "Provide fast read-only implementations for IPagedList base interface.",
+		"summary": "This package provides extension method to create PagedList using EntityFramework async method.",
+		"releaseNotes": "First release",
 		"authors": [ "Iris Sakura" ],
 		"owners": [ "Iris Sakura" ],
 		"tags": [ "ASP.NET", "ASP.NETCore", "Page", "Paging", "Cache", "Caching" ],
@@ -14,13 +14,13 @@
 	},
 
 	"dependencies": {
-		"Sakura.AspNetCore.PagedList.Abstractions": "2.0.0",
-		"System.Threading": "4.0.11",
-		"System.Linq.Queryable": "4.0.1"
+		"Sakura.AspNetCore.PagedList": "2.0.0",
+		"Microsoft.EntityFrameworkCore": "1.0.0"
 	},
 
 	"frameworks": {
-		"netstandard1.0": {}
+		"netstandard1.3": {},
+		"net451": {}
 	},
 
 	"configurations": {

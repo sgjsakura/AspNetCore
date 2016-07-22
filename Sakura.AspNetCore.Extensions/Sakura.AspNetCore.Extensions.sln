@@ -30,6 +30,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Sakura.AspNetCore.PagedList
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Sakura.AspNetCore.Mvc.ActionResultExceptionExtensions", "src\Sakura.AspNetCore.Mvc.ActionResultExceptionExtensions\Sakura.AspNetCore.Mvc.ActionResultExceptionExtensions.xproj", "{07D7E7CF-F66A-4F0D-B061-1136B3BFC16B}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Sakura.AspNetCore.PagedList.Async", "src\Sakura.AspNetCore.PagedList.Async\Sakura.AspNetCore.PagedList.Async.xproj", "{0C03790A-5141-4EE9-B151-75B17B28D3A2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -76,6 +78,10 @@ Global
 		{07D7E7CF-F66A-4F0D-B061-1136B3BFC16B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07D7E7CF-F66A-4F0D-B061-1136B3BFC16B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07D7E7CF-F66A-4F0D-B061-1136B3BFC16B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C03790A-5141-4EE9-B151-75B17B28D3A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C03790A-5141-4EE9-B151-75B17B28D3A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C03790A-5141-4EE9-B151-75B17B28D3A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C03790A-5141-4EE9-B151-75B17B28D3A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -91,5 +97,6 @@ Global
 		{74BD7E99-61EB-444C-8002-CD49818407DC} = {192C7E7E-95BB-47D1-B043-9CE0E3709FAD}
 		{80B99D95-B448-4ABB-AE65-408614FAE0FB} = {192C7E7E-95BB-47D1-B043-9CE0E3709FAD}
 		{07D7E7CF-F66A-4F0D-B061-1136B3BFC16B} = {192C7E7E-95BB-47D1-B043-9CE0E3709FAD}
+		{0C03790A-5141-4EE9-B151-75B17B28D3A2} = {192C7E7E-95BB-47D1-B043-9CE0E3709FAD}
 	EndGlobalSection
 EndGlobal
