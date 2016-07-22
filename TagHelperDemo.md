@@ -212,7 +212,7 @@ The above code will generated the following HTML if the `Items` has 3 elements:
 
 ## Binders
 
-`FlagsEnumModelBinder`
+### `FlagsEnumModelBinder`
 
 The `FlagsEnumInputTagHelper` can help you to generate flag checkboxs, however, default MVC model binder cannot automatically merge all the values. To solve this problem, you may add the `FlagsEnumModelBinder` into you MVC middleware, you may add it in the service configurating phase using the following code:
 ```C#
