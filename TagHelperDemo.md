@@ -95,10 +95,11 @@ This tag helper is similar ot `EnumSelectForTagHelper`, however you use `asp-enu
 ### `SelectValueTagHelper`
 
 Another common task related to `<select>` tag is to initially set the default selected value according to the current state of data when a user tries to edit a existing data item. In ASP.NET Core MVC projects, you can use `asp-for` for a `<select>` element to automatically set the initial state according to the model value. However, if you are trying to display a select list without directly model binding, you must using one of the following manner:
+
 1. build-up a `SelectList` instance and provide `selectedValue` argument during construction, and then apply `asp-items` attribute on the `<select>` element.
 2. Define each `<option>` element in HTML and using a Rozar condition expression to the `selected` attribute.
 
-This first manner is more simple for value calculation, however you will write a lot of C# code for generating a static list. The second manner is gracer in HTML generation, however you must repeat the `selected` condition on each option.
+This first manner is more simple for value calculation, however you will write a lot of C# code for generating a static list. The second manner is more graceful in HTML generation, however you must repeat the `selected` condition on each option.
 
 Now with the new tag helper, you can simplely apply an `asp-value` attribute on any `<select>` tag, and tag helper will help you to automatically make the correct option selected during the page generation. e.g. The following code:
 ```HTML
@@ -118,11 +119,40 @@ will generate the following HTML is the value of `myValue` is equal to `1`:
 
 Additionally, you can specify the `asp-value-compare-mode` on the `<select>` tag to control how to determine the specified value is equal to the option value. The default setting is `OrdinalIgnoreCase`, which can be used in mose cases, but you can change it to any enum item in `System.StringComparison` type to change this behavior.
 
-* `SelectValueTagHelper`: You can now use `asp-value` attribute on `select` element to automatically make the matched option selected when rendering its content.
+### `SelectOptionLabelTagHelper`
 
-* `SelectOptionLabelTagHelper`: You can now use `asp-option-label` attribute on `select` element to generate an option label with custom text (the value of the option label is set to empty). The `asp-option-label-position` attribute can be used to controller the position of the option label.
+This is a shortcut tag helper used to add a option label (option with empty value) into a `<select>` tag. You may use `asp-option-label` to set the label text and `asp-option-label-position` to set the location of the label. A sample can be:
+```HTML
+<select asp-option-label="Select a option" asp-option-label-position="First">
+  <option value="1">1</option>
+  <option value="1">1</option>
+</select>
+```
+The above code will generate the folloing HTML:
+```HTML
+<select>
+  <option value="">Select a option</option>
+  <option value="1">1</option>
+  <option value="1">1</option>
+</select>
+```
 
-* `ConditionalClassTagHelper`: You can now use `asp-conditional-class-<className>="<ConditionExpression>"` to add conditional actived class name to any HTML elements. When the condition expression is evaluated with value `true`, the specified class will be added to this element; otherwise, this class will be ignored. You can apply multiple conditional classes on one element.
+###  `ConditionalClassTagHelper`
+
+CSS class is an important part for HTML element. It can be used to both styling and item filtering. An element can belong to one or more classes sepecifed by `class` attribute. The `class` attribute is a composed value contains a list of class names, each of them a sepereated with spaces. You cannot specify multiple `class` attributes on a single element, and if you wish to apply some class conditionally, you may:
+
+- Generate the entire class list using C# and set the value to `class` attribute, or
+- Generate a string of class name or empty string according to the condition, and insert it as a part or class string
+
+Neither of those methods are frienly to code reading. Now using the new tag helper, you can simplely append any class on a single element with different conditions using `asp-conditional-class-<className>` attribute. Here is a simple usage demo:
+```HTML
+<a class="page" asp-conditional-class-active="currentPage == 1" href="?page=1">Page 1<a>
+```
+If the C# expresion condition `currentPage == 1` is satisfied, the above code will generate:
+```HTML
+<a class="page active" href="?page=1">Page 1<a>
+```
+While if the condition is not satisfied, this attribute will be simplely ignored.
 
 * `FlagsEnumInputTagHelper`: You can now use `asp-flag-enum-for` and `asp-flag-enum-value` attributes on checkbox (`<input type="checkbox" />`) element. The `asp-flag-enum-for` attribute controls the model expression of enum flag value (the enum type must be marked with `FlagsAtttibute`), and the `asp-flag-enum-value` indicates the enum flag item for this checkbox. If the actual model expression value contains the flag value (mainly equivalent as `Enum.HasFlag` method), the checkbox will be checked, otherwise, it will be unchecked.
 
