@@ -17,9 +17,42 @@ If you need to enable/disable a custom tag helper in a specified page, please se
 
 This section will describle the usage of all tag helpers.
 
-Add various addtional TagHelper classes to simplify strong type model based ASP.NET Core MVC web application development, including:
 
-* `EnumSelectForTagHelper`: You can now use `asp-enum-for` attribute to generate a HTML select list with options for an enum  type, the type is specified by the given model expression. You can apply `DisplayAttribute` on enum items and specify `asp-text-source` to support custom display texts. The `asp-value-source` can be used to specify the format of option values.
+### `EnumSelectForTagHelper`
+
+Generation a list of all enum items and allow user to select one of them is a common task in MVC projects. Currently, you may use `HtmlHelper.GenerateEnumList` to generated a `SelectItemList` object and then set it to `asp-items` attributes on an `<select>` tags. These steps works, however it is a bit complex as well as you can not control the generated item's name and value, this will be UI unfriendly since the enum names are always short terms without spaces between words, and it also cannot be localizable.
+
+Use the `EnumSelectForTagHelper` You can now use `asp-enum-for` attribute to generate a HTML select list with options for an enum type, the type is specified by the given model expression. What's more, You can apply `DisplayAttribute` on enum items and specify `asp-text-source` to support custom display texts. The `asp-value-source` can be used to specify the format of option values.
+
+The following code shows the basic way for this tag helper:
+```C#
+// backend file 
+public enum Gender
+{
+  Male,
+  Female,
+}
+
+public class Person
+{
+  public Gender Gender { get; set; }
+}
+
+```
+
+```HTML
+<!-- In MVC view page -->
+@model Person
+<select asp-enum-for="Gender"></select>
+```
+
+The actual page will be generated as:
+```HTML
+<select name="Gender">
+  <option value="Male">Male</option>
+  <option value="Female">Female</option>
+</select>
+```
 
 * `EnumSelectTypeTagHelper` You can use `asp-enum-type` to specify the enum type manually if you use an select without an model data. Adding the `asp-enum-value` attribute to specify the selected item; otherwise, no item is selected by default.  `asp-text-source` and `asp-value-source` can also be used as the same as `EnumSelectForTagHelper`.
 
