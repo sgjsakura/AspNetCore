@@ -20,41 +20,103 @@ This section will describle the usage of all tag helpers.
 
 ### `EnumSelectForTagHelper`
 
-Generation a list of all enum items and allow user to select one of them is a common task in MVC projects. Currently, you may use `HtmlHelper.GenerateEnumList` to generated a `SelectItemList` object and then set it to `asp-items` attributes on an `<select>` tags. These steps works, however it is a bit complex as well as you can not control the generated item's name and value, this will be UI unfriendly since the enum names are always short terms without spaces between words, and it also cannot be localizable.
+Generation a list of all enum items and allow user to select one of them is a common task in MVC projects. Currently, you may use `HtmlHelper.GenerateEnumList` to generated a `SelectItemList` object and then set it to `asp-items` attributes on an `<select>` tags. These steps can work, however it is a bit complex as well as you can not control the generated item's name and value, thus it will be UI unfriendly since the enum names are always short terms without spaces between words, and it also cannot be localizable.
 
-Use the `EnumSelectForTagHelper` You can now use `asp-enum-for` attribute to generate a HTML select list with options for an enum type, the type is specified by the given model expression. What's more, You can apply `DisplayAttribute` on enum items and specify `asp-text-source` to support custom display texts. The `asp-value-source` can be used to specify the format of option values.
-
-The following code shows the basic way for this tag helper:
+Use the `EnumSelectForTagHelper` You can now use `asp-enum-for` attribute to generate a HTML select list with options for an enum type, the type is specified by the given model expression. The following code shows the basic way for this tag helper:
 ```C#
 // backend file 
-public enum Gender
+public enum ProjectAccessType
 {
-  Male,
-  Female,
+  [Display(Description = "Everyone can access this project")]
+  Public,
+  [Display(Description = "Only specified users can access this project")]
+  Private,
+  [Display(Description = "Everyone can access and update this project")]
+  Community
 }
 
-public class Person
+public class Project
 {
-  public Gender Gender { get; set; }
+  public ProjectAccessType AccessType { get; set; }
 }
 
 ```
 
 ```HTML
 <!-- In MVC view page -->
-@model Person
-<select asp-enum-for="Gender"></select>
+@model Project
+<select asp-enum-for="AccessType"></select>
 ```
 
 The actual page will be generated as:
 ```HTML
 <select name="Gender">
-  <option value="Male">Male</option>
-  <option value="Female">Female</option>
+  <option value="Public">Public</option>
+  <option value="Private">Private</option>
+  <option value="Community">Community</option>
 </select>
 ```
 
-* `EnumSelectTypeTagHelper` You can use `asp-enum-type` to specify the enum type manually if you use an select without an model data. Adding the `asp-enum-value` attribute to specify the selected item; otherwise, no item is selected by default.  `asp-text-source` and `asp-value-source` can also be used as the same as `EnumSelectForTagHelper`.
+An important enhancement provied by this tag helper is that you can use `asp-text-source` and `asp-value-source` to control the generated text and value of options. The tag helper will detect any `DisplayAttribute` applied on each enum item, and get the property value specified by `asp-text-source` attribute as the display text of options. e.g. The following code:
+```HTML
+<!-- In MVC view page -->
+@model Project
+<select asp-enum-for="AccessType" asp-text-source="Description"></select>
+```
+will generate the following HTML (using the same backend type definition as first sample):
+```HTML
+<select name="Gender">
+  <option value="Public">Everyone can access this project</option>
+  <option value="Private">Only specified users can access this project</option>
+  <option value="Community">Everyone can access and update this project</option>
+</select>
+```
+If none of `asp-text-source` is specified, the default value is set to `EnumNameOnly`, which will generate the result as the same as the first sample. If some enum items is lack of specified inforation (e.g. `Description` is null), the tag helper will also fallback to using the enum name as the text.
+The `asp-value-source` is used to control the value of options. The default value of this attribute is set to `Name`, which means the name of the enum item is used as the option value. If needed, you can change this attribute to `Value`, in such case, the following code:
+```HTML
+<!-- In MVC view page -->
+@model Project
+<select asp-enum-for="AccessType" asp-value-source="Value"></select>
+```
+Will be generated as:
+```HTML
+<select name="Gender">
+  <option value="0">Public</option>
+  <option value="1">Private</option>
+  <option value="2">Community</option>
+</select>
+```
+*Note: The default MVC model binders can handle enum names correctly, thus you usually do not need to set this attribute.*
+
+### `EnumSelectTypeTagHelper`
+
+This tag helper is similar ot `EnumSelectForTagHelper`, however you use `asp-enum-type` to specify the enum type explicitly instead of inferring it from a model expression. In such case you may also need to add the `name` attribute for the `<select>` tag manually in order to send its data to server correctly.
+
+### `SelectValueTagHelper`
+
+Another common task related to `<select>` tag is to initially set the default selected value according to the current state of data when a user tries to edit a existing data item. In ASP.NET Core MVC projects, you can use `asp-for` for a `<select>` element to automatically set the initial state according to the model value. However, if you are trying to display a select list without directly model binding, you must using one of the following manner:
+1. build-up a `SelectList` instance and provide `selectedValue` argument during construction, and then apply `asp-items` attribute on the `<select>` element.
+2. Define each `<option>` element in HTML and using a Rozar condition expression to the `selected` attribute.
+
+This first manner is more simple for value calculation, however you will write a lot of C# code for generating a static list. The second manner is gracer in HTML generation, however you must repeat the `selected` condition on each option.
+
+Now with the new tag helper, you can simplely apply an `asp-value` attribute on any `<select>` tag, and tag helper will help you to automatically make the correct option selected during the page generation. e.g. The following code:
+```HTML
+<select asp-value="@myValue">
+  <option value="1">1</option>
+  <option value="2">2</option>
+</select>
+```
+will generate the following HTML is the value of `myValue` is equal to `1`:
+```HTML
+<select>
+  <option value="1" selected="selected">1</option>
+  <option value="2">2</option>
+</select>
+```
+*Note: The value of `asp-value` attribute is considered as a string since HTML only accept string as element content. You may need to convert value of other types into string manually.*
+
+Additionally, you can specify the `asp-value-compare-mode` on the `<select>` tag to control how to determine the specified value is equal to the option value. The default setting is `OrdinalIgnoreCase`, which can be used in mose cases, but you can change it to any enum item in `System.StringComparison` type to change this behavior.
 
 * `SelectValueTagHelper`: You can now use `asp-value` attribute on `select` element to automatically make the matched option selected when rendering its content.
 
