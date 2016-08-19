@@ -156,7 +156,7 @@ public enum Features
 public class Stream
 {
   public Features Features { get; set; }
-]
+}
 
 ```
 ```HTML
