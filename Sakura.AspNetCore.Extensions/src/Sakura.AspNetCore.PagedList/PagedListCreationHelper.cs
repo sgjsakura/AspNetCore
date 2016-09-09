@@ -18,7 +18,7 @@ namespace Sakura.AspNetCore
 		/// <param name="source">The source <see cref="IEnumerable{T}" /> object to be converting.</param>
 		/// <param name="pageSize">The size of each page.</param>
 		/// <param name="pageIndex">The index of the current page. Page index starts from 1.</param>
-		/// <returns>A <see cref="DynamicPagedList{T}" /> object created by paging the <paramref name="source" /> object.</returns>
+		/// <returns>A <see cref="PagedList{TSource,TElement}" /> object created by paging the <paramref name="source" /> object.</returns>
 		public static PagedList<IEnumerable<T>, T> ToPagedList<T>([NotNull] this IEnumerable<T> source, int pageSize, int pageIndex = 1) => CreatePagedListCore(source, pageSize, pageIndex, (data, skip, take) => data.Skip(skip).Take(take).ToArray(), data => data.Count());
 
 		/// <summary>
@@ -28,7 +28,7 @@ namespace Sakura.AspNetCore
 		/// <param name="source">The source <see cref="IQueryable{T}" /> object to be converting.</param>
 		/// <param name="pageSize">The size of each page.</param>
 		/// <param name="pageIndex">The index of the current page. Page index starts from 1.</param>
-		/// <returns>A <see cref="DynamicQueryablePagedList{T}" /> object created by paging the <paramref name="source" /> object.</returns>
+		/// <returns>A <see cref="PagedList{TSource,TElement}" /> object created by paging the <paramref name="source" /> object.</returns>
 
 		public static PagedList<IQueryable<T>, T> ToPagedList<T>([NotNull] this IQueryable<T> source, int pageSize, int pageIndex = 1) => CreatePagedListCore(source, pageSize, pageIndex, (data, skip, take) => data.Skip(skip).Take(take).ToArray(), data => data.Count());
 
@@ -43,7 +43,7 @@ namespace Sakura.AspNetCore
 		/// <param name="pageIndex">The index of the currnet page.</param>
 		/// <param name="pageFunc">A paging function that skip some items, and then take some items, finally convert to a list.</param>
 		/// <param name="countFunc">A function to count the items in the source.</param>
-		/// <returns></returns>
+		/// <returns>A <see cref="PagedList{TSource,TElement}" /> object created by paging the <paramref name="source" /> object.</returns>
 		private static PagedList<TSource, TElement> CreatePagedListCore<TSource, TElement>([NotNull] this TSource source, int pageSize, int pageIndex, Func<TSource, int, int, IList<TElement>> pageFunc, Func<TSource, int> countFunc)
 		{
 			if (source == null)

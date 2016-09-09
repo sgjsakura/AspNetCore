@@ -1,11 +1,11 @@
 ﻿{
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"title": "ASP.NET Core PagedList Core Library",
 	"description": "ASP.NET Core PagedList core library provides data paging functionality for ASP.NET Core targeted projects.",
 
 	"packOptions": {
 		"summary": "This project provides PagedList and DynamiPagedList class to add data paging and caching support for IEnumerable and IQueryable currentPage sources.",
-		"releaseNotes": "Provide fast read-only implementations for IPagedList base interface.",
+		"releaseNotes": "Fix some comment error.",
 		"authors": [ "Iris Sakura" ],
 		"owners": [ "Iris Sakura" ],
 		"tags": [ "ASP.NET", "ASP.NETCore", "Page", "Paging", "Cache", "Caching" ],

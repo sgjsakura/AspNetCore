@@ -1,19 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading;
+using System.Threading.Tasks;
 using JetBrains.Annotations;
 
 namespace Sakura.AspNetCore
 {
-	/// <summary>
-	///     Provide base common features for <see cref="DynamicPagedList{T}" /> and <see cref="DynamicQueryablePagedList{T}" />.
-	/// </summary>
-	/// <typeparam name="TCollection">The collection type of the list.</typeparam>
-	/// <typeparam name="TElement">The element type of the list.</typeparam>
-	public abstract class DynamicPagedListBase<TCollection, TElement> : IPagedList<TElement>
-		where TCollection : IEnumerable<TElement>
+	public class AsyncPagedList<T> : IAsyncEnumerable<T>
 	{
 		#region Constructors
 
@@ -24,7 +19,7 @@ namespace Sakura.AspNetCore
 		/// <param name="pageSize">The size of each page.</param>
 		/// <param name="pageIndex">The index of the current page, start from 1.</param>
 		/// <param name="cacheOptions">Additional cacheOptions for the paged list.</param>
-		protected DynamicPagedListBase(TCollection source, int pageSize, int pageIndex = 1,
+		public AsyncPagedList(IAsyncEnumerable<T> source, int pageSize, int pageIndex = 1,
 			DynamicPagedListCacheOptions cacheOptions = null)
 		{
 			// Exception handling
@@ -53,9 +48,9 @@ namespace Sakura.AspNetCore
 
 
 			// Caching total count for first time
-			TotalCountCacheInternal = new Cacheable<int>(GetTotalCount, cacheMode: cacheOptions.TotalCountCacheMode);
+			TotalCountCacheInternal = new AsyncCacheable<Task<int>>(GetTotalCountAsync, cacheMode: cacheOptions.TotalCountCacheMode);
 			// Caching current page for first time
-			CurrentPageCacheInternal = new Cacheable<TCollection>(GetCurrentPage, CacheData, cacheOptions.CurrentPageCacheMode);
+			CurrentPageCacheInternal = new AsyncCacheable<IAsyncEnumerable<T>>(GetCurrentPageAsync, CacheDataAsync, cacheOptions.CurrentPageCacheMode);
 
 			// Set initialized flag
 			IsInitialized = true;
@@ -68,7 +63,7 @@ namespace Sakura.AspNetCore
 		/// <summary>
 		///     Get the original data source.
 		/// </summary>
-		public TCollection Source { get; }
+		public IAsyncEnumerable<T> Source { get; }
 
 		#endregion
 
@@ -78,20 +73,29 @@ namespace Sakura.AspNetCore
 		///     When be derived, returns the total count of the data source.
 		/// </summary>
 		/// <returns>The total count of the data source.</returns>
-		protected abstract int GetTotalCount();
+		protected virtual Task<int> GetTotalCountAsync() => Source.Count();
 
 		/// <summary>
 		///     When be derived, get the elements in the current page.
 		/// </summary>
 		/// <returns>The collection of elements in the current page.</returns>
-		protected abstract TCollection GetCurrentPage();
+		protected virtual IAsyncEnumerable<T> GetCurrentPageAsync()
+		{
+			var skipValue = PageSize * (PageIndex - 1);
+			var takeValue = PageSize;
+
+			return Source.Skip(skipValue).Take(takeValue);
+		}
 
 		/// <summary>
 		///     When be derived, Cache the data page.
 		/// </summary>
 		/// <param name="source">The data page to be cached.</param>
 		/// <returns>The cached copy of <paramref name="source" />.</returns>
-		protected abstract TCollection CacheData(TCollection source);
+		protected virtual async Task<IAsyncEnumerable<T>> CacheDataAsync(IAsyncEnumerable<T> source)
+		{
+			return (await source.ToArray()).ToAsyncEnumerable();
+		}
 
 		#endregion
 
@@ -100,12 +104,12 @@ namespace Sakura.AspNetCore
 		/// <summary>
 		///     Get the internal caching object for total count.
 		/// </summary>
-		private Cacheable<int> TotalCountCacheInternal { get; }
+		private AsyncCacheable<int> TotalCountCacheInternal { get; }
 
 		/// <summary>
 		///     Get the internal caching object for current page.
 		/// </summary>
-		private Cacheable<TCollection> CurrentPageCacheInternal { get; }
+		private AsyncCacheable<IAsyncEnumerable<T>> CurrentPageCacheInternal { get; }
 
 		/// <summary>
 		///     Get the cache controller for the total count cache.
@@ -124,12 +128,12 @@ namespace Sakura.AspNetCore
 		/// <summary>
 		///     Get the data in current page.
 		/// </summary>
-		public TCollection CurrentPage => CurrentPageCacheInternal.Data;
+		public Task<IAsyncEnumerable<T>> CurrentPage => CurrentPageCacheInternal.GetDataAsync();
 
 		/// <summary>
 		///     Get the total count of the data source.
 		/// </summary>
-		public int TotalCount => TotalCountCacheInternal.Data;
+		public Task<int> GetTotalCountAsync() => TotalCountCacheInternal.GetDataAsync();
 
 		#endregion
 
@@ -242,176 +246,24 @@ namespace Sakura.AspNetCore
 
 		#endregion
 
-		#region Version Control and Enumeration
-
-		/// <summary>
-		/// Version field used to check enumeration.
-		/// </summary>
-		private int _Version;
-
-		/// <summary>
-		/// Increase the data version.
-		/// </summary>
-		protected void IncreaseVersion()
-		{
-			Interlocked.Increment(ref _Version);
-		}
-
-		#endregion
-
 		#region Interface Implementations
 
-		/// <inheritdoc />
-		public IEnumerator<TElement> GetEnumerator() => new Enumerator(this);
-
-
-		/// <inheritdoc />
-		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
-		/// <inheritdoc />
-		public TElement this[int index] => CurrentPage.ElementAt(index);
-
-		#endregion
-
-		#region Not Supported Features
-
-		int IList.Add(object value)
+		/// <summary>
+		///     Get the enumerator for the current object.
+		/// </summary>
+		/// <returns>The enumerator for the current object.</returns>
+		public IAsyncEnumerator<T> GetEnumerator()
 		{
-			throw new NotSupportedException();
+			return CurrentPage.GetEnumerator();
 		}
 
-		void IList.Clear()
-		{
-			throw new NotSupportedException();
-		}
-
-		bool IList.Contains(object value)
-		{
-			throw new NotImplementedException();
-		}
-
-		int IList.IndexOf(object value)
-		{
-			throw new NotImplementedException();
-		}
-
-		void IList.Insert(int index, object value)
-		{
-			throw new NotSupportedException();
-		}
-
-		void IList.Remove(object value)
-		{
-			throw new NotSupportedException();
-		}
-
-		void IList.RemoveAt(int index)
-		{
-			throw new NotSupportedException();
-		}
-
-		#endregion
-
-		#region Supported But Not Recommended Featrures
-
-		void ICollection.CopyTo(Array array, int index)
-		{
-			Array.Copy(CurrentPage.ToArray(), 0, array, index, Count);
-		}
-
-
-		bool IList.IsFixedSize => true;
-
-		bool IList.IsReadOnly => true;
-
-		object IList.this[int index]
-		{
-			get { return this[index]; }
-			set { throw new NotSupportedException(); }
-		}
-
-
-		bool ICollection.IsSynchronized => false;
-
-		object ICollection.SyncRoot { get; } = new object();
-
-		#endregion
-
-		#region Enumerator
 
 		/// <summary>
-		/// Implemetation enumeration for <see cref="DynamicPagedListBase{TCollection,TElement}"/> object.
+		///     Get the data at the specified location in the current page.
 		/// </summary>
-		public struct Enumerator : IEnumerator<TElement>
-		{
-			/// <summary>
-			/// Get the source list of the enumerator.
-			/// </summary>
-			[NotNull]
-			private DynamicPagedListBase<TCollection, TElement> List { get; }
-
-			/// <summary>
-			/// Get the version of the enumerator.
-			/// </summary>
-			private int Version { get; }
-
-			/// <summary>
-			/// Get the inner enumerator used for this enumerator.
-			/// </summary>
-			[NotNull]
-			private IEnumerator<TElement> InnerEnumerator { get; }
-
-			internal Enumerator([NotNull]DynamicPagedListBase<TCollection, TElement> source)
-			{
-				List = source;
-				InnerEnumerator = source.CurrentPage.GetEnumerator();
-				Version = source._Version;
-			}
-
-			/// <summary>
-			/// Check the version of the enumrator. If the version not matches, throw an exception.
-			/// </summary>
-			private void CheckVersion()
-			{
-				if (List._Version != Version)
-				{
-					throw new InvalidOperationException("You cannot change the paging information or reload page while enumeration is proceed on this paged list.");
-				}
-			}
-
-			/// <inheritdoc />
-			public bool MoveNext()
-			{
-				CheckVersion();
-				return InnerEnumerator.MoveNext();
-			}
-
-			/// <inheritdoc />
-			public void Reset()
-			{
-				CheckVersion();
-				InnerEnumerator.Reset();
-			}
-
-			/// <inheritdoc />
-			public TElement Current
-			{
-				get
-				{
-					CheckVersion();
-					return InnerEnumerator.Current;
-				}
-			}
-
-			/// <inheritdoc />
-			object IEnumerator.Current => ((IEnumerator)InnerEnumerator).Current;
-
-			/// <inheritdoc />
-			public void Dispose()
-			{
-				InnerEnumerator.Dispose();
-			}
-		}
+		/// <param name="index">The location index in the current page, starting from zero.</param>
+		/// <returns>The element at the specified location in the current page.</returns>
+		public Task<T> GetAsync(int index) => CurrentPage.ElementAt(index);
 
 		#endregion
 	}
