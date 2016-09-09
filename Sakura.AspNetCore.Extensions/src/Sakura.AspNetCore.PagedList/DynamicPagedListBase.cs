@@ -6,7 +6,7 @@ using System.Linq;
 namespace Sakura.AspNetCore
 {
 	/// <summary>
-	///     Provide base common features for <see cref="DynamicPagedListBase{T}" /> and <see cref="DynamicQueryablePagedList{T}" />.
+	///     Provide base common features for <see cref="DynamicPagedList{T}" /> and <see cref="DynamicQueryablePagedList{T}" />.
 	/// </summary>
 	/// <typeparam name="TCollection">The collection type of the list.</typeparam>
 	/// <typeparam name="TElement">The element type of the list.</typeparam>
