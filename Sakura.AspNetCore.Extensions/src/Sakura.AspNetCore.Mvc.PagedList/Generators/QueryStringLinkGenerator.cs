@@ -68,7 +68,8 @@ namespace Sakura.AspNetCore.Mvc.Generators
 				finalUri = hostedUri.MakeRelativeUri(finalUri);
 			}
 
-			var result = finalUri.ToString();
+			// Add escape
+			var result = Uri.EscapeUriString(finalUri.ToString());
 
 			// Add start slash if necessary
 			if (!isAbsolute && isStartWithSlash)
