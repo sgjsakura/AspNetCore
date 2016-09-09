@@ -152,7 +152,8 @@ namespace Sakura.AspNetCore.Mvc.Internal
 			else if (CanLink(item))
 			{
 				linkTag = new TagBuilder("a");
-				linkTag.Attributes["href"] = item.Link;
+				// Add escape
+				linkTag.Attributes["href"] = Uri.EscapeUriString(item.Link);
 			}
 			else
 			{
