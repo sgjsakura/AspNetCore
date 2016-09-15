@@ -46,12 +46,12 @@ namespace Sakura.AspNetCore.Mvc.Generators
 
 			// Extract query string and change parameter
 			var qs = QueryHelpers.ParseQuery(uri.Query);
-			qs[queryParameterName] = new[] {queryParameterValue};
+			qs[queryParameterName] = new[] { queryParameterValue };
 
 			var qb = new QueryBuilder();
 			foreach (var item in qs)
 			{
-				qb.Add(item.Key, (IEnumerable<string>) item.Value);
+				qb.Add(item.Key, (IEnumerable<string>)item.Value);
 			}
 
 			// Rebuild uri
@@ -68,7 +68,7 @@ namespace Sakura.AspNetCore.Mvc.Generators
 				finalUri = hostedUri.MakeRelativeUri(finalUri);
 			}
 
-			var result = finalUri.ToString();
+			var result = UriHelper.Encode(finalUri);
 
 			// Add start slash if necessary
 			if (!isAbsolute && isStartWithSlash)
