@@ -16,7 +16,8 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		///     The prefix for all attributes will be storeed in <see cref="ConditionalClasses" /> dictionary. This field is
 		///     constant.
 		/// </summary>
-		[PublicAPI] public const string ConditionalClassPrefix = "asp-conditional-class-";
+		[PublicAPI]
+		public const string ConditionalClassPrefix = "asp-conditional-class-";
 
 		/// <summary>
 		///     Get or set the dictionary that stores all the conditional class definitions.
@@ -36,8 +37,8 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		{
 			// Get all items
 			var allItems = (from i in ConditionalClasses
-				where i.Value
-				select i.Key).ToList();
+							where i.Value
+							select i.Key).ToList();
 
 			// No actions if no items
 			if (allItems.Count == 0)
@@ -48,23 +49,19 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 			// The original class attribute
 			var classAttr = output.Attributes["class"];
 
-			var finalClass = string.Empty;
-
 			// If class attribute exists, merge it
-			if (classAttr != null)
+			// Original value of the class attribute
+			var originalClass = classAttr?.Value?.ToString();
+
+			// append the original class value if not null
+			if (!string.IsNullOrWhiteSpace(originalClass))
 			{
-				// Original value of the class attribute
-				var originalClass = classAttr.Value?.ToString();
-
-				// append the original class value if not null
-				if (!string.IsNullOrWhiteSpace(originalClass))
-				{
-					allItems.Add(originalClass);
-				}
-
-				// merge to the final class value
-				finalClass = string.Join(" ", allItems);
+				allItems.Add(originalClass);
 			}
+
+			// merge to the final class value
+			var finalClass = string.Join(" ", allItems);
+
 
 			// Replace original value
 			output.Attributes.SetAttribute("class", finalClass);
