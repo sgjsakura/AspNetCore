@@ -160,6 +160,12 @@ namespace Sakura.AspNetCore.Mvc.Internal
 				linkTag = new TagBuilder("span");
 			}
 
+			// Add Bootstrap v4 classes, this is not confict with bootstrap v3. However user may choose to diable it manually.
+			if (!string.Equals(item.Settings["disble-bootstrap-v4-class"], "true", StringComparison.OrdinalIgnoreCase))
+			{
+				itemTag.AddCssClass("page-item");
+				linkTag.AddCssClass("page-link");
+			}
 
 			// Append father settings
 			AppendAdditionalAttributes(itemTag, item.List.Settings, ItemAttributeSettingKeyPrefix);
@@ -182,18 +188,21 @@ namespace Sakura.AspNetCore.Mvc.Internal
 		/// <summary>
 		///     The setting prefix used to define additional container (&lt;li&gt;) HTML attributes. This field is constant.
 		/// </summary>
-		[PublicAPI] public const string ItemAttributeSettingKeyPrefix = "item-attr-";
+		[PublicAPI]
+		public const string ItemAttributeSettingKeyPrefix = "item-attr-";
 
 		/// <summary>
 		///     The setting prefix used to define additional link (&lt;a&gt; or &lt;span&gt;) HTML attributes. This field is
 		///     constant.
 		/// </summary>
-		[PublicAPI] public const string LinkAttributeSettingKeyPrefix = "link-attr-";
+		[PublicAPI]
+		public const string LinkAttributeSettingKeyPrefix = "link-attr-";
 
 		/// <summary>
 		///     The setting prefix used to define additional list (&lt;ul&gt;) HTML attributes. This field is constant.
 		/// </summary>
-		[PublicAPI] public const string ListAttributeSettingKeyPrefix = "list-attr-";
+		[PublicAPI]
+		public const string ListAttributeSettingKeyPrefix = "list-attr-";
 
 		#endregion
 	}

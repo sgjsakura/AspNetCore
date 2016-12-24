@@ -1,13 +1,13 @@
 {
 	"title": "ASP.NET Core MVC Pager",
-	"version": "2.0.9",
+	"version": "2.0.10",
 	"description": "This library provides data-paging functionality and pager UI for ASP.NET Core MVC projects.",
 	"authors": [ "Iris Sakura" ],
 
 	"packOptions": {
 		"summary": "This library provides data-paging functionality and pager UI for ASP.NET Core MVC projects.",
 		"authors": [ "Iris Sakura" ],
-		"releaseNotes": "Fix a bug that HtmlGenerator will incorrectly escape chars.",
+		"releaseNotes": "Add Bootrap v4.0.0-alpha.5 support for pager HTML generations.",
 		"owners": [ "Iris Sakura" ],
 		"tags": [ "ASP.NET", "ASP.NETCore", "MVC", "MVCCore", "Paging", "Page", "Pager", "Bootstrap" ],
 		"projectUrl": "https://github.com/sgjsakura/AspNetCore",
