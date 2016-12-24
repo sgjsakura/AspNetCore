@@ -1,10 +1,10 @@
 # ASP.NET Core Tag Helper Extension Library Usage Guideline
 
-ASP.NET Core uses a new coding writing design mode named `Tag Helpers` replacing the original `Html Helpers` utlity in order to simplify server-side HTML generation. This library is an suppliment for the official `Microsoft.AspNetCore.Mvc.TagHelpers` package and added a series of new tag helpers. This page will demostrate the usages all tag helpers provided in the `Sakura.AspNetCore.Mvc.TagHelpers` library. 
+ASP.NET Core uses a new coding writing design mode named `Tag Helpers` replacing the original `Html Helpers` utlity in order to simplify server-side HTML generation. This library is an supplement for the official `Microsoft.AspNetCore.Mvc.TagHelpers` package and added a series of new tag helpers. This page will demostrate the usages all tag helpers provided in the `Sakura.AspNetCore.Mvc.TagHelpers` library. 
 
 ## Installation
 
-To usage new tag helpers in this library, you must first install and configure it. To install this package to your project, please open `project.json` file and add a new depenedency named `Sakura.AspNetCore.Mvc.TagHelpers` in the `dependencies` section.
+To use new tag helpers provided in this library, you must first install and configure the package. In order to install it to your project, please open `project.json` file and add a new depenedency named `Sakura.AspNetCore.Mvc.TagHelpers` in the `dependencies` section.
 
 And then, you should enable new tag helpers in your MVC view. The most simple way to enable all tag helpers for all pages is add a new line in `_ViewImports.cs` files as follow:
 ```HTML
@@ -16,7 +16,6 @@ If you need to enable/disable a custom tag helper in a specified page, please se
 ## TagHelper List
 
 This section will describle the usage of all tag helpers.
-
 
 ### `EnumSelectForTagHelper`
 
