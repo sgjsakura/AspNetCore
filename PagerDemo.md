@@ -338,6 +338,12 @@ For the default `BootstrapPagerHtmlGenerator`, it is suggested that use the **Mi
 ```
 The above code will generate all `<a>` element with a setting of `data-ajax="true"`, which can enable the AJAX navigation for links. For more detailed information about AJAX behaviour controlling, please read the offical documentation of **Microsoft jQuery Unobtrusive Ajax** library.
 
+#### Bootstrap Version Compatibility Notes
+Bootstrap V4 changed the HTML class requirement for pagination elements from V3, and requies `page-item` and `page-link` classes must be explicitly specified on the `<li>` and `<a>`(or `<span>`) element in the pager. Since the package version 2.0.10 of `Sakura.AspNetCore.Mvc.PagedList`, the default `BootstrapPagerHtmlGenerator` will automatically adds these classes on pager elements. This behaviour usually does not make downside effects on pages using Boostrap version 3 since these classes are not defined in the Version 3 CSS files, and thus no actual UI effect will raised. However, if your web site defines these classes and it DO affect the pager appearance, you may use the following settings to disable these additional classes:
+```HTML
+<pager setting-disable-bootstrap-v4-class="true" />
+```
+
 *** Feature Works and Contribution
 
 The author is planned to add the following new features:
