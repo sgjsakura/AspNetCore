@@ -161,7 +161,7 @@ namespace Sakura.AspNetCore.Mvc.Internal
 			}
 
 			// Add Bootstrap v4 classes, this is not confict with bootstrap v3. However user may choose to diable it manually.
-			if (!string.Equals(item.Settings["disble-bootstrap-v4-class"], "true", StringComparison.OrdinalIgnoreCase))
+			if ( !string.Equals(item.Settings.GetValueOfDefault("disble-bootstrap-v4-class"), "true", StringComparison.OrdinalIgnoreCase))
 			{
 				itemTag.AddCssClass("page-item");
 				linkTag.AddCssClass("page-link");
