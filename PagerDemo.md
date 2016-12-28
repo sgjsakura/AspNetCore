@@ -344,7 +344,7 @@ Bootstrap V4 has changed the HTML class requirement for pagination elements, whi
 <pager setting-disable-bootstrap-v4-class="true" />
 ```
 
-### Feature Works and Contribution
+### Future Works and Contribution
 
 The author is planned to add the following new features:
 - [ ] Hash (Fragment) based URL generators
