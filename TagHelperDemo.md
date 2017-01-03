@@ -203,11 +203,13 @@ Now with these two tag helpers, you can easy add HTML style code to show/hide co
 </div>
 ```
 The above code make a authorization check on the during the page generation, and if the current user meets the requirements for the `Edit` policy defined in this application, this element and its content will be rendered as usual; otherwise, this element and all its content will be removed. The removal is done in backend, thus the end user cannot found any hint in the final HTML. 
-*Note: This TagHelper only support the policy-based authorization (which are similar as the major usage of the `AuthorizeAttribute`), Roles-based or other type authorization is not supported. To learn how to define policies in your application, please see the ASP.NET Core Official Documentation.*
+
+*Note: This TagHelper only supports policy-based authorization (which are similar as the major usage of the `AuthorizeAttribute`), Roles-based or other type authorization is not supported. To learn how to define policies in your application, please see the ASP.NET Core Official Documentation.*
 
 The `AuthorizeAttributeTagHelper` also supports an additional attribute named `asp-authorize-resource` to support the `resource` argument in `IAuthorizationService.AuthorizeAsync` method. This argument is not used in the default authorization service provided by ASP.NET Core library, and thus you usually do not need to set it. However, if you are using any 3rd authorization middleware which may take benefit from this extra argument, you can provide the value easily within HTML style code.
 
 The `AuthorizeAttributeTagHelper` can be used in any existing HTML element, however, only one root element and its content can be affected in one time. If you want to affect multiple neighboring same level elements, a standalone `<authorize>` tag is provided in `AuthorizeTagHelper`. Its usage is similar as the above, the following code shows an example:
+
 ```HTML
 <authorize policy="Edit" resource="@null">
   <div></div>
