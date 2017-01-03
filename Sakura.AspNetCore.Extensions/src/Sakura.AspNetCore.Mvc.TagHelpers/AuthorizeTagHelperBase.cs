@@ -46,16 +46,19 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		[UsedImplicitly(ImplicitUseKindFlags.Assign)]
 		public ViewContext ViewContext { get; set; }
 
+		/// <summary>
+		/// Get a value that indicates if the current user is authorized.
+		/// </summary>
+		/// <returns>If the current user is authorized, returns <c>true</c>; otherwise, returns <c>false</c>.</returns>
+		protected Task<bool> IsAuthorizedAsync() => AuthorizationService.AuthorizeAsync(ViewContext.HttpContext.User, Resource, Policy);
+
 		#region Overrides of TagHelper
 
 		/// <inheritdoc />
 		public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
 		{
-			// Omit the start and end tag of itself.
-			output.TagName = null;
-
-			// If authorization fails, do not output anything.
-			if (!await AuthorizationService.AuthorizeAsync(ViewContext.HttpContext.User, Resource, Policy))
+			// If the authroization rule is not melt, do not output anything.
+			if (!await IsAuthorizedAsync())
 			{
 				output.SuppressOutput();
 			}

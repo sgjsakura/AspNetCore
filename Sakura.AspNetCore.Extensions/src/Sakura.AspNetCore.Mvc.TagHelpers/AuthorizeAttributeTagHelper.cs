@@ -57,5 +57,18 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		[HtmlAttributeName(ResourceAttributeName)]
 		[UsedImplicitly(ImplicitUseKindFlags.Assign)]
 		public override object Resource { get; set; }
+
+		#region Overrides of TagHelper
+
+		/// <inheritdoc />
+		public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
+		{
+			if (!await IsAuthorizedAsync())
+			{
+				
+			}
+		}
+
+		#endregion
 	}
 }
