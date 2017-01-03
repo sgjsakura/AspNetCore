@@ -49,9 +49,9 @@ namespace JetBrains.Annotations
 	/// </code>
 	/// </example>
 	[AttributeUsage(
-		 AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property |
-		 AttributeTargets.Delegate | AttributeTargets.Field | AttributeTargets.Event |
-		 AttributeTargets.Class | AttributeTargets.Interface | AttributeTargets.GenericParameter)]
+		AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property |
+		AttributeTargets.Delegate | AttributeTargets.Field | AttributeTargets.Event |
+		AttributeTargets.Class | AttributeTargets.Interface | AttributeTargets.GenericParameter)]
 	[Conditional("JETBRAINS_ANNOTATIONS")]
 	internal sealed class CanBeNullAttribute : Attribute
 	{
@@ -68,9 +68,9 @@ namespace JetBrains.Annotations
 	/// </code>
 	/// </example>
 	[AttributeUsage(
-		 AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property |
-		 AttributeTargets.Delegate | AttributeTargets.Field | AttributeTargets.Event |
-		 AttributeTargets.Class | AttributeTargets.Interface | AttributeTargets.GenericParameter)]
+		AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property |
+		AttributeTargets.Delegate | AttributeTargets.Field | AttributeTargets.Event |
+		AttributeTargets.Class | AttributeTargets.Interface | AttributeTargets.GenericParameter)]
 	[Conditional("JETBRAINS_ANNOTATIONS")]
 	internal sealed class NotNullAttribute : Attribute
 	{
@@ -82,8 +82,8 @@ namespace JetBrains.Annotations
 	///     or of the Lazy.Value property can never be null.
 	/// </summary>
 	[AttributeUsage(
-		 AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property |
-		 AttributeTargets.Delegate | AttributeTargets.Field)]
+		AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property |
+		AttributeTargets.Delegate | AttributeTargets.Field)]
 	[Conditional("JETBRAINS_ANNOTATIONS")]
 	internal sealed class ItemNotNullAttribute : Attribute
 	{
@@ -95,8 +95,8 @@ namespace JetBrains.Annotations
 	///     or of the Lazy.Value property can be null.
 	/// </summary>
 	[AttributeUsage(
-		 AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property |
-		 AttributeTargets.Delegate | AttributeTargets.Field)]
+		AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property |
+		AttributeTargets.Delegate | AttributeTargets.Field)]
 	[Conditional("JETBRAINS_ANNOTATIONS")]
 	internal sealed class ItemCanBeNullAttribute : Attribute
 	{
@@ -107,7 +107,7 @@ namespace JetBrains.Annotations
 	///     in particular scope where this annotation is used (type declaration or whole assembly).
 	/// </summary>
 	[AttributeUsage(
-		 AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Interface | AttributeTargets.Assembly)]
+		AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Interface | AttributeTargets.Assembly)]
 	[Conditional("JETBRAINS_ANNOTATIONS")]
 	internal sealed class ImplicitNotNullAttribute : Attribute
 	{
@@ -129,8 +129,8 @@ namespace JetBrains.Annotations
 	/// </code>
 	/// </example>
 	[AttributeUsage(
-		 AttributeTargets.Constructor | AttributeTargets.Method |
-		 AttributeTargets.Property | AttributeTargets.Delegate)]
+		AttributeTargets.Constructor | AttributeTargets.Method |
+		AttributeTargets.Property | AttributeTargets.Delegate)]
 	[Conditional("JETBRAINS_ANNOTATIONS")]
 	internal sealed class StringFormatMethodAttribute : Attribute
 	{
@@ -610,8 +610,8 @@ namespace JetBrains.Annotations
 	/// </code>
 	/// </example>
 	[AttributeUsage(
-		 AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Parameter | AttributeTargets.Method |
-		 AttributeTargets.Class | AttributeTargets.Interface | AttributeTargets.Struct | AttributeTargets.GenericParameter)]
+		AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Parameter | AttributeTargets.Method |
+		AttributeTargets.Class | AttributeTargets.Interface | AttributeTargets.Struct | AttributeTargets.GenericParameter)]
 	[Conditional("JETBRAINS_ANNOTATIONS")]
 	internal sealed class ProvidesContextAttribute : Attribute
 	{
@@ -629,7 +629,7 @@ namespace JetBrains.Annotations
 		{
 		}
 
-		public PathReferenceAttribute([NotNull, PathReference] string basePath)
+		public PathReferenceAttribute([NotNull] [PathReference] string basePath)
 		{
 			BasePath = basePath;
 		}

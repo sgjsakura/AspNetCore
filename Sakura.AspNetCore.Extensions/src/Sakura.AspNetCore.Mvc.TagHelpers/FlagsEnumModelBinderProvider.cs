@@ -17,9 +17,7 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		public IModelBinder GetBinder([NotNull] ModelBinderProviderContext context)
 		{
 			if (context == null)
-			{
 				throw new ArgumentNullException(nameof(context));
-			}
 
 			return context.Metadata.IsFlagsEnum ? new FlagsEnumModelBinder() : null;
 		}

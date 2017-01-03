@@ -1,13 +1,15 @@
 {
 	"version": "1.3.2",
 	"title": "ASP.NET Core MVC Extensions Library",
-	"description": "ASP.NET Core MVC Extensions Library provides addtional tag helpers and utility for simplify ASP.NET Core web application development.",
-	"authors": [ "Iris Sakura" ],
+	"description":
+		"ASP.NET Core MVC Extensions Library provides addtional tag helpers and utility for simplify ASP.NET Core web application development.",
+	"authors": ["Iris Sakura"],
 
 	"packOptions": {
-		"summary": "This project adds support for enum based selector, checkbox, select option labels, conditional class tags, and other useful addtional tag helpers to simplify ASP.NET Core web application development.",
-		"owners": [ "Iris Sakura" ],
-		"tags": [ "ASP.NET", "ASP.NETCore", "MVC", "MVCCore", "TagHelper", "Enum", "Flags", "OptionLabel", "Select", "Option" ],
+		"summary":
+			"This project adds support for enum based selector, checkbox, select option labels, conditional class tags, and other useful addtional tag helpers to simplify ASP.NET Core web application development.",
+		"owners": ["Iris Sakura"],
+		"tags": ["ASP.NET", "ASP.NETCore", "MVC", "MVCCore", "TagHelper", "Enum", "Flags", "OptionLabel", "Select", "Option"],
 		"releaseNotes": "Fix a bug that authorization tag helper does not generate the root element.",
 		"projectUrl": "https://github.com/sgjsakura/AspNetCore",
 		"licenseUrl": "https://github.com/sgjsakura/AspNetCore/blob/master/LICENSE.txt"
@@ -38,6 +40,6 @@
 	},
 
 	"scripts": {
-		"postcompile": [ "dotnet pack --no-build -c Release" ]
+		"postcompile": ["dotnet pack --no-build -c Release"]
 	}
 }

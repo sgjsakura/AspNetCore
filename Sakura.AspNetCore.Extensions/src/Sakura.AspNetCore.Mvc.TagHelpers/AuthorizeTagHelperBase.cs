@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Authorization;
@@ -12,14 +9,15 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 namespace Sakura.AspNetCore.Mvc.TagHelpers
 {
 	/// <summary>
-	/// Provide common implementations for both <see cref="AuthorizeTagHelper"/> and <see cref="AuthorizeAttributeTagHelper"/>.
+	///     Provide common implementations for both <see cref="AuthorizeTagHelper" /> and
+	///     <see cref="AuthorizeAttributeTagHelper" />.
 	/// </summary>
 	public abstract class AuthorizeTagHelperBase : TagHelper
 	{
 		/// <summary>
-		/// Initialize a new instance of <see cref="AuthorizeTagHelperBase"/>.
+		///     Initialize a new instance of <see cref="AuthorizeTagHelperBase" />.
 		/// </summary>
-		/// <param name="authorizationService">The <see cref="IAuthorizationService"/> instance.</param>
+		/// <param name="authorizationService">The <see cref="IAuthorizationService" /> instance.</param>
 		protected AuthorizeTagHelperBase(IAuthorizationService authorizationService)
 		{
 			AuthorizationService = authorizationService;
@@ -28,18 +26,18 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		private IAuthorizationService AuthorizationService { get; }
 
 		/// <summary>
-		/// Get the authoization policy name which current user must melt in order to see the content.
+		///     Get the authoization policy name which current user must melt in order to see the content.
 		/// </summary>
 		public abstract string Policy { get; set; }
 
 		/// <summary>
-		/// Get or set the additional resource used to authoirzation check if necessary.
+		///     Get or set the additional resource used to authoirzation check if necessary.
 		/// </summary>
-		/// <seealso cref="IAuthorizationService.AuthorizeAsync(ClaimsPrincipal, object, string)"/>
+		/// <seealso cref="IAuthorizationService.AuthorizeAsync(ClaimsPrincipal, object, string)" />
 		public abstract object Resource { get; set; }
 
 		/// <summary>
-		/// Get or set the view context for this tag helper.
+		///     Get or set the view context for this tag helper.
 		/// </summary>
 		[HtmlAttributeNotBound]
 		[ViewContext]
@@ -47,10 +45,11 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		public ViewContext ViewContext { get; set; }
 
 		/// <summary>
-		/// Get a value that indicates if the current user is authorized.
+		///     Get a value that indicates if the current user is authorized.
 		/// </summary>
 		/// <returns>If the current user is authorized, returns <c>true</c>; otherwise, returns <c>false</c>.</returns>
-		protected Task<bool> IsAuthorizedAsync() => AuthorizationService.AuthorizeAsync(ViewContext.HttpContext.User, Resource, Policy);
+		protected Task<bool> IsAuthorizedAsync()
+			=> AuthorizationService.AuthorizeAsync(ViewContext.HttpContext.User, Resource, Policy);
 
 		#region Overrides of TagHelper
 
@@ -59,9 +58,7 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		{
 			// If the authroization rule is not melt, do not output anything.
 			if (!await IsAuthorizedAsync())
-			{
 				output.SuppressOutput();
-			}
 		}
 
 		#endregion

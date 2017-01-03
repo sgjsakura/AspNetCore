@@ -24,19 +24,13 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 			tagBuilder.InnerHtml.SetContent(text);
 
 			if (item.Value != null)
-			{
 				tagBuilder.Attributes["value"] = item.Value;
-			}
 
 			if (item.Selected)
-			{
 				tagBuilder.Attributes["selected"] = "selected";
-			}
 
 			if (item.Disabled)
-			{
 				tagBuilder.Attributes["disabled"] = "disabled";
-			}
 
 			return tagBuilder;
 		}
@@ -47,14 +41,12 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 
 			// Make optionLabel the first item that gets rendered.
 			if (optionLabel != null)
-			{
 				listItemBuilder.AppendLine(GenerateOption(new SelectListItem
 				{
 					Text = optionLabel,
 					Value = string.Empty,
 					Selected = false
 				}));
-			}
 
 			// Group items in the SelectList if requested.
 			// Treat each item with Group == null as a member of a unique group
@@ -68,29 +60,21 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 				{
 					var groupBuilder = new TagBuilder("optgroup");
 					if (optGroup.Name != null)
-					{
 						groupBuilder.MergeAttribute("label", optGroup.Name);
-					}
 
 					if (optGroup.Disabled)
-					{
 						groupBuilder.MergeAttribute("disabled", "disabled");
-					}
 
 					groupBuilder.InnerHtml.AppendLine();
 					foreach (var item in group)
-					{
 						groupBuilder.InnerHtml.AppendLine(GenerateOption(item));
-					}
 
 					listItemBuilder.AppendLine(groupBuilder);
 				}
 				else
 				{
 					foreach (var item in group)
-					{
 						listItemBuilder.AppendLine(GenerateOption(item));
-					}
 				}
 			}
 

@@ -92,18 +92,14 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 
 			// Do nothing if no selected value is set.
 			if (selectedValue == null)
-			{
 				return;
-			}
 
 			// Get the actual value
 			var value = context.AllAttributes["value"]?.Value as string;
 
 			// Compare value
 			if (string.Equals(value, selectedValue, GetSelectedValueCompareModeFromContext(context)))
-			{
 				MarkAsSelected(output);
-			}
 		}
 	}
 }
