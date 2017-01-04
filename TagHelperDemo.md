@@ -194,7 +194,7 @@ While if the condition is not satisfied, this attribute will be simplely ignored
 
 ### `AuthorizeTagHelper` and `AuthorizeAttributeTagHelper`
 
-Providing different content according to user's role is a common task in morden web applications. Usually the user authorization checking should be done in the backend (controlleres and actions), writing complex service invocations in CSHTML file may be not a good idea. However, sometimes it is still accepable to do so, especially when backend coding is not available (e.g. for layout files). To make user authorization check in CSHTML files, you need to inject a service with type `IAuthorizationService` and invoke the `AuthorizeAsync` method together with `await` and `if` keywords. This manner is a bit lengthy, and xixing Razor blocks and HTML is also not friendly for code maintaince.
+Providing different content according to user's role is a common task in morden web applications. Usually the user authorization checking should be done in the backend (controlleres and actions), writing complex service invocations in CSHTML file may be not a good idea. However, sometimes it is still accepable to do so, especially when backend coding is not available (e.g. for layout files). To make user authorization check in CSHTML files, you need to inject a service with type `IAuthorizationService` and invoke the `AuthorizeAsync` method together with `await` and `if` keywords. This manner is a bit lengthy, and also mixing Razor blocks and HTML is  not friendly for code maintance.
 
 Now with these two tag helpers, you can easy add HTML style code to show/hide contents according to the current user's permission. The easiest usage is as simple as add one new `asp-authorize-policy` tag-attribute in any HTMl element, which is provided by `AuthorizeAttributeTagHelper`, a simple code is just like following:
 ```HTML
@@ -211,7 +211,8 @@ The `AuthorizeAttributeTagHelper` also supports an additional attribute named `a
 The `AuthorizeAttributeTagHelper` can be used in any existing HTML element, however, only one root element and its content can be affected in one time. If you want to affect multiple neighboring same level elements, a standalone `<authorize>` tag is provided in `AuthorizeTagHelper`. Its usage is similar as the above, the following code shows an example:
 
 ```HTML
-<authorize policy="Edit" resource="@null">
+<!-- you may also use "resource" attribute to provide resource argument if necessary -->
+<authorize policy="Edit">
   <div></div>
   <div></div>
 </authorize>
