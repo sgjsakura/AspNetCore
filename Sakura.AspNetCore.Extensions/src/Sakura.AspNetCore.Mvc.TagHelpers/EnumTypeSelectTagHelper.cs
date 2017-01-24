@@ -20,18 +20,14 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		protected override Type GetEnumType()
 		{
 			if (EnumType == null)
-			{
 				throw new InvalidOperationException($"The expression for '{EnumTypeAttributeName}' attribute cannot be null.");
-			}
 
 			// Remove nullable if necessary
 			var type = Nullable.GetUnderlyingType(EnumType) ?? EnumType;
 
 			if (!type.GetTypeInfo().IsEnum)
-			{
 				throw new InvalidOperationException(
 					$"The specified type '{EnumType.AssemblyQualifiedName}' for '{EnumTypeAttributeName}' attribute is not a valid enum type nor a nullable enum type.");
-			}
 
 			return type;
 		}

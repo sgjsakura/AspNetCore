@@ -41,9 +41,7 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 
 			// No attribute is defined, return name immediately
 			if (attr == null)
-			{
 				return memberInfo.Name;
-			}
 
 			// Variable to store the result
 			string result;
@@ -69,9 +67,7 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 
 			// No result it found from the source, fallback to name
 			if (string.IsNullOrEmpty(result))
-			{
 				result = memberInfo.Name;
-			}
 
 			// Return
 			return result;

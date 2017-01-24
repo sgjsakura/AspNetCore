@@ -17,7 +17,7 @@ If you need to enable/disable a custom tag helper in a specified page, please se
 
 This section will describle the usage of all tag helpers.
 
-### `EnumSelectForTagHelper`
+### `EnumSelectForTagHelper` and `EnumSelectTypeHelper`
 
 Generation a list of all enum items and allow user to select one of them is a common task in MVC projects. Currently, you may use `HtmlHelper.GenerateEnumList` to generated a `SelectItemList` object and then set it to `asp-items` attributes on an `<select>` tags. These steps can work, however it is a bit complex as well as you can not control the generated item's name and value, thus it will be UI unfriendly since the enum names are always short terms without spaces between words, and it also cannot be localizable.
 
@@ -49,7 +49,7 @@ public class Project
 
 The actual page will be generated as:
 ```HTML
-<select name="Gender">
+<select name="AccessType">
   <option value="Public">Public</option>
   <option value="Private">Private</option>
   <option value="Community">Community</option>
@@ -64,7 +64,7 @@ An important enhancement provied by this tag helper is that you can use `asp-tex
 ```
 will generate the following HTML (using the same backend type definition as first sample):
 ```HTML
-<select name="Gender">
+<select name="AccessType">
   <option value="Public">Everyone can access this project</option>
   <option value="Private">Only specified users can access this project</option>
   <option value="Community">Everyone can access and update this project</option>
@@ -79,7 +79,7 @@ The `asp-value-source` is used to control the value of options. The default valu
 ```
 Will be generated as:
 ```HTML
-<select name="Gender">
+<select name="AccessType">
   <option value="0">Public</option>
   <option value="1">Private</option>
   <option value="2">Community</option>
@@ -87,9 +87,11 @@ Will be generated as:
 ```
 *Note: The default MVC model binders can handle enum names correctly, thus you usually do not need to set this attribute.*
 
-### `EnumSelectTypeTagHelper`
+The `EnumSelectTypeTagHelper` is similar ot `EnumSelectForTagHelper`, however you use `asp-enum-type` to specify the enum type explicitly instead of inferring it from a model expression. In such case you may also need to add the `name` attribute for the `<select>` tag manually in order to send its data to server correctly. The following code is a sample usage and will generate the same HTML as the above one:
 
-This tag helper is similar ot `EnumSelectForTagHelper`, however you use `asp-enum-type` to specify the enum type explicitly instead of inferring it from a model expression. In such case you may also need to add the `name` attribute for the `<select>` tag manually in order to send its data to server correctly.
+```HTML
+<select asp-enum-type="@typeof(ProjectAccessType)" name="AccessType"></select>
+```
 
 ### `SelectValueTagHelper`
 
@@ -189,6 +191,33 @@ If the C# expresion condition `currentPage == 1` is satisfied, the above code wi
 <a class="page active" href="?page=1">Page 1<a>
 ```
 While if the condition is not satisfied, this attribute will be simplely ignored.
+
+### `AuthorizeTagHelper` and `AuthorizeAttributeTagHelper`
+
+Providing different content according to user's role is a common task in morden web applications. Usually the user authorization checking should be done in the backend (controlleres and actions), writing complex service invocations in CSHTML file may be not a good idea. However, sometimes it is still accepable to do so, especially when backend coding is not available (e.g. for layout files). To make user authorization check in CSHTML files, you need to inject a service with type `IAuthorizationService` and invoke the `AuthorizeAsync` method together with `await` and `if` keywords. This manner is a bit lengthy, and also mixing Razor blocks and HTML is  not friendly for code maintance.
+
+Now with these two tag helpers, you can easy add HTML style code to show/hide contents according to the current user's permission. The easiest usage is as simple as add one new `asp-authorize-policy` tag-attribute in any HTMl element, which is provided by `AuthorizeAttributeTagHelper`, a simple code is just like following:
+```HTML
+<div asp-authorize-policy="Edit">
+  <!-- any content -->
+</div>
+```
+The above code make a authorization check on the during the page generation, and if the current user meets the requirements for the `Edit` policy defined in this application, this element and its content will be rendered as usual; otherwise, this element and all its content will be removed. The removal is done in backend, thus the end user cannot found any hint in the final HTML. 
+
+*Note: This TagHelper only supports policy-based authorization (which are similar as the major usage of the `AuthorizeAttribute`), Roles-based or other type authorization is not supported. To learn how to define policies in your application, please see the ASP.NET Core Official Documentation.*
+
+The `AuthorizeAttributeTagHelper` also supports an additional attribute named `asp-authorize-resource` to support the `resource` argument in `IAuthorizationService.AuthorizeAsync` method. This argument is not used in the default authorization service provided by ASP.NET Core library, and thus you usually do not need to set it. However, if you are using any 3rd authorization middleware which may take benefit from this extra argument, you can provide the value easily within HTML style code.
+
+The `AuthorizeAttributeTagHelper` can be used in any existing HTML element, however, only one root element and its content can be affected in one time. If you want to affect multiple neighboring same level elements, a standalone `<authorize>` tag is provided in `AuthorizeTagHelper`. Its usage is similar as the above, the following code shows an example:
+
+```HTML
+<!-- you may also use "resource" attribute to provide resource argument if necessary -->
+<authorize policy="Edit">
+  <div></div>
+  <div></div>
+</authorize>
+```
+You may see the attribute name is simplified and it can also surrounds a series of elements.
 
 ### `IdFormatTagHelper`
 

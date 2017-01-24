@@ -35,9 +35,7 @@ namespace Microsoft.Framework.DependencyInjection
 			foreach (var item in source)
 			{
 				if (predicate(item))
-				{
 					return result;
-				}
 
 				result++;
 			}
@@ -58,9 +56,7 @@ namespace Microsoft.Framework.DependencyInjection
 		{
 			// Argument Check
 			if (modelBinders == null)
-			{
 				throw new ArgumentNullException(nameof(modelBinders));
-			}
 
 			var providerToInsert = new FlagsEnumModelBinderProvider();
 
@@ -68,13 +64,9 @@ namespace Microsoft.Framework.DependencyInjection
 			var index = modelBinders.FirstIndexOfOrDefault(i => i is SimpleTypeModelBinderProvider);
 
 			if (index != -1)
-			{
 				modelBinders.Insert(index, providerToInsert);
-			}
 			else
-			{
 				modelBinders.Add(providerToInsert);
-			}
 		}
 
 		/// <summary>
@@ -85,9 +77,7 @@ namespace Microsoft.Framework.DependencyInjection
 		public static MvcOptions AddFlagsEnumModelBinderProvider(this MvcOptions options)
 		{
 			if (options == null)
-			{
 				throw new ArgumentNullException(nameof(options));
-			}
 
 			options.ModelBinderProviders.InsertFlagsEnumModelBinderProvider();
 			return options;

@@ -30,17 +30,13 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		{
 			// Only accept enum values
 			if (!bindingContext.ModelMetadata.IsFlagsEnum)
-			{
 				return TaskCache.CompletedTask;
-			}
 
 			var provideValue = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
 
 			// Do nothing if there is no actual values
 			if (provideValue == ValueProviderResult.None)
-			{
 				return TaskCache.CompletedTask;
-			}
 
 			// Get the real enum type
 			var enumType = bindingContext.ModelType;

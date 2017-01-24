@@ -67,15 +67,11 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		{
 			// Argument check
 			if (EnumFlagValue == null)
-			{
 				throw new InvalidOperationException($"The value of the {EnumFlagValueAttributeName} attribute cannot be empty.");
-			}
 
 			if (!EnumFlagFor.ModelExplorer.Metadata.IsFlagsEnum)
-			{
 				throw new InvalidOperationException(
 					$"The model expression type must be enum flag when {EnumFlagValueAttributeName} is specified");
-			}
 
 
 			// Get base type and remove nullable
@@ -85,16 +81,12 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 			// Get the defined enum name
 			var enumName = Enum.GetName(type, EnumFlagValue);
 			if (enumName == null)
-			{
 				throw new InvalidOperationException(
 					$"The value of the {EnumFlagValueAttributeName} attribute is not a valid enum flag item.");
-			}
 
 			// Do nothing if value is null
 			if (EnumFlagFor.Model == null)
-			{
 				return;
-			}
 
 			// Set name and value
 			output.Attributes.SetAttribute("name", EnumFlagFor.Name);
@@ -110,9 +102,7 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 			{
 				var attr = output.Attributes["checked"];
 				if (attr != null)
-				{
 					output.Attributes.Remove(attr);
-				}
 			}
 		}
 	}
