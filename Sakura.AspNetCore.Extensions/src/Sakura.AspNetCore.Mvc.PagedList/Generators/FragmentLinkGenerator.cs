@@ -19,7 +19,7 @@ namespace Sakura.AspNetCore.Mvc.Generators
 		///     recommended. The <paramref name="currentUri" /> argument in this method has been handled and is ensured to be
 		///     absolute. The generator will correctly recover it to the original format after handling.
 		/// </remarks>
-		protected override string HandleUriCore(string currentUri, PagerItemGenerationContext context)
+		protected override Uri HandleUriCore(Uri currentUri, PagerItemGenerationContext context)
 		{
 			// Create URI and change fragment
 			var uriBuilder = new UriBuilder(currentUri)
@@ -27,7 +27,7 @@ namespace Sakura.AspNetCore.Mvc.Generators
 				Fragment = GenerateFragment(context)
 			};
 
-			return uriBuilder.ToString();
+			return uriBuilder.Uri;
 		}
 
 

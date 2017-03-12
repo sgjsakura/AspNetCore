@@ -33,9 +33,7 @@ namespace Sakura.AspNetCore.Mvc
 		public static IPagerItemContentGenerator FromConfiguration(string configurationText)
 		{
 			if (configurationText == null)
-			{
 				throw new ArgumentNullException(nameof(configurationText));
-			}
 
 			var pattern = @"^(?<type>.*?)(:(?<exp>.*)?)$";
 
@@ -44,9 +42,7 @@ namespace Sakura.AspNetCore.Mvc
 				RegexOptions.Singleline);
 
 			if (!matchResult.Success)
-			{
 				throw new ArgumentException("The configurationText cannot be parsed.", nameof(configurationText));
-			}
 
 			// Type text, normalize first
 			var type = matchResult.Groups["type"].Value.Trim().ToLowerInvariant();
@@ -84,14 +80,20 @@ namespace Sakura.AspNetCore.Mvc
 		/// </summary>
 		/// <param name="text">The generated text content.</param>
 		/// <returns>The pager item content generator object.</returns>
-		public static IPagerItemContentGenerator Text(string text) => new SimpleStringContentGenerator(text, true);
+		public static IPagerItemContentGenerator Text(string text)
+		{
+			return new SimpleStringContentGenerator(text, true);
+		}
 
 		/// <summary>
 		///     Create a pager item content generator that generates a fixed html content.
 		/// </summary>
 		/// <param name="html">The generated html content.</param>
 		/// <returns>The pager item content generator object.</returns>
-		public static IPagerItemContentGenerator Html(string html) => new SimpleStringContentGenerator(html, false);
+		public static IPagerItemContentGenerator Html(string html)
+		{
+			return new SimpleStringContentGenerator(html, false);
+		}
 
 		/// <summary>
 		///     Create a pager item content generator that generates a <see cref="IHtmlContent" /> object.
@@ -100,7 +102,9 @@ namespace Sakura.AspNetCore.Mvc
 		/// <returns>The pager item content generator object.</returns>
 		/// <returns></returns>
 		public static IPagerItemContentGenerator Content(IHtmlContent content)
-			=> new CustomHtmlContentGenerator(context => content);
+		{
+			return new CustomHtmlContentGenerator(context => content);
+		}
 
 		/// <summary>
 		///     Create a pager item content generator that generates text content using a format string.
@@ -112,7 +116,9 @@ namespace Sakura.AspNetCore.Mvc
 		/// </param>
 		/// <returns>The pager item content generator object.</returns>
 		public static IPagerItemContentGenerator TextFormat(string textFormat, IFormatProvider formatProvider = null)
-			=> new FormattedStringContentGenerator(textFormat, true, formatProvider);
+		{
+			return new FormattedStringContentGenerator(textFormat, true, formatProvider);
+		}
 
 		/// <summary>
 		///     Create a pager item content generator that generates html content using a format string.
@@ -124,7 +130,9 @@ namespace Sakura.AspNetCore.Mvc
 		/// </param>
 		/// <returns>The pager item content generator object.</returns>
 		public static IPagerItemContentGenerator HtmlFormat(string htmlFormat, IFormatProvider formatProvider = null)
-			=> new FormattedStringContentGenerator(htmlFormat, false, formatProvider);
+		{
+			return new FormattedStringContentGenerator(htmlFormat, false, formatProvider);
+		}
 
 		#endregion
 
@@ -136,7 +144,9 @@ namespace Sakura.AspNetCore.Mvc
 		/// <param name="textGenerator">The generation method.</param>
 		/// <returns>The pager item content generator object.</returns>
 		public static IPagerItemContentGenerator CustomText(Func<PagerItemGenerationContext, string> textGenerator)
-			=> new CustomStringContentGenerator(textGenerator, true);
+		{
+			return new CustomStringContentGenerator(textGenerator, true);
+		}
 
 		/// <summary>
 		///     Create a pager item content generator that generates text content using a custom generating method.
@@ -144,7 +154,9 @@ namespace Sakura.AspNetCore.Mvc
 		/// <param name="textGenerator">The generation method.</param>
 		/// <returns>The pager item content generator object.</returns>
 		public static IPagerItemContentGenerator CustomText(Func<PagerItem, string> textGenerator)
-			=> CustomText(context => textGenerator(context.PagerItem));
+		{
+			return CustomText(context => textGenerator(context.PagerItem));
+		}
 
 		/// <summary>
 		///     Create a pager item content generator that generates text content using a custom generating method.
@@ -152,7 +164,9 @@ namespace Sakura.AspNetCore.Mvc
 		/// <param name="textGenerator">The generation method.</param>
 		/// <returns>The pager item content generator object.</returns>
 		public static IPagerItemContentGenerator CustomText(Func<int, string> textGenerator)
-			=> CustomText(context => textGenerator(context.PagerItem.PageNumber));
+		{
+			return CustomText(context => textGenerator(context.PagerItem.PageNumber));
+		}
 
 		/// <summary>
 		///     Create a pager item content generator that generates text content using a custom generating method.
@@ -160,7 +174,9 @@ namespace Sakura.AspNetCore.Mvc
 		/// <param name="textGenerator">The generation method.</param>
 		/// <returns>The pager item content generator object.</returns>
 		public static IPagerItemContentGenerator CustomText(Func<string> textGenerator)
-			=> CustomText((PagerItemGenerationContext context) => textGenerator());
+		{
+			return CustomText((PagerItemGenerationContext context) => textGenerator());
+		}
 
 		#endregion
 
@@ -172,7 +188,9 @@ namespace Sakura.AspNetCore.Mvc
 		/// <param name="htmlGenerator">The generation method.</param>
 		/// <returns>The pager item content generator object.</returns>
 		public static IPagerItemContentGenerator CustomHtml(Func<PagerItemGenerationContext, string> htmlGenerator)
-			=> new CustomStringContentGenerator(htmlGenerator, false);
+		{
+			return new CustomStringContentGenerator(htmlGenerator, false);
+		}
 
 		/// <summary>
 		///     Create a pager item content generator that generates html content using a custom generating method.
@@ -180,7 +198,9 @@ namespace Sakura.AspNetCore.Mvc
 		/// <param name="htmlGenerator">The generation method.</param>
 		/// <returns>The pager item content generator object.</returns>
 		public static IPagerItemContentGenerator CustomHtml(Func<PagerItem, string> htmlGenerator)
-			=> CustomHtml(context => htmlGenerator(context.PagerItem));
+		{
+			return CustomHtml(context => htmlGenerator(context.PagerItem));
+		}
 
 		/// <summary>
 		///     Create a pager item content generator that generates html content using a custom generating method.
@@ -188,7 +208,9 @@ namespace Sakura.AspNetCore.Mvc
 		/// <param name="htmlGenerator">The generation method.</param>
 		/// <returns>The pager item content generator object.</returns>
 		public static IPagerItemContentGenerator CustomHtml(Func<int, string> htmlGenerator)
-			=> CustomHtml(context => htmlGenerator(context.PagerItem.PageNumber));
+		{
+			return CustomHtml(context => htmlGenerator(context.PagerItem.PageNumber));
+		}
 
 		/// <summary>
 		///     Create a pager item content generator that generates html content using a custom generating method.
@@ -196,7 +218,9 @@ namespace Sakura.AspNetCore.Mvc
 		/// <param name="htmlGenerator">The generation method.</param>
 		/// <returns>The pager item content generator object.</returns>
 		public static IPagerItemContentGenerator CustomHtml(Func<string> htmlGenerator)
-			=> CustomHtml((PagerItemGenerationContext context) => htmlGenerator());
+		{
+			return CustomHtml((PagerItemGenerationContext context) => htmlGenerator());
+		}
 
 		#endregion
 
@@ -207,8 +231,11 @@ namespace Sakura.AspNetCore.Mvc
 		/// </summary>
 		/// <param name="contentGenerator">The generation method.</param>
 		/// <returns>The pager item content generator object.</returns>
-		public static IPagerItemContentGenerator CustomContent(Func<PagerItemGenerationContext, IHtmlContent> contentGenerator)
-			=> new CustomHtmlContentGenerator(contentGenerator);
+		public static IPagerItemContentGenerator CustomContent(
+			Func<PagerItemGenerationContext, IHtmlContent> contentGenerator)
+		{
+			return new CustomHtmlContentGenerator(contentGenerator);
+		}
 
 		/// <summary>
 		///     Create a pager item content generator that generates html content using a custom generating method.
@@ -216,7 +243,9 @@ namespace Sakura.AspNetCore.Mvc
 		/// <param name="contentGenerator">The generation method.</param>
 		/// <returns>The pager item content generator object.</returns>
 		public static IPagerItemContentGenerator CustomContent(Func<PagerItem, IHtmlContent> contentGenerator)
-			=> CustomContent(context => contentGenerator(context.PagerItem));
+		{
+			return CustomContent(context => contentGenerator(context.PagerItem));
+		}
 
 		/// <summary>
 		///     Create a pager item content generator that generates html content using a custom generating method.
@@ -224,7 +253,9 @@ namespace Sakura.AspNetCore.Mvc
 		/// <param name="contentGenerator">The generation method.</param>
 		/// <returns>The pager item content generator object.</returns>
 		public static IPagerItemContentGenerator CustomContent(Func<int, IHtmlContent> contentGenerator)
-			=> CustomContent(context => contentGenerator(context.PagerItem.PageNumber));
+		{
+			return CustomContent(context => contentGenerator(context.PagerItem.PageNumber));
+		}
 
 		/// <summary>
 		///     Create a pager item content generator that generates html content using a custom generating method.
@@ -232,7 +263,9 @@ namespace Sakura.AspNetCore.Mvc
 		/// <param name="contentGenerator">The generation method.</param>
 		/// <returns>The pager item content generator object.</returns>
 		public static IPagerItemContentGenerator CustomContent(Func<IHtmlContent> contentGenerator)
-			=> CustomContent((PagerItemGenerationContext context) => contentGenerator());
+		{
+			return CustomContent((PagerItemGenerationContext context) => contentGenerator());
+		}
 
 		#endregion
 	}

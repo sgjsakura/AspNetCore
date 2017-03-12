@@ -54,12 +54,8 @@ namespace Sakura.AspNetCore.Mvc.Internal
 			string attributePrefix)
 		{
 			foreach (var i in settingDictionary)
-			{
 				if (i.Key.StartsWith(attributePrefix))
-				{
 					tag.Attributes[i.Key.Substring(attributePrefix.Length)] = i.Value;
-				}
-			}
 		}
 
 		/// <summary>
@@ -71,17 +67,13 @@ namespace Sakura.AspNetCore.Mvc.Internal
 		protected static IHtmlContent GeneratePagerCore(PagerRenderingList list, bool generateContainer)
 		{
 			if (list == null)
-			{
 				throw new ArgumentNullException(nameof(list));
-			}
 
 			var content = GeneratePagerItems(list.Items);
 
 			// No container
 			if (!generateContainer)
-			{
 				return content;
-			}
 
 			// With container
 			var container = GenerateContainer(list);
@@ -112,16 +104,12 @@ namespace Sakura.AspNetCore.Mvc.Internal
 		protected static IHtmlContent GeneratePagerItems(IEnumerable<PagerRenderingItem> items)
 		{
 			if (items == null)
-			{
 				throw new ArgumentNullException(nameof(items));
-			}
 
 			var content = new DefaultTagHelperContent();
 
 			foreach (var i in items)
-			{
 				content.AppendHtml(GeneratePagerItem(i));
-			}
 
 			return content;
 		}
@@ -134,9 +122,7 @@ namespace Sakura.AspNetCore.Mvc.Internal
 		protected static IHtmlContent GeneratePagerItem(PagerRenderingItem item)
 		{
 			if (item == null)
-			{
 				throw new ArgumentNullException(nameof(item));
-			}
 
 			// Container
 			var itemTag = new TagBuilder("li");
@@ -161,7 +147,8 @@ namespace Sakura.AspNetCore.Mvc.Internal
 			}
 
 			// Add Bootstrap v4 classes, this is not confict with bootstrap v3. However user may choose to diable it manually.
-			if ( !string.Equals(item.Settings.GetValueOfDefault("disble-bootstrap-v4-class"), "true", StringComparison.OrdinalIgnoreCase))
+			if (!string.Equals(item.Settings.GetValueOfDefault("disble-bootstrap-v4-class"), "true",
+				StringComparison.OrdinalIgnoreCase))
 			{
 				itemTag.AddCssClass("page-item");
 				linkTag.AddCssClass("page-link");
@@ -188,21 +175,18 @@ namespace Sakura.AspNetCore.Mvc.Internal
 		/// <summary>
 		///     The setting prefix used to define additional container (&lt;li&gt;) HTML attributes. This field is constant.
 		/// </summary>
-		[PublicAPI]
-		public const string ItemAttributeSettingKeyPrefix = "item-attr-";
+		[PublicAPI] public const string ItemAttributeSettingKeyPrefix = "item-attr-";
 
 		/// <summary>
 		///     The setting prefix used to define additional link (&lt;a&gt; or &lt;span&gt;) HTML attributes. This field is
 		///     constant.
 		/// </summary>
-		[PublicAPI]
-		public const string LinkAttributeSettingKeyPrefix = "link-attr-";
+		[PublicAPI] public const string LinkAttributeSettingKeyPrefix = "link-attr-";
 
 		/// <summary>
 		///     The setting prefix used to define additional list (&lt;ul&gt;) HTML attributes. This field is constant.
 		/// </summary>
-		[PublicAPI]
-		public const string ListAttributeSettingKeyPrefix = "list-attr-";
+		[PublicAPI] public const string ListAttributeSettingKeyPrefix = "list-attr-";
 
 		#endregion
 	}

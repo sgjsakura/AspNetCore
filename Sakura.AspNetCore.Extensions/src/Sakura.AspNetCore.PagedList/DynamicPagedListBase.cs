@@ -8,7 +8,8 @@ using JetBrains.Annotations;
 namespace Sakura.AspNetCore
 {
 	/// <summary>
-	///     Provide base common features for <see cref="DynamicPagedList{T}" /> and <see cref="DynamicQueryablePagedList{T}" />.
+	///     Provide base common features for <see cref="DynamicPagedList{T}" /> and <see cref="DynamicQueryablePagedList{T}" />
+	///     .
 	/// </summary>
 	/// <typeparam name="TCollection">The collection type of the list.</typeparam>
 	/// <typeparam name="TElement">The element type of the list.</typeparam>
@@ -27,12 +28,6 @@ namespace Sakura.AspNetCore
 		protected DynamicPagedListBase(TCollection source, int pageSize, int pageIndex = 1,
 			DynamicPagedListCacheOptions cacheOptions = null)
 		{
-			// Exception handling
-			if (source == null)
-			{
-				throw new ArgumentNullException(nameof(source));
-			}
-
 			// Default parameters
 			var defaultOptions = new DynamicPagedListCacheOptions
 			{
@@ -44,7 +39,7 @@ namespace Sakura.AspNetCore
 			cacheOptions = cacheOptions ?? defaultOptions;
 
 			// Initialize the data source
-			Source = source;
+			Source = source != null ? source : throw new ArgumentNullException(nameof(source));
 
 
 			// Set Paging information
@@ -69,6 +64,83 @@ namespace Sakura.AspNetCore
 		///     Get the original data source.
 		/// </summary>
 		public TCollection Source { get; }
+
+		#endregion
+
+		#region Enumerator
+
+		/// <summary>
+		///     Implemetation enumeration for <see cref="DynamicPagedListBase{TCollection,TElement}" /> object.
+		/// </summary>
+		public struct Enumerator : IEnumerator<TElement>
+		{
+			/// <summary>
+			///     Get the source list of the enumerator.
+			/// </summary>
+			[NotNull]
+			private DynamicPagedListBase<TCollection, TElement> List { get; }
+
+			/// <summary>
+			///     Get the version of the enumerator.
+			/// </summary>
+			private int Version { get; }
+
+			/// <summary>
+			///     Get the inner enumerator used for this enumerator.
+			/// </summary>
+			[NotNull]
+			private IEnumerator<TElement> InnerEnumerator { get; }
+
+			internal Enumerator([NotNull] DynamicPagedListBase<TCollection, TElement> source)
+			{
+				List = source;
+				InnerEnumerator = source.CurrentPage.GetEnumerator();
+				Version = source._Version;
+			}
+
+			/// <summary>
+			///     Check the version of the enumrator. If the version not matches, throw an exception.
+			/// </summary>
+			private void CheckVersion()
+			{
+				if (List._Version != Version)
+					throw new InvalidOperationException(
+						"You cannot change the paging information or reload page while enumeration is proceed on this paged list.");
+			}
+
+			/// <inheritdoc />
+			public bool MoveNext()
+			{
+				CheckVersion();
+				return InnerEnumerator.MoveNext();
+			}
+
+			/// <inheritdoc />
+			public void Reset()
+			{
+				CheckVersion();
+				InnerEnumerator.Reset();
+			}
+
+			/// <inheritdoc />
+			public TElement Current
+			{
+				get
+				{
+					CheckVersion();
+					return InnerEnumerator.Current;
+				}
+			}
+
+			/// <inheritdoc />
+			object IEnumerator.Current => ((IEnumerator) InnerEnumerator).Current;
+
+			/// <inheritdoc />
+			public void Dispose()
+			{
+				InnerEnumerator.Dispose();
+			}
+		}
 
 		#endregion
 
@@ -158,9 +230,7 @@ namespace Sakura.AspNetCore
 				{
 					// Range check
 					if (value < 1 || value > TotalPage)
-					{
 						throw new ArgumentOutOfRangeException(nameof(value), value, "The page index is out of valid range.");
-					}
 
 					if (_PageIndex != value)
 					{
@@ -175,9 +245,7 @@ namespace Sakura.AspNetCore
 				{
 					// Basic range check
 					if (value < 1)
-					{
 						throw new ArgumentOutOfRangeException(nameof(value), value, "The page index is out of valid range.");
-					}
 
 					_PageIndex = value;
 				}
@@ -194,13 +262,11 @@ namespace Sakura.AspNetCore
 		/// </remarks>
 		public int PageSize
 		{
-			get { return _PageSize; }
+			get => _PageSize;
 			set
 			{
 				if (value <= 0)
-				{
 					throw new ArgumentOutOfRangeException(nameof(value), value, "Page size must be positive integer");
-				}
 
 				_PageSize = value;
 				PageIndex = 1;
@@ -245,12 +311,12 @@ namespace Sakura.AspNetCore
 		#region Version Control and Enumeration
 
 		/// <summary>
-		/// Version field used to check enumeration.
+		///     Version field used to check enumeration.
 		/// </summary>
 		private int _Version;
 
 		/// <summary>
-		/// Increase the data version.
+		///     Increase the data version.
 		/// </summary>
 		protected void IncreaseVersion()
 		{
@@ -262,11 +328,17 @@ namespace Sakura.AspNetCore
 		#region Interface Implementations
 
 		/// <inheritdoc />
-		public IEnumerator<TElement> GetEnumerator() => new Enumerator(this);
+		public IEnumerator<TElement> GetEnumerator()
+		{
+			return new Enumerator(this);
+		}
 
 
 		/// <inheritdoc />
-		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return GetEnumerator();
+		}
 
 		/// <inheritdoc />
 		public TElement this[int index] => CurrentPage.ElementAt(index);
@@ -326,92 +398,14 @@ namespace Sakura.AspNetCore
 
 		object IList.this[int index]
 		{
-			get { return this[index]; }
-			set { throw new NotSupportedException(); }
+			get => this[index];
+			set => throw new NotSupportedException();
 		}
 
 
 		bool ICollection.IsSynchronized => false;
 
 		object ICollection.SyncRoot { get; } = new object();
-
-		#endregion
-
-		#region Enumerator
-
-		/// <summary>
-		/// Implemetation enumeration for <see cref="DynamicPagedListBase{TCollection,TElement}"/> object.
-		/// </summary>
-		public struct Enumerator : IEnumerator<TElement>
-		{
-			/// <summary>
-			/// Get the source list of the enumerator.
-			/// </summary>
-			[NotNull]
-			private DynamicPagedListBase<TCollection, TElement> List { get; }
-
-			/// <summary>
-			/// Get the version of the enumerator.
-			/// </summary>
-			private int Version { get; }
-
-			/// <summary>
-			/// Get the inner enumerator used for this enumerator.
-			/// </summary>
-			[NotNull]
-			private IEnumerator<TElement> InnerEnumerator { get; }
-
-			internal Enumerator([NotNull]DynamicPagedListBase<TCollection, TElement> source)
-			{
-				List = source;
-				InnerEnumerator = source.CurrentPage.GetEnumerator();
-				Version = source._Version;
-			}
-
-			/// <summary>
-			/// Check the version of the enumrator. If the version not matches, throw an exception.
-			/// </summary>
-			private void CheckVersion()
-			{
-				if (List._Version != Version)
-				{
-					throw new InvalidOperationException("You cannot change the paging information or reload page while enumeration is proceed on this paged list.");
-				}
-			}
-
-			/// <inheritdoc />
-			public bool MoveNext()
-			{
-				CheckVersion();
-				return InnerEnumerator.MoveNext();
-			}
-
-			/// <inheritdoc />
-			public void Reset()
-			{
-				CheckVersion();
-				InnerEnumerator.Reset();
-			}
-
-			/// <inheritdoc />
-			public TElement Current
-			{
-				get
-				{
-					CheckVersion();
-					return InnerEnumerator.Current;
-				}
-			}
-
-			/// <inheritdoc />
-			object IEnumerator.Current => ((IEnumerator)InnerEnumerator).Current;
-
-			/// <inheritdoc />
-			public void Dispose()
-			{
-				InnerEnumerator.Dispose();
-			}
-		}
 
 		#endregion
 	}

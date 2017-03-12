@@ -21,9 +21,7 @@ namespace Sakura.AspNetCore.Mvc
 
 			// argument check
 			if (arr == null || arr.Length != 2)
-			{
 				throw new InvalidOperationException();
-			}
 
 			var typeName = arr[0];
 			var data = arr[1];

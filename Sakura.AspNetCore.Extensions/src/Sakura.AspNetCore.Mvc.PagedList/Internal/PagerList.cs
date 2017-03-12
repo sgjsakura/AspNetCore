@@ -15,12 +15,7 @@ namespace Sakura.AspNetCore.Mvc.Internal
 		/// <param name="items">All items included in the pager.</param>
 		public PagerList([NotNull] [ItemNotNull] IEnumerable<PagerItem> items)
 		{
-			if (items == null)
-			{
-				throw new ArgumentNullException(nameof(items));
-			}
-
-			Items = items;
+			Items = items ?? throw new ArgumentNullException(nameof(items));
 		}
 
 		/// <summary>

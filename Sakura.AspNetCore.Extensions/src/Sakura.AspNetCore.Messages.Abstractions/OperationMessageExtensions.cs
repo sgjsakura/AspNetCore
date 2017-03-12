@@ -24,9 +24,7 @@ namespace Sakura.AspNetCore
 			[CanBeNull] [LocalizationRequired] string description = null)
 		{
 			if (collection == null)
-			{
 				throw new ArgumentNullException(nameof(collection));
-			}
 
 			var item = new OperationMessage(level, title, description);
 			collection.Add(item);

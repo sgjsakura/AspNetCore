@@ -6,8 +6,8 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Sakura")]
-[assembly: AssemblyProduct("Sakura.AspNet.Extensions")]
+[assembly: AssemblyCompany("Iris Sakura")]
+[assembly: AssemblyProduct("Sakura.AspNetCore.Extensions")]
 [assembly: AssemblyTrademark("Sakura")]
 
 // Setting ComVisible to false makes the types in this assembly not visible

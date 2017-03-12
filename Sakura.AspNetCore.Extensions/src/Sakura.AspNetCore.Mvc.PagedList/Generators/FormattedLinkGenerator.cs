@@ -6,10 +6,10 @@ using Sakura.AspNetCore.Mvc.Internal;
 namespace Sakura.AspNetCore.Mvc.Generators
 {
 	/// <summary>
-	///     Generate link url string from a formatted string. The page number will be used as the format argument {0}.	/// </summary>
+	///     Generate link url string from a formatted string. The page number will be used as the format argument {0}.	///
+	/// </summary>
 	public class FormattedLinkGenerator : IPagerItemLinkGenerator
 	{
-
 		/// <summary>
 		///     Initialize a new generator with specified parameters.
 		/// </summary>
@@ -22,12 +22,7 @@ namespace Sakura.AspNetCore.Mvc.Generators
 		public FormattedLinkGenerator([NotNull] string format,
 			IFormatProvider formatProvider = null)
 		{
-			if (format == null)
-			{
-				throw new ArgumentNullException(nameof(format));
-			}
-
-			Format = format;
+			Format = format ?? throw new ArgumentNullException(nameof(format));
 			FormatProvider = formatProvider ?? CultureInfo.InvariantCulture;
 		}
 
@@ -52,7 +47,9 @@ namespace Sakura.AspNetCore.Mvc.Generators
 		/// </summary>
 		/// <param name="context">The generation context.</param>
 		public string GenerateLink(PagerItemGenerationContext context)
-			=> string.Format(FormatProvider, Format, context.PagerItem.PageNumber);
+		{
+			return string.Format(FormatProvider, Format, context.PagerItem.PageNumber);
+		}
 
 		#endregion
 	}

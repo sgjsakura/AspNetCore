@@ -21,12 +21,7 @@ namespace Sakura.AspNetCore.Mvc.Generators
 		public CustomQueryValueLinkGenerator([NotNull] string queryParameterName,
 			[NotNull] Func<PagerItemGenerationContext, string> queryValueGenerator) : base(queryParameterName)
 		{
-			if (queryValueGenerator == null)
-			{
-				throw new ArgumentNullException(nameof(queryValueGenerator));
-			}
-
-			QueryValueGenerator = queryValueGenerator;
+			QueryValueGenerator = queryValueGenerator ?? throw new ArgumentNullException(nameof(queryValueGenerator));
 		}
 
 		/// <summary>
@@ -40,6 +35,9 @@ namespace Sakura.AspNetCore.Mvc.Generators
 		/// </summary>
 		/// <param name="context">The generation context.</param>
 		/// <returns>The query parameter name for current pager item.</returns>
-		public override string GenerateQueryParameterValue(PagerItemGenerationContext context) => QueryValueGenerator(context);
+		public override string GenerateQueryParameterValue(PagerItemGenerationContext context)
+		{
+			return QueryValueGenerator(context);
+		}
 	}
 }

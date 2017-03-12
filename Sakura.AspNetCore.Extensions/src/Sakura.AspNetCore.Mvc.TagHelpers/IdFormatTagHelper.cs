@@ -34,6 +34,9 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		/// </summary>
 		public static string ViewDataKey { get; set; } = "ASP_IdFormatCountDictionary";
 
+		/// <summary>
+		///     Get or set the <see cref="ViewContext" /> related to this <see cref="TagHelper" />.
+		/// </summary>
 		[ViewContext]
 		[HtmlAttributeNotBound]
 		public ViewContext ViewContext { get; set; }
@@ -48,10 +51,9 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 				if (ViewDataKey == null)
 					throw new InvalidOperationException($"The property of '{nameof(ViewDataKey)}' cannot be null.");
 
-				object result;
-
-				if (ViewContext.ViewData.TryGetValue(ViewDataKey, out result) && result is ConcurrentDictionary<string, int>)
-					return (ConcurrentDictionary<string, int>) result;
+				if (ViewContext.ViewData.TryGetValue(ViewDataKey, out var result) &&
+				    result is ConcurrentDictionary<string, int> dic)
+					return dic;
 
 				var newDic = new ConcurrentDictionary<string, int>(StringComparer.Ordinal);
 				ViewContext.ViewData[ViewDataKey] = newDic;

@@ -40,9 +40,7 @@ namespace Sakura.AspNetCore.Mvc
 
 			// Configuration
 			if (setupAction != null)
-			{
 				services.Configure(setupAction);
-			}
 		}
 	}
 }

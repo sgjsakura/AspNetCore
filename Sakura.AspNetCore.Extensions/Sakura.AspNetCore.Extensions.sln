@@ -1,36 +1,33 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{192C7E7E-95BB-47D1-B043-9CE0E3709FAD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{53646943-EE33-4CF9-891C-501949CAAB2E}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Sakura.AspNetCore.Authentication.ExternalCookie", "src\Sakura.AspNetCore.Authentication.ExternalCookie\Sakura.AspNetCore.Authentication.ExternalCookie.xproj", "{5150735D-1BB6-48D0-AE5F-0B1A83C6AA1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakura.AspNetCore.Authentication.ExternalCookie", "src\Sakura.AspNetCore.Authentication.ExternalCookie\Sakura.AspNetCore.Authentication.ExternalCookie.csproj", "{5150735D-1BB6-48D0-AE5F-0B1A83C6AA1F}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Sakura.AspNetCore.Messages", "src\Sakura.AspNetCore.Messages\Sakura.AspNetCore.Messages.xproj", "{F579A0A9-A90C-4944-BEE6-7B180E2399DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakura.AspNetCore.Messages", "src\Sakura.AspNetCore.Messages\Sakura.AspNetCore.Messages.csproj", "{F579A0A9-A90C-4944-BEE6-7B180E2399DB}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Sakura.AspNetCore.Messages.Abstractions", "src\Sakura.AspNetCore.Messages.Abstractions\Sakura.AspNetCore.Messages.Abstractions.xproj", "{A555CBF3-A371-4D61-A340-5FC436FC4E39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakura.AspNetCore.Messages.Abstractions", "src\Sakura.AspNetCore.Messages.Abstractions\Sakura.AspNetCore.Messages.Abstractions.csproj", "{A555CBF3-A371-4D61-A340-5FC436FC4E39}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Sakura.AspNetCore.Mvc.Messages", "src\Sakura.AspNetCore.Mvc.Messages\Sakura.AspNetCore.Mvc.Messages.xproj", "{231AA810-37C5-4E4C-ACD8-DFAF43164A76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakura.AspNetCore.Mvc.Messages", "src\Sakura.AspNetCore.Mvc.Messages\Sakura.AspNetCore.Mvc.Messages.csproj", "{231AA810-37C5-4E4C-ACD8-DFAF43164A76}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Sakura.AspNetCore.Mvc.PagedList", "src\Sakura.AspNetCore.Mvc.PagedList\Sakura.AspNetCore.Mvc.PagedList.xproj", "{7C00AB22-9D6D-4CB1-B172-E9C501EEA775}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakura.AspNetCore.Mvc.PagedList", "src\Sakura.AspNetCore.Mvc.PagedList\Sakura.AspNetCore.Mvc.PagedList.csproj", "{7C00AB22-9D6D-4CB1-B172-E9C501EEA775}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Sakura.AspNetCore.Mvc.TagHelpers", "src\Sakura.AspNetCore.Mvc.TagHelpers\Sakura.AspNetCore.Mvc.TagHelpers.xproj", "{A7A98B38-3907-4E2B-9256-5C0B0DF3903F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakura.AspNetCore.Mvc.TagHelpers", "src\Sakura.AspNetCore.Mvc.TagHelpers\Sakura.AspNetCore.Mvc.TagHelpers.csproj", "{A7A98B38-3907-4E2B-9256-5C0B0DF3903F}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Sakura.AspNetCore.Mvc.TempDataExtensions", "src\Sakura.AspNetCore.Mvc.TempDataExtensions\Sakura.AspNetCore.Mvc.TempDataExtensions.xproj", "{37E19525-73C6-4E31-AE95-F402BB25953F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakura.AspNetCore.Mvc.TempDataExtensions", "src\Sakura.AspNetCore.Mvc.TempDataExtensions\Sakura.AspNetCore.Mvc.TempDataExtensions.csproj", "{37E19525-73C6-4E31-AE95-F402BB25953F}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Sakura.AspNetCore.PagedList", "src\Sakura.AspNetCore.PagedList\Sakura.AspNetCore.PagedList.xproj", "{74BD7E99-61EB-444C-8002-CD49818407DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakura.AspNetCore.PagedList", "src\Sakura.AspNetCore.PagedList\Sakura.AspNetCore.PagedList.csproj", "{74BD7E99-61EB-444C-8002-CD49818407DC}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Sakura.AspNetCore.PagedList.Abstractions", "src\Sakura.AspNetCore.PagedList.Abstractions\Sakura.AspNetCore.PagedList.Abstractions.xproj", "{80B99D95-B448-4ABB-AE65-408614FAE0FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakura.AspNetCore.PagedList.Abstractions", "src\Sakura.AspNetCore.PagedList.Abstractions\Sakura.AspNetCore.PagedList.Abstractions.csproj", "{80B99D95-B448-4ABB-AE65-408614FAE0FB}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Sakura.AspNetCore.Mvc.ActionResultExceptionExtensions", "src\Sakura.AspNetCore.Mvc.ActionResultExceptionExtensions\Sakura.AspNetCore.Mvc.ActionResultExceptionExtensions.xproj", "{07D7E7CF-F66A-4F0D-B061-1136B3BFC16B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakura.AspNetCore.Mvc.ActionResultExceptionExtensions", "src\Sakura.AspNetCore.Mvc.ActionResultExceptionExtensions\Sakura.AspNetCore.Mvc.ActionResultExceptionExtensions.csproj", "{07D7E7CF-F66A-4F0D-B061-1136B3BFC16B}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Sakura.AspNetCore.PagedList.Async", "src\Sakura.AspNetCore.PagedList.Async\Sakura.AspNetCore.PagedList.Async.xproj", "{0C03790A-5141-4EE9-B151-75B17B28D3A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakura.AspNetCore.PagedList.Async", "src\Sakura.AspNetCore.PagedList.Async\Sakura.AspNetCore.PagedList.Async.csproj", "{0C03790A-5141-4EE9-B151-75B17B28D3A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -36,9 +36,7 @@ namespace Sakura.AspNetCore.Mvc
 			bool useTwoLineMode)
 		{
 			if (messages == null)
-			{
 				throw new ArgumentNullException(nameof(messages));
-			}
 
 			switch (listStyle)
 			{
@@ -94,10 +92,7 @@ namespace Sakura.AspNetCore.Mvc
 			{
 				// Add a newline for two line mode.
 				if (useTwoLineMode)
-				{
-					// TODO: Consider a better way
 					result.Append("<br />");
-				}
 
 				result.AppendHtml(GenerateDescrption(message.Description));
 			}
@@ -141,21 +136,15 @@ namespace Sakura.AspNetCore.Mvc
 
 			// Closable handling
 			if (isClosable)
-			{
 				tag.AddCssClass("alert-dismissible");
-			}
 
 			tag.MergeAttribute("role", "alert");
 
 			var content = new DefaultTagHelperContent();
 
 			if (isClosable)
-			{
-				// Close button
-				// TODO: Localization the "label" text
 				content.AppendHtml(
 					"<button type =\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>");
-			}
 
 			content.AppendHtml(GenerateMessageContent(message, useTwoLineMode));
 
@@ -180,9 +169,7 @@ namespace Sakura.AspNetCore.Mvc
 			var content = new DefaultTagHelperContent();
 
 			foreach (var message in messages)
-			{
 				content.AppendHtml(GenerateNormalItem(message, useTwoLineMode));
-			}
 
 			tag.InnerHtml.AppendHtml(content);
 
@@ -204,10 +191,8 @@ namespace Sakura.AspNetCore.Mvc
 			var content = new DefaultTagHelperContent();
 
 			foreach (var message in messages)
-			{
 				content.AppendHtml(GenerateAlertItem(message, listStyle == MessageListStyle.AlertDialogClosable,
 					useTwoLineMode));
-			}
 
 			tag.InnerHtml.AppendHtml(content);
 

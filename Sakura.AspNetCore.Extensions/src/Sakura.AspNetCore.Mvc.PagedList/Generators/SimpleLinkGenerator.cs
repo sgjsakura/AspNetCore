@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Sakura.AspNetCore.Mvc.Internal;
 
@@ -19,12 +16,7 @@ namespace Sakura.AspNetCore.Mvc.Generators
 		/// <exception cref="ArgumentNullException"><paramref name="text" /> is <c>null</c>.</exception>
 		public SimpleLinkGenerator([NotNull] string text)
 		{
-			if (text == null)
-			{
-				throw new ArgumentNullException(nameof(text));
-			}
-
-			Text = text;
+			Text = text ?? throw new ArgumentNullException(nameof(text));
 		}
 
 		/// <summary>
@@ -40,7 +32,10 @@ namespace Sakura.AspNetCore.Mvc.Generators
 		///     Generate the link url for the specified <see cref="PagerItem" />.
 		/// </summary>
 		/// <param name="context">The generation context.</param>
-		public string GenerateLink(PagerItemGenerationContext context) => Text;
+		public string GenerateLink(PagerItemGenerationContext context)
+		{
+			return Text;
+		}
 
 		#endregion
 	}

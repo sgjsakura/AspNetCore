@@ -41,10 +41,7 @@ namespace Sakura.AspNetCore
 				IsDisposed = true;
 
 				if (disposing)
-				{
-					// countdown control
 					CacheObject.RemoveAutoRefreshControl();
-				}
 			}
 		}
 

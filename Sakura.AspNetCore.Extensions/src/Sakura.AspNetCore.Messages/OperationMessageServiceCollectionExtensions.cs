@@ -25,18 +25,14 @@ namespace Microsoft.Extensions.DependencyInjection
 		{
 			// Check argument
 			if (services == null)
-			{
 				throw new ArgumentNullException(nameof(services));
-			}
 
 			// Try add service
 			services.TryAddScoped<IOperationMessageAccessor, DefaultOperationMessageAccessor>();
 
 			// Configure the service
 			if (configureOptions != null)
-			{
 				services.Configure(configureOptions);
-			}
 
 
 			return services;
@@ -57,14 +53,10 @@ namespace Microsoft.Extensions.DependencyInjection
 		{
 			// Check argument
 			if (services == null)
-			{
 				throw new ArgumentNullException(nameof(services));
-			}
 
 			if (configureOptions == null)
-			{
 				throw new ArgumentNullException(nameof(configureOptions));
-			}
 
 			services.Configure(configureOptions);
 

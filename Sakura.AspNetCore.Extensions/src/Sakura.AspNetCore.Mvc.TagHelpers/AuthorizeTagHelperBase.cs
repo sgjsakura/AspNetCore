@@ -49,7 +49,9 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		/// </summary>
 		/// <returns>If the current user is authorized, returns <c>true</c>; otherwise, returns <c>false</c>.</returns>
 		protected Task<bool> IsAuthorizedAsync()
-			=> AuthorizationService.AuthorizeAsync(ViewContext.HttpContext.User, Resource, Policy);
+		{
+			return AuthorizationService.AuthorizeAsync(ViewContext.HttpContext.User, Resource, Policy);
+		}
 
 		#region Overrides of TagHelper
 

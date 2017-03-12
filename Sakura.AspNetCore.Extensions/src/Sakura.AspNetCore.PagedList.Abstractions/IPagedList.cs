@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 
@@ -14,7 +13,7 @@ namespace Sakura.AspNetCore
 		///     Get the index of the current page in the original data source.
 		/// </summary>
 		/// <remarks>
-		/// The index is start from one (not zero).
+		///     The index is start from one (not zero).
 		/// </remarks>
 		[PublicAPI]
 		int PageIndex { get; }
@@ -34,7 +33,6 @@ namespace Sakura.AspNetCore
 		/// <summary>
 		///     Get the total item count of data source.
 		/// </summary>
-		/// 
 		[PublicAPI]
 		int TotalCount { get; }
 	}

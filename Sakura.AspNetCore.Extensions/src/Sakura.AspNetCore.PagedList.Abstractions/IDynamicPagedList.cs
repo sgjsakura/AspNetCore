@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using JetBrains.Annotations;
 
 namespace Sakura.AspNetCore
 {
 	/// <summary>
-	///     Define as a <see cref="IPagedList"/> with dynamically page changing support.
+	///     Define as a <see cref="IPagedList" /> with dynamically page changing support.
 	/// </summary>
 	public interface IDynamicPagedList : IPagedList
 	{

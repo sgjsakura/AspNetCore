@@ -17,7 +17,9 @@ namespace Sakura.AspNetCore.Mvc
 		/// <param name="items">Items list.</param>
 		/// <returns>A <see cref="PagerLayout" /> with specified layout.</returns>
 		private static PagerLayout GenerateLayout(IEnumerable<PagerLayoutElement> items)
-			=> new PagerLayout(new ReadOnlyCollection<PagerLayoutElement>(items.ToArray()));
+		{
+			return new PagerLayout(new ReadOnlyCollection<PagerLayoutElement>(items.ToArray()));
+		}
 
 		#region Shoutcuts
 
@@ -57,14 +59,20 @@ namespace Sakura.AspNetCore.Mvc
 		/// </summary>
 		/// <param name="items">The sequence of the layout elements.</param>
 		/// <returns>The <see cref="PagerLayout" /> object.</returns>
-		public static PagerLayout Custom(params PagerLayoutElement[] items) => GenerateLayout(items);
+		public static PagerLayout Custom(params PagerLayoutElement[] items)
+		{
+			return GenerateLayout(items);
+		}
 
 		/// <summary>
 		///     Generate a custom layout using specified layout element sequence.
 		/// </summary>
 		/// <param name="items">The sequence of the layout elements.</param>
 		/// <returns>The <see cref="PagerLayout" /> object.</returns>
-		public static PagerLayout Custom(IEnumerable<PagerLayoutElement> items) => GenerateLayout(items);
+		public static PagerLayout Custom(IEnumerable<PagerLayoutElement> items)
+		{
+			return GenerateLayout(items);
+		}
 
 		#endregion
 	}

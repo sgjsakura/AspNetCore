@@ -30,12 +30,7 @@ namespace Sakura.AspNetCore
 		/// <exception cref="ArgumentNullException"><paramref name="getDataCallback" /> is <c>null</c>.</exception>
 		public Cacheable(Func<T> getDataCallback, Func<T, T> cacheCallback = null, CacheMode cacheMode = CacheMode.Manual)
 		{
-			if (getDataCallback == null)
-			{
-				throw new ArgumentNullException(nameof(getDataCallback));
-			}
-
-			GetDataCallback = getDataCallback;
+			GetDataCallback = getDataCallback ?? throw new ArgumentNullException(nameof(getDataCallback));
 
 			// Set the caching callback.
 			CacheCallback = cacheCallback ?? DefaultCacheCallback;
@@ -77,15 +72,11 @@ namespace Sakura.AspNetCore
 			{
 				// Alaways return the cache if available.
 				if (IsCached)
-				{
 					return CachedData;
-				}
 
 				// No caching if caching mode is set to "manual".
 				if (CacheMode == CacheMode.Manual)
-				{
 					return GetDataDirectly();
-				}
 
 				// Otherwise, reload the cache and return the result.
 				Reload();
@@ -108,9 +99,7 @@ namespace Sakura.AspNetCore
 		public void Cache()
 		{
 			if (!IsCached)
-			{
 				Reload();
-			}
 		}
 
 		/// <summary>
@@ -143,13 +132,19 @@ namespace Sakura.AspNetCore
 		/// <param name="item">The data to be cached.</param>
 		/// <returns>The cached data.</returns>
 		/// <remarks>This method will do nothing.</remarks>
-		private static T DefaultCacheCallback(T item) => item;
+		private static T DefaultCacheCallback(T item)
+		{
+			return item;
+		}
 
 		/// <summary>
 		///     Get data directly from the source and ignore any cache.
 		/// </summary>
 		/// <returns>The data got directly from the source.</returns>
-		public T GetDataDirectly() => GetDataCallback();
+		public T GetDataDirectly()
+		{
+			return GetDataCallback();
+		}
 
 		/// <summary>
 		///     Notify the cached data is dismissed, and reload it if necessary.
@@ -161,9 +156,7 @@ namespace Sakura.AspNetCore
 
 			// Automatically reload the cache if cache mode is set to "prefetch" and currently caching refresh is enabled.
 			if (CacheMode == CacheMode.AutoWithPrefetch && _AutoRefreshControlCount == 0)
-			{
 				Reload();
-			}
 		}
 
 
@@ -182,9 +175,7 @@ namespace Sakura.AspNetCore
 		{
 			// If the counter is zero then reload data.
 			if (Interlocked.Decrement(ref _AutoRefreshControlCount) == 0)
-			{
 				Reload();
-			}
 		}
 	}
 }

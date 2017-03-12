@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>This library contains the default implementation for operation message services for ASP.NET Core projects.</Description>
+    <AssemblyTitle>ASP.NET Core Operation Message Core Library</AssemblyTitle>
+    <VersionPrefix>1.0.2</VersionPrefix>
+    <Authors>Iris Sakura</Authors>
+    <TargetFrameworks>netstandard1.6;net451</TargetFrameworks>
+    <AssemblyName>Sakura.AspNetCore.Messages</AssemblyName>
+    <PackageId>Sakura.AspNetCore.Messages</PackageId>
+    <PackageTags>ASP.NET;ASP.NETCore;Message;Messages</PackageTags>
+    <PackageReleaseNotes>VS2017 Update</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/sgjsakura/AspNetCore</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/sgjsakura/AspNetCore/blob/master/LICENSE.txt</PackageLicenseUrl>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <RepositoryUrl>https://github.com/sgjsakura/AspNetCore.git</RepositoryUrl>
+    <Version>1.0.2</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sakura.AspNetCore.Messages.Abstractions\Sakura.AspNetCore.Messages.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="1.0.0" />
+  </ItemGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <Target Name="PostcompileScript" AfterTargets="Build" Condition=" '$(IsCrossTargetingBuild)' != 'true' ">
+    <Exec Command="dotnet pack --no-build -c Release" />
+  </Target>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+</Project>

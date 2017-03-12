@@ -21,12 +21,7 @@ namespace Sakura.AspNetCore.Mvc.Generators
 		public SimpleQueryValueLinkGenerator([NotNull] string queryParameterName, [NotNull] string queryParameterValue)
 			: base(queryParameterName)
 		{
-			if (queryParameterValue == null)
-			{
-				throw new ArgumentNullException(nameof(queryParameterValue));
-			}
-
-			QueryParameterValue = queryParameterValue;
+			QueryParameterValue = queryParameterValue ?? throw new ArgumentNullException(nameof(queryParameterValue));
 		}
 
 		/// <summary>
@@ -41,6 +36,9 @@ namespace Sakura.AspNetCore.Mvc.Generators
 		/// </summary>
 		/// <param name="context">The generation context.</param>
 		/// <returns>The query parameter name for current pager item.</returns>
-		public override string GenerateQueryParameterValue(PagerItemGenerationContext context) => QueryParameterValue;
+		public override string GenerateQueryParameterValue(PagerItemGenerationContext context)
+		{
+			return QueryParameterValue;
+		}
 	}
 }

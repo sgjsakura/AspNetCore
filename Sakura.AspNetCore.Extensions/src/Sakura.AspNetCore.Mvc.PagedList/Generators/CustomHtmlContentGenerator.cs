@@ -15,12 +15,7 @@ namespace Sakura.AspNetCore.Mvc.Generators
 		/// <exception cref="ArgumentNullException"><paramref name="htmlContentGenerator" /> is <c>null</c>.</exception>
 		public CustomHtmlContentGenerator([NotNull] Func<PagerItemGenerationContext, IHtmlContent> htmlContentGenerator)
 		{
-			if (htmlContentGenerator == null)
-			{
-				throw new ArgumentNullException(nameof(htmlContentGenerator));
-			}
-
-			HtmlContentGenerator = htmlContentGenerator;
+			HtmlContentGenerator = htmlContentGenerator ?? throw new ArgumentNullException(nameof(htmlContentGenerator));
 		}
 
 		/// <summary>
@@ -35,6 +30,9 @@ namespace Sakura.AspNetCore.Mvc.Generators
 		/// </summary>
 		/// <param name="context">The generation context.</param>
 		/// <returns>The generated HTML content for the pager item.</returns>
-		public IHtmlContent GenerateContent(PagerItemGenerationContext context) => HtmlContentGenerator(context);
+		public IHtmlContent GenerateContent(PagerItemGenerationContext context)
+		{
+			return HtmlContentGenerator(context);
+		}
 	}
 }

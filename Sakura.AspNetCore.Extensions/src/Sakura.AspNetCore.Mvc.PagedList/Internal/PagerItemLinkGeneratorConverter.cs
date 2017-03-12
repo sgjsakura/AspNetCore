@@ -13,7 +13,10 @@ namespace Sakura.AspNetCore.Mvc.Internal
 		/// <returns>如果该转换器能够执行转换，则为 true；否则为 false。</returns>
 		/// <param name="context">一个 <see cref="T:System.ComponentModel.ITypeDescriptorContext" />，提供格式上下文。</param>
 		/// <param name="sourceType">一个 <see cref="T:System.Type" />，表示要转换的类型。</param>
-		public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType) => sourceType == typeof(string);
+		public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+		{
+			return sourceType == typeof(string);
+		}
 
 		/// <summary>使用指定的上下文和区域性信息将给定的对象转换为此转换器的类型。</summary>
 		/// <returns>表示转换的 value 的 <see cref="T:System.Object" />。</returns>
@@ -26,9 +29,7 @@ namespace Sakura.AspNetCore.Mvc.Internal
 			var realValue = value as string;
 
 			if (realValue == null)
-			{
 				throw new NotSupportedException();
-			}
 
 			return PagerItemLinkGenerators.FromConfiguration(realValue);
 		}

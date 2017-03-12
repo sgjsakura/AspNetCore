@@ -3,7 +3,7 @@
 namespace Sakura.AspNetCore.Mvc
 {
 	/// <summary>
-	/// Enable special handling for <see cref="ActionResultException"/>.
+	///     Enable special handling for <see cref="ActionResultException" />.
 	/// </summary>
 	public class EnableActionResultExceptionAttribute : ExceptionFilterAttribute
 	{

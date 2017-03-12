@@ -16,12 +16,7 @@ namespace Sakura.AspNetCore.Mvc.Generators
 		/// <exception cref="ArgumentNullException">The <paramref name="queryParameterName" /> is <c>null</c>.</exception>
 		protected QueryValueLinkGenerator([NotNull] string queryParameterName)
 		{
-			if (queryParameterName == null)
-			{
-				throw new ArgumentNullException(nameof(queryParameterName));
-			}
-
-			QueryParameterName = queryParameterName;
+			QueryParameterName = queryParameterName ?? throw new ArgumentNullException(nameof(queryParameterName));
 		}
 
 		/// <summary>
@@ -36,6 +31,9 @@ namespace Sakura.AspNetCore.Mvc.Generators
 		/// </summary>
 		/// <param name="context">The generation context.</param>
 		/// <returns>The query parameter name for current pager item.</returns>
-		public override string GenerateQueryParameterName(PagerItemGenerationContext context) => QueryParameterName;
+		public override string GenerateQueryParameterName(PagerItemGenerationContext context)
+		{
+			return QueryParameterName;
+		}
 	}
 }

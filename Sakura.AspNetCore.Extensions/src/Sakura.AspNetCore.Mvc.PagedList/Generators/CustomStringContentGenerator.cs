@@ -10,7 +10,7 @@ namespace Sakura.AspNetCore.Mvc.Generators
 	public class CustomStringContentGenerator : StringContentGenerator
 	{
 		/// <summary>
-		/// Initialize a new instance of <see cref="CustomStringContentGenerator"/>.
+		///     Initialize a new instance of <see cref="CustomStringContentGenerator" />.
 		/// </summary>
 		/// <param name="stringContentGenerator">The string generator callback delegate.</param>
 		/// <param name="encodeText">Whether the format result should be HTML encoded before be written to page.</param>
@@ -18,12 +18,7 @@ namespace Sakura.AspNetCore.Mvc.Generators
 		public CustomStringContentGenerator([NotNull] Func<PagerItemGenerationContext, string> stringContentGenerator,
 			bool encodeText) : base(encodeText)
 		{
-			if (stringContentGenerator == null)
-			{
-				throw new ArgumentNullException(nameof(stringContentGenerator));
-			}
-
-			StringContentGenerator = stringContentGenerator;
+			StringContentGenerator = stringContentGenerator ?? throw new ArgumentNullException(nameof(stringContentGenerator));
 		}
 
 		/// <summary>
@@ -39,6 +34,8 @@ namespace Sakura.AspNetCore.Mvc.Generators
 		/// <param name="context">The generation context.</param>
 		/// <returns>The generated content string.</returns>
 		protected override string GenerateContentString(PagerItemGenerationContext context)
-			=> StringContentGenerator(context);
+		{
+			return StringContentGenerator(context);
+		}
 	}
 }

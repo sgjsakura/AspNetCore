@@ -20,12 +20,7 @@ namespace Sakura.AspNetCore.Mvc.Generators
 		/// <exception cref="ArgumentNullException"><paramref name="text" /> is <c>null</c>.</exception>
 		public SimpleStringContentGenerator([LocalizationRequired] [NotNull] string text, bool encodeText) : base(encodeText)
 		{
-			if (text == null)
-			{
-				throw new ArgumentNullException(nameof(text));
-			}
-
-			Text = text;
+			Text = text ?? throw new ArgumentNullException(nameof(text));
 		}
 
 		/// <summary>
@@ -40,6 +35,9 @@ namespace Sakura.AspNetCore.Mvc.Generators
 		/// </summary>
 		/// <param name="context">The generation context.</param>
 		/// <returns>The generated content string.</returns>
-		protected override string GenerateContentString(PagerItemGenerationContext context) => Text;
+		protected override string GenerateContentString(PagerItemGenerationContext context)
+		{
+			return Text;
+		}
 	}
 }

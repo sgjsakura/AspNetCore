@@ -23,14 +23,10 @@ namespace Sakura.AspNetCore.Mvc
 		public static IPagerItemLinkGenerator FromConfiguration(string configurationText)
 		{
 			if (configurationText == null)
-			{
 				throw new ArgumentNullException(nameof(configurationText));
-			}
 
 			if (configurationText == null)
-			{
 				throw new ArgumentNullException(nameof(configurationText));
-			}
 
 			const string pattern = @"^(?<type>.*?)(:(?<exp>.*))?$";
 
@@ -39,9 +35,7 @@ namespace Sakura.AspNetCore.Mvc
 				RegexOptions.Singleline);
 
 			if (!matchResult.Success)
-			{
 				throw new ArgumentException("The configurationText cannot be parsed.", nameof(configurationText));
-			}
 
 			// Type text, normalize first
 			var type = matchResult.Groups["type"].Value.Trim().ToLowerInvariant();
@@ -57,10 +51,8 @@ namespace Sakura.AspNetCore.Mvc
 						RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture | RegexOptions.IgnoreCase
 						| RegexOptions.Singleline);
 					if (!m2.Success)
-					{
 						throw new NotSupportedException(
 							$"The generator expression string '{exp}' in the configuration text cannot be condiser as a query expression.");
-					}
 					return QueryNameAndValueFormat(m2.Groups["name"].Value, m2.Groups["value"].Value);
 				case "queryname":
 					return QueryName(exp);
@@ -91,10 +83,11 @@ namespace Sakura.AspNetCore.Mvc
 		/// <param name="queryParameterValueFormatProvider">The format provider for format value generation.</param>
 		/// <returns>The generated <see cref="FormattedQueryValueLinkGenerator" /> instance.</returns>
 		public static FormattedQueryValueLinkGenerator QueryNameAndValueFormat([NotNull] string queryParameterName,
-				[NotNull] string queryParameterValueFormat, IFormatProvider queryParameterValueFormatProvider = null)
-			=>
-			new FormattedQueryValueLinkGenerator(queryParameterName, queryParameterValueFormat,
+			[NotNull] string queryParameterValueFormat, IFormatProvider queryParameterValueFormatProvider = null)
+		{
+			return new FormattedQueryValueLinkGenerator(queryParameterName, queryParameterValueFormat,
 				queryParameterValueFormatProvider);
+		}
 
 		/// <summary>
 		///     Get the generator that uses a fixed string as a query parameter name and a page number as a query parameter value.
@@ -102,7 +95,9 @@ namespace Sakura.AspNetCore.Mvc
 		/// <param name="queryParameterName">The name of the query parameter.</param>
 		/// <returns>The generated <see cref="FormattedQueryValueLinkGenerator" /> instance.</returns>
 		public static FormattedQueryValueLinkGenerator QueryName([NotNull] string queryParameterName)
-			=> QueryNameAndValueFormat(queryParameterName, "{0:d}");
+		{
+			return QueryNameAndValueFormat(queryParameterName, "{0:d}");
+		}
 
 		/// <summary>
 		///     Get the generator that uses a "page" as a query parameter name and a page number as a query parameter value.
@@ -124,38 +119,50 @@ namespace Sakura.AspNetCore.Mvc
 		///     <see cref="CultureInfo.InvariantCulture" /> will be used.
 		/// </param>
 		/// <returns>The pager item link generator object.</returns>
-		public static FormattedLinkGenerator Format([NotNull]string format, IFormatProvider formatProvider = null) => new FormattedLinkGenerator(format, formatProvider);
+		public static FormattedLinkGenerator Format([NotNull] string format, IFormatProvider formatProvider = null)
+		{
+			return new FormattedLinkGenerator(format, formatProvider);
+		}
 
 		/// <summary>
-		/// Create a pager item link generator that generates link using a fixed string.
+		///     Create a pager item link generator that generates link using a fixed string.
 		/// </summary>
 		/// <param name="text">The link url string.</param>
 		/// <returns>The pager item link generator object.</returns>
-		public static SimpleLinkGenerator Fixed([NotNull]string text) => new SimpleLinkGenerator(text);
+		public static SimpleLinkGenerator Fixed([NotNull] string text)
+		{
+			return new SimpleLinkGenerator(text);
+		}
 
 		/// <summary>
 		///     Create a pager item link generator that generates link using a custom generating method.
 		/// </summary>
 		/// <param name="linkGenerator">The generation method.</param>
 		/// <returns>The pager item link generator object.</returns>
-		public static CustomLinkGenerator Custom([NotNull]Func<PagerItemGenerationContext, string> linkGenerator)
-			=> new CustomLinkGenerator(linkGenerator);
+		public static CustomLinkGenerator Custom([NotNull] Func<PagerItemGenerationContext, string> linkGenerator)
+		{
+			return new CustomLinkGenerator(linkGenerator);
+		}
 
 		/// <summary>
 		///     Create a pager item link generator that generates link using a custom generating method.
 		/// </summary>
 		/// <param name="linkGenerator">The generation method.</param>
 		/// <returns>The pager item link generator object.</returns>
-		public static CustomLinkGenerator Custom([NotNull]Func<PagerItem, string> linkGenerator)
-			=> Custom(context => linkGenerator(context.PagerItem));
+		public static CustomLinkGenerator Custom([NotNull] Func<PagerItem, string> linkGenerator)
+		{
+			return Custom(context => linkGenerator(context.PagerItem));
+		}
 
 		/// <summary>
 		///     Create a pager item link generator that generates link using a custom generating method.
 		/// </summary>
 		/// <param name="linkGenerator">The generation method.</param>
 		/// <returns>The pager item link generator object.</returns>
-		public static CustomLinkGenerator Custom([NotNull]Func<int, string> linkGenerator)
-			=> Custom(context => linkGenerator(context.PagerItem.PageNumber));
+		public static CustomLinkGenerator Custom([NotNull] Func<int, string> linkGenerator)
+		{
+			return Custom(context => linkGenerator(context.PagerItem.PageNumber));
+		}
 
 		#endregion
 	}

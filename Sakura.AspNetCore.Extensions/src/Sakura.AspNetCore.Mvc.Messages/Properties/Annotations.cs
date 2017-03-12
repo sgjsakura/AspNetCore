@@ -49,9 +49,9 @@ namespace JetBrains.Annotations
 	/// </code>
 	/// </example>
 	[AttributeUsage(
-		 AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property |
-		 AttributeTargets.Delegate | AttributeTargets.Field | AttributeTargets.Event |
-		 AttributeTargets.Class | AttributeTargets.Interface | AttributeTargets.GenericParameter)]
+		AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property |
+		AttributeTargets.Delegate | AttributeTargets.Field | AttributeTargets.Event |
+		AttributeTargets.Class | AttributeTargets.Interface | AttributeTargets.GenericParameter)]
 	[Conditional("JETBRAINS_ANNOTATIONS")]
 	internal sealed class CanBeNullAttribute : Attribute
 	{
@@ -68,9 +68,9 @@ namespace JetBrains.Annotations
 	/// </code>
 	/// </example>
 	[AttributeUsage(
-		 AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property |
-		 AttributeTargets.Delegate | AttributeTargets.Field | AttributeTargets.Event |
-		 AttributeTargets.Class | AttributeTargets.Interface | AttributeTargets.GenericParameter)]
+		AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property |
+		AttributeTargets.Delegate | AttributeTargets.Field | AttributeTargets.Event |
+		AttributeTargets.Class | AttributeTargets.Interface | AttributeTargets.GenericParameter)]
 	[Conditional("JETBRAINS_ANNOTATIONS")]
 	internal sealed class NotNullAttribute : Attribute
 	{
@@ -82,8 +82,8 @@ namespace JetBrains.Annotations
 	///     or of the Lazy.Value property can never be null.
 	/// </summary>
 	[AttributeUsage(
-		 AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property |
-		 AttributeTargets.Delegate | AttributeTargets.Field)]
+		AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property |
+		AttributeTargets.Delegate | AttributeTargets.Field)]
 	[Conditional("JETBRAINS_ANNOTATIONS")]
 	internal sealed class ItemNotNullAttribute : Attribute
 	{
@@ -95,8 +95,8 @@ namespace JetBrains.Annotations
 	///     or of the Lazy.Value property can be null.
 	/// </summary>
 	[AttributeUsage(
-		 AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property |
-		 AttributeTargets.Delegate | AttributeTargets.Field)]
+		AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property |
+		AttributeTargets.Delegate | AttributeTargets.Field)]
 	[Conditional("JETBRAINS_ANNOTATIONS")]
 	internal sealed class ItemCanBeNullAttribute : Attribute
 	{
@@ -107,7 +107,7 @@ namespace JetBrains.Annotations
 	///     in particular scope where this annotation is used (type declaration or whole assembly).
 	/// </summary>
 	[AttributeUsage(
-		 AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Interface | AttributeTargets.Assembly)]
+		AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Interface | AttributeTargets.Assembly)]
 	[Conditional("JETBRAINS_ANNOTATIONS")]
 	internal sealed class ImplicitNotNullAttribute : Attribute
 	{
@@ -129,8 +129,8 @@ namespace JetBrains.Annotations
 	/// </code>
 	/// </example>
 	[AttributeUsage(
-		 AttributeTargets.Constructor | AttributeTargets.Method |
-		 AttributeTargets.Property | AttributeTargets.Delegate)]
+		AttributeTargets.Constructor | AttributeTargets.Method |
+		AttributeTargets.Property | AttributeTargets.Delegate)]
 	[Conditional("JETBRAINS_ANNOTATIONS")]
 	internal sealed class StringFormatMethodAttribute : Attribute
 	{
@@ -143,7 +143,7 @@ namespace JetBrains.Annotations
 		}
 
 		[NotNull]
-		public string FormatParameterName { get; private set; }
+		public string FormatParameterName { get; }
 	}
 
 	/// <summary>
@@ -160,7 +160,7 @@ namespace JetBrains.Annotations
 		}
 
 		[NotNull]
-		public string Name { get; private set; }
+		public string Name { get; }
 	}
 
 	/// <summary>
@@ -253,7 +253,7 @@ namespace JetBrains.Annotations
 		}
 
 		[CanBeNull]
-		public string ParameterName { get; private set; }
+		public string ParameterName { get; }
 	}
 
 	/// <summary>
@@ -327,9 +327,9 @@ namespace JetBrains.Annotations
 		}
 
 		[NotNull]
-		public string Contract { get; private set; }
+		public string Contract { get; }
 
-		public bool ForceFullStates { get; private set; }
+		public bool ForceFullStates { get; }
 	}
 
 	/// <summary>
@@ -356,7 +356,7 @@ namespace JetBrains.Annotations
 			Required = required;
 		}
 
-		public bool Required { get; private set; }
+		public bool Required { get; }
 	}
 
 	/// <summary>
@@ -411,7 +411,7 @@ namespace JetBrains.Annotations
 		}
 
 		[NotNull]
-		public Type BaseType { get; private set; }
+		public Type BaseType { get; }
 	}
 
 	/// <summary>
@@ -443,8 +443,8 @@ namespace JetBrains.Annotations
 			TargetFlags = targetFlags;
 		}
 
-		public ImplicitUseKindFlags UseKindFlags { get; private set; }
-		public ImplicitUseTargetFlags TargetFlags { get; private set; }
+		public ImplicitUseKindFlags UseKindFlags { get; }
+		public ImplicitUseTargetFlags TargetFlags { get; }
 	}
 
 	/// <summary>
@@ -539,7 +539,7 @@ namespace JetBrains.Annotations
 		}
 
 		[CanBeNull]
-		public string Comment { get; private set; }
+		public string Comment { get; }
 	}
 
 	/// <summary>
@@ -589,7 +589,7 @@ namespace JetBrains.Annotations
 		}
 
 		[CanBeNull]
-		public string Justification { get; private set; }
+		public string Justification { get; }
 	}
 
 	/// <summary>
@@ -610,9 +610,9 @@ namespace JetBrains.Annotations
 	/// </code>
 	/// </example>
 	[AttributeUsage(
-		 AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Parameter | AttributeTargets.Method |
-		 AttributeTargets.Class | AttributeTargets.Interface | AttributeTargets.Struct |
-		 AttributeTargets.GenericParameter)]
+		AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Parameter | AttributeTargets.Method |
+		AttributeTargets.Class | AttributeTargets.Interface | AttributeTargets.Struct |
+		AttributeTargets.GenericParameter)]
 	[Conditional("JETBRAINS_ANNOTATIONS")]
 	internal sealed class ProvidesContextAttribute : Attribute
 	{
@@ -630,13 +630,13 @@ namespace JetBrains.Annotations
 		{
 		}
 
-		public PathReferenceAttribute([NotNull, PathReference] string basePath)
+		public PathReferenceAttribute([NotNull] [PathReference] string basePath)
 		{
 			BasePath = basePath;
 		}
 
 		[CanBeNull]
-		public string BasePath { get; private set; }
+		public string BasePath { get; }
 	}
 
 	/// <summary>
@@ -734,7 +734,7 @@ namespace JetBrains.Annotations
 		}
 
 		[NotNull]
-		public string Format { get; private set; }
+		public string Format { get; }
 	}
 
 	[AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
@@ -747,7 +747,7 @@ namespace JetBrains.Annotations
 		}
 
 		[NotNull]
-		public string Format { get; private set; }
+		public string Format { get; }
 	}
 
 	[AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
@@ -760,7 +760,7 @@ namespace JetBrains.Annotations
 		}
 
 		[NotNull]
-		public string Format { get; private set; }
+		public string Format { get; }
 	}
 
 	[AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
@@ -772,7 +772,7 @@ namespace JetBrains.Annotations
 			Format = format;
 		}
 
-		public string Format { get; private set; }
+		public string Format { get; }
 	}
 
 	[AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
@@ -785,7 +785,7 @@ namespace JetBrains.Annotations
 		}
 
 		[NotNull]
-		public string Format { get; private set; }
+		public string Format { get; }
 	}
 
 	[AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
@@ -798,7 +798,7 @@ namespace JetBrains.Annotations
 		}
 
 		[NotNull]
-		public string Format { get; private set; }
+		public string Format { get; }
 	}
 
 	/// <summary>
@@ -821,7 +821,7 @@ namespace JetBrains.Annotations
 		}
 
 		[CanBeNull]
-		public string AnonymousProperty { get; private set; }
+		public string AnonymousProperty { get; }
 	}
 
 	/// <summary>
@@ -843,7 +843,7 @@ namespace JetBrains.Annotations
 		}
 
 		[CanBeNull]
-		public string AnonymousProperty { get; private set; }
+		public string AnonymousProperty { get; }
 	}
 
 	/// <summary>
@@ -866,7 +866,7 @@ namespace JetBrains.Annotations
 		}
 
 		[CanBeNull]
-		public string AnonymousProperty { get; private set; }
+		public string AnonymousProperty { get; }
 	}
 
 	/// <summary>
@@ -1008,7 +1008,7 @@ namespace JetBrains.Annotations
 		}
 
 		[CanBeNull]
-		public string Name { get; private set; }
+		public string Name { get; }
 	}
 
 	[AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Field | AttributeTargets.Property)]
@@ -1021,7 +1021,7 @@ namespace JetBrains.Annotations
 		}
 
 		[NotNull]
-		public string Name { get; private set; }
+		public string Name { get; }
 	}
 
 	/// <summary>
@@ -1048,7 +1048,7 @@ namespace JetBrains.Annotations
 			CollectionAccessType = collectionAccessType;
 		}
 
-		public CollectionAccessType CollectionAccessType { get; private set; }
+		public CollectionAccessType CollectionAccessType { get; }
 	}
 
 	[Flags]
@@ -1092,7 +1092,7 @@ namespace JetBrains.Annotations
 			ConditionType = conditionType;
 		}
 
-		public AssertionConditionType ConditionType { get; private set; }
+		public AssertionConditionType ConditionType { get; }
 	}
 
 	/// <summary>
@@ -1190,10 +1190,10 @@ namespace JetBrains.Annotations
 		}
 
 		[NotNull]
-		public string TagName { get; private set; }
+		public string TagName { get; }
 
 		[NotNull]
-		public Type ControlType { get; private set; }
+		public Type ControlType { get; }
 	}
 
 	[AttributeUsage(AttributeTargets.Property | AttributeTargets.Method)]
@@ -1224,7 +1224,7 @@ namespace JetBrains.Annotations
 		}
 
 		[NotNull]
-		public string Attribute { get; private set; }
+		public string Attribute { get; }
 	}
 
 	[AttributeUsage(AttributeTargets.Property)]
@@ -1236,7 +1236,7 @@ namespace JetBrains.Annotations
 			CreateConstructorReferences = createConstructorReferences;
 		}
 
-		public bool CreateConstructorReferences { get; private set; }
+		public bool CreateConstructorReferences { get; }
 	}
 
 	[AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
@@ -1249,7 +1249,7 @@ namespace JetBrains.Annotations
 		}
 
 		[NotNull]
-		public string Name { get; private set; }
+		public string Name { get; }
 	}
 
 	[AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
@@ -1263,10 +1263,10 @@ namespace JetBrains.Annotations
 		}
 
 		[NotNull]
-		public string Type { get; private set; }
+		public string Type { get; }
 
 		[NotNull]
-		public string FieldName { get; private set; }
+		public string FieldName { get; }
 	}
 
 	[AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
@@ -1279,7 +1279,7 @@ namespace JetBrains.Annotations
 		}
 
 		[NotNull]
-		public string Directive { get; private set; }
+		public string Directive { get; }
 	}
 
 	[AttributeUsage(AttributeTargets.Method)]

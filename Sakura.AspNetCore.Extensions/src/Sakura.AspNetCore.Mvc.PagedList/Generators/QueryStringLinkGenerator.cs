@@ -24,59 +24,24 @@ namespace Sakura.AspNetCore.Mvc.Generators
 		/// </returns>
 		[PublicAPI]
 		[Pure]
-		protected static string ChangeQueryParameterValue(string baseUri, string queryParameterName,
+		protected static Uri ChangeQueryParameterValue(Uri baseUri, string queryParameterName,
 			string queryParameterValue)
 		{
-			// Hosted uri for API compatibility
-			var hostedUri = new Uri("http://test.local/");
-
-			// Generate uri object
-			var uri = new Uri(baseUri, UriKind.RelativeOrAbsolute);
-
-			// Start with slash detection.
-			var isStartWithSlash = false;
-
-			// If the uri is not absolute uri, convert it to an absolute one
-			var isAbsolute = uri.IsAbsoluteUri;
-			if (!isAbsolute)
-			{
-				isStartWithSlash = !string.IsNullOrEmpty(baseUri) && baseUri[0] == '/';
-				uri = new Uri(hostedUri, uri);
-			}
-
 			// Extract query string and change parameter
-			var qs = QueryHelpers.ParseQuery(uri.Query);
-			qs[queryParameterName] = new[] { queryParameterValue };
+			var qs = QueryHelpers.ParseQuery(baseUri.Query);
+			qs[queryParameterName] = new[] {queryParameterValue};
 
 			var qb = new QueryBuilder();
 			foreach (var item in qs)
-			{
-				qb.Add(item.Key, (IEnumerable<string>)item.Value);
-			}
+				qb.Add(item.Key, (IEnumerable<string>) item.Value);
 
 			// Rebuild uri
-			var builder = new UriBuilder(uri)
+			var builder = new UriBuilder(baseUri)
 			{
 				Query = qb.ToString().Remove(0, 1) // Remove leading "?" mark
 			};
 
-			var finalUri = builder.Uri;
-
-			// If the original uri is not absolute, remove the hosted part
-			if (!isAbsolute)
-			{
-				finalUri = hostedUri.MakeRelativeUri(finalUri);
-			}
-
-			var result = UriHelper.Encode(finalUri);
-
-			// Add start slash if necessary
-			if (!isAbsolute && isStartWithSlash)
-			{
-				result = "/" + result;
-			}
-
-			return result;
+			return builder.Uri;
 		}
 
 		/// <summary>
@@ -104,17 +69,14 @@ namespace Sakura.AspNetCore.Mvc.Generators
 		///     recommended. The <paramref name="currentUri" /> argument in this method has been handled and is ensured to be
 		///     absolute. The generator will correctly recover it to the original format after handling.
 		/// </remarks>
-		protected override string HandleUriCore(string currentUri, PagerItemGenerationContext context)
+		protected override Uri HandleUriCore(Uri currentUri, PagerItemGenerationContext context)
 		{
 			// Get name and value
 			var name = GenerateQueryParameterName(context);
 			var value = GenerateQueryParameterValue(context);
 
-			// Get base uri
-			var baseUri = GetCurrentUriWithQuery(context.ViewContext);
-
 			// Generate result
-			return ChangeQueryParameterValue(baseUri, name, value);
+			return ChangeQueryParameterValue(currentUri, name, value);
 		}
 	}
 }

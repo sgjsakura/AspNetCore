@@ -32,8 +32,7 @@ namespace Sakura.AspNetCore.Mvc.Internal
 			if (dictionary == null)
 				throw new ArgumentNullException(nameof(dictionary));
 
-			TValue result;
-			return dictionary.TryGetValue(key, out result) ? result : defaultValue;
+			return dictionary.TryGetValue(key, out TValue result) ? result : defaultValue;
 		}
 	}
 }

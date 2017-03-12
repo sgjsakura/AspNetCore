@@ -11,6 +11,9 @@ namespace Sakura.AspNetCore.Mvc.Generators
 		///     Generate the link url for the specified <see cref="PagerItem" />.
 		/// </summary>
 		/// <param name="context">The generation context.</param>
-		public string GenerateLink(PagerItemGenerationContext context) => null;
+		public string GenerateLink(PagerItemGenerationContext context)
+		{
+			return null;
+		}
 	}
 }

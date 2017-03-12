@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>This package provides extension method to create PagedList using EntityFramework async method.</Description>
+    <AssemblyTitle>ASP.NET Core PagedList Async Extension Library</AssemblyTitle>
+    <TargetFrameworks>netstandard1.3;net451</TargetFrameworks>
+    <AssemblyName>Sakura.AspNetCore.PagedList.Async</AssemblyName>
+    <PackageId>Sakura.AspNetCore.PagedList.Async</PackageId>
+    <PackageTags>ASP.NET;ASP.NETCore;Page;Paging;Cache;Caching</PackageTags>
+    <PackageReleaseNotes>VS 2017 Update</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/sgjsakura/AspNetCore</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/sgjsakura/AspNetCore/blob/master/LICENSE.txt</PackageLicenseUrl>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <Authors>Iris Sakura</Authors>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <RepositoryUrl>https://github.com/sgjsakura/AspNetCore.git</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sakura.AspNetCore.PagedList\Sakura.AspNetCore.PagedList.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="1.0.0" />
+  </ItemGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <Target Name="PostcompileScript" AfterTargets="Build" Condition=" '$(IsCrossTargetingBuild)' != 'true' ">
+    <Exec Command="dotnet pack --no-build -c Release" />
+  </Target>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+</Project>

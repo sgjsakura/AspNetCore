@@ -27,12 +27,7 @@ namespace Sakura.AspNetCore.Mvc.Generators
 		public FormattedQueryValueLinkGenerator([NotNull] string queryParameterName, [NotNull] string format,
 			IFormatProvider formatProvider = null) : base(queryParameterName)
 		{
-			if (format == null)
-			{
-				throw new ArgumentNullException(nameof(format));
-			}
-
-			Format = format;
+			Format = format ?? throw new ArgumentNullException(nameof(format));
 			FormatProvider = formatProvider ?? CultureInfo.InvariantCulture;
 		}
 
@@ -57,6 +52,8 @@ namespace Sakura.AspNetCore.Mvc.Generators
 		/// <param name="context">The generation context.</param>
 		/// <returns>The query parameter name for current pager item.</returns>
 		public override string GenerateQueryParameterValue(PagerItemGenerationContext context)
-			=> string.Format(FormatProvider, Format, context.PagerItem.PageNumber);
+		{
+			return string.Format(FormatProvider, Format, context.PagerItem.PageNumber);
+		}
 	}
 }

@@ -134,9 +134,7 @@ namespace Sakura.AspNetCore.Mvc
 		public PagerItemOptions GetOptionsFor([NotNull] PagerItem item)
 		{
 			if (item == null)
-			{
 				throw new ArgumentNullException(nameof(item));
-			}
 
 			return GetOptionsFor(item.ItemType);
 		}
@@ -194,9 +192,7 @@ namespace Sakura.AspNetCore.Mvc
 		public PagerItemOptions GetMergedOptionsFor([NotNull] PagerItem item)
 		{
 			if (item == null)
-			{
 				throw new ArgumentNullException(nameof(item));
-			}
 
 			return GetMergedOptionsFor(item.ItemType);
 		}

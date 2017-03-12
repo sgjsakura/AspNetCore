@@ -18,9 +18,7 @@ namespace Sakura.AspNetCore.Mvc
 		{
 			// Argument check
 			if (options == null)
-			{
 				throw new ArgumentNullException(nameof(options));
-			}
 
 			options.Layout = PagerLayouts.Default;
 			options.ExpandPageItemsForCurrentPage = 2;

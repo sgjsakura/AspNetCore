@@ -9,22 +9,20 @@ using Microsoft.Extensions.Options;
 namespace Microsoft.AspNet.Builder
 {
 	/// <summary>
-	///     Provide extension methods for <seealso cref="IApplicationBuilder" />. This class is static.
+	///     Provide extension methods for <see cref="IApplicationBuilder" />. This class is static.
 	/// </summary>
 	public static class ApplicationBuilderExtensions
 	{
 		/// <summary>
 		///     Configure a application to enable all cookie-related authentication schemes.
 		/// </summary>
-		/// <param name="app">The <see cref="IApplicationBuilder"/> object.</param>
-		/// <exception cref="ArgumentNullException">The <paramref name="app"/> is <c>null</c>.</exception>
+		/// <param name="app">The <see cref="IApplicationBuilder" /> object.</param>
+		/// <exception cref="ArgumentNullException">The <paramref name="app" /> is <c>null</c>.</exception>
 		[PublicAPI]
 		public static void UseAllCookies([NotNull] this IApplicationBuilder app)
 		{
 			if (app == null)
-			{
 				throw new ArgumentNullException(nameof(app));
-			}
 
 			// Get the identity options
 			var identityOptions = app.ApplicationServices.GetService<IOptions<IdentityOptions>>().Value;

@@ -29,7 +29,8 @@ namespace Sakura.AspNetCore.Mvc.Internal
 		/// <param name="expandForCurrentPage">How many pages should be expanded for current page.</param>
 		/// <param name="expandForEnding">How many pages should be expanded for ending.</param>
 		/// <returns></returns>
-		private static IEnumerable<PagerItem> GeneratePagerNormalItems(int currentPage, int totalPage, int expandForCurrentPage,
+		private static IEnumerable<PagerItem> GeneratePagerNormalItems(int currentPage, int totalPage,
+			int expandForCurrentPage,
 			int expandForEnding)
 		{
 			var pageNumberList = new SortedSet<int> {currentPage};
@@ -57,13 +58,11 @@ namespace Sakura.AspNetCore.Mvc.Internal
 			{
 				// Skipped some item
 				if (i - lastPageNumber > 1)
-				{
 					yield return new PagerItem
 					{
 						ItemType = PagerItemType.Omitted,
 						PageNumber = -1
 					};
-				}
 
 				yield return new PagerItem
 				{
@@ -78,13 +77,11 @@ namespace Sakura.AspNetCore.Mvc.Internal
 
 			// last page omit handling
 			if (lastPageNumber < totalPage)
-			{
 				yield return new PagerItem
 				{
 					ItemType = PagerItemType.Omitted,
 					PageNumber = -1
 				};
-			}
 		}
 
 		/// <summary>
@@ -179,10 +176,8 @@ namespace Sakura.AspNetCore.Mvc.Internal
 
 			foreach (var element in layout)
 			{
-				PagerItem[] elementResult;
-
 				// If the dictionary not contains the layout result, generate once and store it to the dictionary
-				if (!layoutResult.TryGetValue(element, out elementResult))
+				if (!layoutResult.TryGetValue(element, out PagerItem[] elementResult))
 				{
 					elementResult = GenerateItemsForLayoutElement(element, currentPage, totalPage, options).ToArray();
 					layoutResult[element] = elementResult;

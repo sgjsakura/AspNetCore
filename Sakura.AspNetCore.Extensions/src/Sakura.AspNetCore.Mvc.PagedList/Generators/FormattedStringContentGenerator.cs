@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Html;
 namespace Sakura.AspNetCore.Mvc.Generators
 {
 	/// <summary>
-	///     Generate <see cref="IHtmlContent" /> from a formatted string. The page number will be used as the format argument {0}.
+	///     Generate <see cref="IHtmlContent" /> from a formatted string. The page number will be used as the format argument
+	///     {0}.
 	/// </summary>
 	public class FormattedStringContentGenerator : StringContentGenerator
 	{
@@ -23,12 +24,7 @@ namespace Sakura.AspNetCore.Mvc.Generators
 		public FormattedStringContentGenerator([LocalizationRequired] [NotNull] string format, bool encodeText,
 			IFormatProvider formatProvider = null) : base(encodeText)
 		{
-			if (format == null)
-			{
-				throw new ArgumentNullException(nameof(format));
-			}
-
-			Format = format;
+			Format = format ?? throw new ArgumentNullException(nameof(format));
 			FormatProvider = formatProvider ?? CultureInfo.CurrentCulture;
 		}
 
@@ -52,6 +48,8 @@ namespace Sakura.AspNetCore.Mvc.Generators
 		/// <param name="context">The generation context.</param>
 		/// <returns>The generated content string.</returns>
 		protected override string GenerateContentString(PagerItemGenerationContext context)
-			=> string.Format(FormatProvider, Format, context.PagerItem.PageNumber);
+		{
+			return string.Format(FormatProvider, Format, context.PagerItem.PageNumber);
+		}
 	}
 }

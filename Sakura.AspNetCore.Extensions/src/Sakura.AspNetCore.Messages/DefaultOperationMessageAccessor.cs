@@ -54,25 +54,20 @@ namespace Sakura.AspNetCore
 				var key = Options.TempDataKeyName;
 
 				if (key == null)
-				{
 					throw new InvalidOperationException(
 						"The TempDataKeyName property in the configured OperationMessageOptions instance cannot be null。");
-				}
 
 				ICollection<OperationMessage> result = null;
 
 				// Retrieve the data and convert to the collection type
-				object value;
-				if (TempData.TryGetValue(key, out value))
+				if (TempData.TryGetValue(key, out object value))
 				{
 					result = value as ICollection<OperationMessage>;
 
 					// Check type and raise exception
 					if (result == null && !Options.AutomaticOverwriteOnTypeError)
-					{
 						throw new InvalidOperationException(
 							$"TempData has an value with the key name '{key}', however it cannot be converted to ICollection<OperationMessage> type.");
-					}
 				}
 
 				// Automatically create a new collection when the valuect is not existed or cannot be converted to the target type

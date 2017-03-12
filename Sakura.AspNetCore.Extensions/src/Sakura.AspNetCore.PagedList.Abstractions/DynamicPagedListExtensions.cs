@@ -17,9 +17,7 @@ namespace Sakura.AspNetCore
 		private static void CheckArgument(IDynamicPagedList pagedList)
 		{
 			if (pagedList == null)
-			{
 				throw new ArgumentNullException(nameof(pagedList));
-			}
 		}
 
 
@@ -61,9 +59,7 @@ namespace Sakura.AspNetCore
 			CheckArgument(pagedList);
 
 			if (pagedList.IsFirstPage())
-			{
 				return false;
-			}
 
 			pagedList.PageIndex--;
 			return true;
@@ -83,9 +79,7 @@ namespace Sakura.AspNetCore
 			CheckArgument(pagedList);
 
 			if (pagedList.IsLastPage())
-			{
 				return false;
-			}
 
 			pagedList.PageIndex++;
 			return true;

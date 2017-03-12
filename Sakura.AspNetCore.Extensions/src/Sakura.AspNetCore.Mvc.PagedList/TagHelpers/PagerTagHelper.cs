@@ -13,7 +13,7 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 	/// <summary>
 	///     Generate a pager in HTML page.
 	/// </summary>
-	[HtmlTargetElement(HtmlTagName)]
+	[HtmlTargetElement(HtmlTagName, TagStructure = TagStructure.WithoutEndTag)]
 	[UsedImplicitly(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature)]
 	public class PagerTagHelper : TagHelper
 	{
@@ -62,29 +62,22 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 			{
 				// Not both set
 				if (!hasTotalPage || !hasCurrentPage)
-				{
 					throw new InvalidOperationException(
 						$"The '{TotalPageAttributeName}' and '{CurrentPageAttributeName}' attribute must both be set on the element.");
-				}
 
 				// Cannot combined with source
 				if (hasSource)
-				{
 					throw new InvalidOperationException(
 						$"The '{SourceAttributeName}' attribute cannot be used together with either '{TotalPageAttributeName}' or '{CurrentPageAttributeName}' attribute.");
-				}
 
 				// Range check
 				if (TotalPage <= 0)
-				{
-					throw new InvalidOperationException($"The value of '{TotalPageAttributeName}' attribute must be positive integer.");
-				}
+					throw new InvalidOperationException(
+						$"The value of '{TotalPageAttributeName}' attribute must be positive integer.");
 
 				if (CurrentPage <= 0 || CurrentPage > TotalPage)
-				{
 					throw new InvalidOperationException(
 						$"The value of '{CurrentPageAttributeName}' attribute must between 1 and the value of '{TotalPageAttributeName}' attribute.");
-				}
 
 
 				// Result
@@ -98,10 +91,8 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 				if (hasSource)
 				{
 					if (Source == null)
-					{
 						throw new InvalidOperationException(
 							$"The pager source specified with '{SourceAttributeName}' attribute cannot be null.");
-					}
 
 					realSource = Source;
 				}
@@ -110,10 +101,8 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 					realSource = ViewContext.ViewData.Model as IPagedList;
 
 					if (realSource == null)
-					{
 						throw new InvalidOperationException(
 							$"The model of current view is either null or an object that cannot be converted to '{typeof(IPagedList).AssemblyQualifiedName}' type.");
-					}
 				}
 
 				currentPage = realSource.PageIndex;
@@ -132,10 +121,8 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 			if (context.AllAttributes.ContainsName(GeneratorAttributeName))
 			{
 				if (Generator == null)
-				{
 					throw new InvalidOperationException(
 						$"The HTML generator specified using '{GeneratorAttributeName}' attribute cannot be null.");
-				}
 
 				return Generator;
 			}
@@ -144,10 +131,8 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 			var registeredGenerator = ViewContext.HttpContext.RequestServices.GetService<IPagerGenerator>();
 
 			if (registeredGenerator == null)
-			{
 				throw new InvalidOperationException(
 					$"You must provide a pager HTML generator service object to generate the pager either through the '{GenerationModeAttributeName}' attribute or register it at application startup time.");
-			}
 
 			return registeredGenerator;
 		}
@@ -167,20 +152,14 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 
 			// Merge generators
 			if (context.AllAttributes.ContainsName(ItemDefaultContentGeneratorAttributeName))
-			{
 				result.ItemOptions.Default.Content = ItemDefaultContentGenerator;
-			}
 
 			if (context.AllAttributes.ContainsName(ItemDefaultLinkGeneratorAttributeName))
-			{
 				result.ItemOptions.Default.Link = ItemDefaultLinkGenerator;
-			}
 
 			// Merge settings
 			foreach (var i in Settings)
-			{
 				result.AdditionalSettings[i.Key] = i.Value;
-			}
 
 			return result;
 		}
@@ -198,10 +177,8 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 			if (context.AllAttributes.ContainsName(OptionsAttributeName))
 			{
 				if (Options == null)
-				{
 					throw new InvalidOperationException(
 						$"The pager options specified using '{OptionsAttributeName}' attribute cannot be null.");
-				}
 
 				result = Options;
 			}
@@ -229,33 +206,23 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		private void CheckOptions([NotNull] PagerOptions options)
 		{
 			if (options == null)
-			{
 				throw new ArgumentNullException(nameof(options));
-			}
 
 			if (options.Layout == null)
-			{
 				throw new InvalidOperationException(
 					$"The value of the '{nameof(PagerOptions.Layout)}' property in the pager options cannot be null.");
-			}
 
 			if (options.PagerItemsForEndings < 0)
-			{
 				throw new InvalidOperationException(
 					$"The value of the '{nameof(PagerOptions.PagerItemsForEndings)}' property in the pager options cannot be negative.");
-			}
 
 			if (options.ExpandPageItemsForCurrentPage < 0)
-			{
 				throw new InvalidOperationException(
 					$"The value of the '{nameof(PagerOptions.ExpandPageItemsForCurrentPage)}' property in the pager options cannot be negative.");
-			}
 
 			if (options.Layout == null)
-			{
 				throw new InvalidOperationException(
 					$"The value of the '{nameof(PagerOptions.Layout)}' property cannot be null.");
-			}
 		}
 
 		/// <summary>
@@ -268,17 +235,13 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		{
 			// State check
 			if (output.TagMode != TagMode.SelfClosing)
-			{
 				throw new InvalidOperationException($"The '{HtmlTagName}' tag must use self closing mode.");
-			}
 
 			// Get information and build up context
 			var generator = GetRealGenerator(context);
 			var options = GetRealOptions(context);
 			CheckOptions(options);
-
-			int currentPage, totalPage;
-			GetPagingInfo(context, out currentPage, out totalPage);
+			GetPagingInfo(context, out var currentPage, out var totalPage);
 
 			var pagerContext = new PagerGenerationContext(currentPage, totalPage, options, ViewContext, GenerationMode);
 

@@ -27,10 +27,12 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		///     Generate a list of <see cref="SelectListItem" /> for a specified enum type.
 		/// </summary>
 		/// <returns>The generated list.</returns>
-		protected virtual IEnumerable<SelectListItem> GenerateListForEnumType() =>
-			GetEnumType()
+		protected virtual IEnumerable<SelectListItem> GenerateListForEnumType()
+		{
+			return GetEnumType()
 				.GetMembers(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Static)
 				.Select(GetItemForMember);
+		}
 
 		#region Constants for attributes
 
@@ -67,25 +69,34 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		/// </summary>
 		/// <param name="memberInfo">The <see cref="MemberInfo" /> object represents as the enum item.</param>
 		/// <returns><paramref name="memberInfo" />The option text associated with <paramref name="memberInfo" />.</returns>
-		protected virtual string GetTextForMember(MemberInfo memberInfo) => memberInfo.GetTextForMember(TextSource);
+		protected virtual string GetTextForMember(MemberInfo memberInfo)
+		{
+			return memberInfo.GetTextForMember(TextSource);
+		}
 
 		/// <summary>
 		///     Get the value of the option associated with the specified enum item.
 		/// </summary>
 		/// <param name="memberInfo">The <see cref="MemberInfo" /> object represents as the enum item.</param>
 		/// <returns><paramref name="memberInfo" />The option value associated with <paramref name="memberInfo" />.</returns>
-		protected virtual string GetValueForMember(MemberInfo memberInfo) => memberInfo.GetValueForMember(ValueSource);
+		protected virtual string GetValueForMember(MemberInfo memberInfo)
+		{
+			return memberInfo.GetValueForMember(ValueSource);
+		}
 
 		/// <summary>
 		///     Generate a <see cref="SelectListItem" /> for a specified <see cref="MemberInfo" />.
 		/// </summary>
 		/// <param name="memberInfo">The <see cref="MemberInfo" /> object represents as the enum item.</param>
 		/// <returns></returns>
-		protected virtual SelectListItem GetItemForMember(MemberInfo memberInfo) => new SelectListItem
+		protected virtual SelectListItem GetItemForMember(MemberInfo memberInfo)
 		{
-			Text = GetTextForMember(memberInfo),
-			Value = GetValueForMember(memberInfo)
-		};
+			return new SelectListItem
+			{
+				Text = GetTextForMember(memberInfo),
+				Value = GetValueForMember(memberInfo)
+			};
+		}
 
 		#endregion
 	}

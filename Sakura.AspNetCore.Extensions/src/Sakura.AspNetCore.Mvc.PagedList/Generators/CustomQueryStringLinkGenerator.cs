@@ -22,18 +22,8 @@ namespace Sakura.AspNetCore.Mvc.Generators
 		public CustomQueryStringLinkGenerator([NotNull] Func<PagerItemGenerationContext, string> queryNameGenerator,
 			[NotNull] Func<PagerItemGenerationContext, string> queryValueGenerator)
 		{
-			if (queryNameGenerator == null)
-			{
-				throw new ArgumentNullException(nameof(queryNameGenerator));
-			}
-
-			if (queryValueGenerator == null)
-			{
-				throw new ArgumentNullException(nameof(queryValueGenerator));
-			}
-
-			QueryNameGenerator = queryNameGenerator;
-			QueryValueGenerator = queryValueGenerator;
+			QueryNameGenerator = queryNameGenerator ?? throw new ArgumentNullException(nameof(queryNameGenerator));
+			QueryValueGenerator = queryValueGenerator ?? throw new ArgumentNullException(nameof(queryValueGenerator));
 		}
 
 		/// <summary>
@@ -53,13 +43,19 @@ namespace Sakura.AspNetCore.Mvc.Generators
 		/// </summary>
 		/// <param name="context">The generation context.</param>
 		/// <returns>The query parameter name for current pager item.</returns>
-		public override string GenerateQueryParameterName(PagerItemGenerationContext context) => QueryNameGenerator(context);
+		public override string GenerateQueryParameterName(PagerItemGenerationContext context)
+		{
+			return QueryNameGenerator(context);
+		}
 
 		/// <summary>
 		///     Generate the query parameter value for the specified <see cref="PagerItem" />.
 		/// </summary>
 		/// <param name="context">The generation context.</param>
 		/// <returns>The query parameter name for current pager item.</returns>
-		public override string GenerateQueryParameterValue(PagerItemGenerationContext context) => QueryValueGenerator(context);
+		public override string GenerateQueryParameterValue(PagerItemGenerationContext context)
+		{
+			return QueryValueGenerator(context);
+		}
 	}
 }

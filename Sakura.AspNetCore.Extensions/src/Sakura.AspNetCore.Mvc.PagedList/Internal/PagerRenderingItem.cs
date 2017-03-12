@@ -16,12 +16,7 @@ namespace Sakura.AspNetCore.Mvc.Internal
 		/// <param name="list">The owner list of the pager item.</param>
 		public PagerRenderingItem([NotNull] PagerRenderingList list)
 		{
-			if (list == null)
-			{
-				throw new ArgumentNullException(nameof(list));
-			}
-
-			List = list;
+			List = list ?? throw new ArgumentNullException(nameof(list));
 		}
 
 		/// <summary>

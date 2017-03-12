@@ -69,9 +69,7 @@ namespace Sakura.AspNetCore.Mvc
 
 			// Return base item if no additional options are 
 			if (additionalOptions == null)
-			{
 				return result;
-			}
 
 			// Merge attributes
 			result.Content = additionalOptions.Content ?? result.Content;
@@ -81,9 +79,7 @@ namespace Sakura.AspNetCore.Mvc
 
 			// Merge settings
 			foreach (var i in additionalOptions.AdditionalSettings)
-			{
 				result.AdditionalSettings[i.Key] = i.Value;
-			}
 
 			return result;
 		}
@@ -98,7 +94,9 @@ namespace Sakura.AspNetCore.Mvc
 		/// <returns>The final merged result.</returns>
 		[NotNull]
 		public static PagerItemOptions MergeAll([ItemCanBeNull] params PagerItemOptions[] options)
-			=> MergeAll((IEnumerable<PagerItemOptions>) options);
+		{
+			return MergeAll((IEnumerable<PagerItemOptions>) options);
+		}
 
 		/// <summary>
 		///     Merge all <see cref="PagerItemOptions" /> and get a final result.
@@ -110,6 +108,8 @@ namespace Sakura.AspNetCore.Mvc
 		/// <returns>The final merged result.</returns>
 		[NotNull]
 		public static PagerItemOptions MergeAll([ItemCanBeNull] IEnumerable<PagerItemOptions> options)
-			=> options.Aggregate(new PagerItemOptions(), Merge);
+		{
+			return options.Aggregate(new PagerItemOptions(), Merge);
+		}
 	}
 }

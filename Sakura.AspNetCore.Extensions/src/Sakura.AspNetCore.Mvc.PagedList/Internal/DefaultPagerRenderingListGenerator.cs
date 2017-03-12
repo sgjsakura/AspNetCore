@@ -85,9 +85,7 @@ namespace Sakura.AspNetCore.Mvc.Internal
 				case PagerItemType.Next:
 					var disabled = ItemShouldBeDisabled(context);
 					if (!disabled)
-					{
 						return PagerRenderingItemState.Normal;
-					}
 					switch (context.PagerItemOptions.InactiveBehavior)
 					{
 						case SpecialPagerItemInactiveBehavior.Disable:
@@ -142,10 +140,8 @@ namespace Sakura.AspNetCore.Mvc.Internal
 
 			foreach (var item in items)
 			{
-				PagerItemOptions itemOptions;
-
 				// Try to get cached options, or create a new option instance
-				if (!optionsCache.TryGetValue(item.ItemType, out itemOptions))
+				if (!optionsCache.TryGetValue(item.ItemType, out PagerItemOptions itemOptions))
 				{
 					itemOptions = context.Options.ItemOptions.GetMergedOptionsFor(item);
 					optionsCache[item.ItemType] = itemOptions;

@@ -21,9 +21,7 @@ namespace Sakura.AspNetCore.Mvc
 		public PagerLayout([NotNull] IEnumerable<PagerLayoutElement> elements)
 		{
 			if (elements == null)
-			{
 				throw new ArgumentNullException(nameof(elements));
-			}
 
 			Elements = new ReadOnlyCollection<PagerLayoutElement>(elements.ToArray());
 		}

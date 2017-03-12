@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>This library contains the operation message type definitions and service interfaces for ASP.NET Core projects.</Description>
+    <AssemblyTitle>ASP.NET Core Operation Message Abstraction Layer</AssemblyTitle>
+    <VersionPrefix>1.0.1</VersionPrefix>
+    <Authors>Iris Sakura</Authors>
+    <TargetFramework>netstandard1.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <AssemblyName>Sakura.AspNetCore.Messages.Abstractions</AssemblyName>
+    <PackageId>Sakura.AspNetCore.Messages.Abstractions</PackageId>
+    <PackageTags>ASP.NET;ASP.NETCore;Message;Messages</PackageTags>
+    <PackageReleaseNotes>VS2017 Update</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/sgjsakura/AspNetCore</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/sgjsakura/AspNetCore/blob/master/LICENSE.txt</PackageLicenseUrl>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <RepositoryUrl>https://github.com/sgjsakura/AspNetCore.git</RepositoryUrl>
+    <Version>1.0.1</Version>
+  </PropertyGroup>
+
+  <Target Name="PostcompileScript" AfterTargets="Build">
+    <Exec Command="dotnet pack --no-build -c Release" />
+  </Target>
+
+</Project>

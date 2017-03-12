@@ -17,9 +17,7 @@ namespace Sakura.AspNetCore
 		private static void CheckArgument(IPagedList pagedList)
 		{
 			if (pagedList == null)
-			{
 				throw new ArgumentNullException(nameof(pagedList));
-			}
 		}
 
 

@@ -24,9 +24,7 @@ namespace Microsoft.Extensions.DependencyInjection
 		{
 			// Argument check
 			if (services == null)
-			{
 				throw new ArgumentNullException(nameof(services));
-			}
 
 			// Add the IObjectSerializer implementation
 			services.TryAddSingleton<IObjectSerializer, JsonObjectSerializer>();

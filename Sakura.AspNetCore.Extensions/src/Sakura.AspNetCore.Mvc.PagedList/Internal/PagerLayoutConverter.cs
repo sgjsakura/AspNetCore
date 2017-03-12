@@ -22,17 +22,13 @@ namespace Sakura.AspNetCore.Mvc.Internal
 		{
 			var realValue = value as string;
 			if (realValue == null)
-			{
 				throw new NotSupportedException();
-			}
 
 			var match = Regex.Match(realValue, @"^(?<type>.*?)(\:(?<exp>.*))?$",
 				RegexOptions.Compiled | RegexOptions.ExplicitCapture | RegexOptions.IgnoreCase | RegexOptions.Singleline);
 
 			if (!match.Success)
-			{
 				throw new NotSupportedException();
-			}
 
 			var type = match.Groups["type"].Value;
 			var exp = match.Groups["exp"].Value;

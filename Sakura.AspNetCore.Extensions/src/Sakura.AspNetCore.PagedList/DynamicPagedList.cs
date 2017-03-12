@@ -25,19 +25,28 @@ namespace Sakura.AspNetCore
 		///     Get the total count of the data source.
 		/// </summary>
 		/// <returns>The total count of the data source.</returns>
-		protected override int GetTotalCount() => Source.Count();
+		protected override int GetTotalCount()
+		{
+			return Source.Count();
+		}
 
 		/// <summary>
 		///     Get the data in the current page.
 		/// </summary>
 		/// <returns>The data in the current page.</returns>
-		protected override IEnumerable<T> GetCurrentPage() => Source.Skip((PageIndex - 1) * PageSize).Take(PageSize);
+		protected override IEnumerable<T> GetCurrentPage()
+		{
+			return Source.Skip((PageIndex - 1) * PageSize).Take(PageSize);
+		}
 
 		/// <summary>
 		///     Make a cached copy for the current page.
 		/// </summary>
 		/// <param name="source">The data source to be caching.</param>
 		/// <returns>The cached data.</returns>
-		protected override IEnumerable<T> CacheData(IEnumerable<T> source) => source.ToArray();
+		protected override IEnumerable<T> CacheData(IEnumerable<T> source)
+		{
+			return source.ToArray();
+		}
 	}
 }

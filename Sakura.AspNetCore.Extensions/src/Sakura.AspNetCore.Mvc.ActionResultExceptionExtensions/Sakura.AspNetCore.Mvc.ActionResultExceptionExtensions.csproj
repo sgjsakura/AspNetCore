@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>This library classes and helper methods which can be used to return action results directly during the MVC executing pipeline.</Description>
+    <AssemblyTitle>ASP.NET Core ActionResult Extension Library</AssemblyTitle>
+    <Authors>Iris Sakura</Authors>
+    <TargetFrameworks>net451;netstandard1.6</TargetFrameworks>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <AssemblyName>Sakura.AspNetCore.Mvc.ActionResultExceptionExtensions</AssemblyName>
+    <PackageId>Sakura.AspNetCore.Mvc.ActionResultExceptionExtensions</PackageId>
+    <PackageTags>ASP.NET;ASP.NETCore;MVC;MVCCore;Exception</PackageTags>
+    <PackageReleaseNotes>Update to .NET Core 1.1</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/sgjsakura/AspNetCore</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/sgjsakura/AspNetCore/blob/master/LICENSE.txt</PackageLicenseUrl>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <RepositoryUrl>https://github.com/sgjsakura/AspNetCore.git</RepositoryUrl>
+    <Version>1.0.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+  <Target Name="PostcompileScript" AfterTargets="Build" Condition=" '$(IsCrossTargetingBuild)' != 'true' ">
+    <Exec Command="dotnet pack --no-build -c Release" />
+  </Target>
+
+</Project>

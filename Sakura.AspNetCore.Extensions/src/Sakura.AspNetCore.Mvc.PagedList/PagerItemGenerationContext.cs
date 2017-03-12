@@ -19,9 +19,7 @@ namespace Sakura.AspNetCore.Mvc
 			PagerItemOptions pagerItemOptions)
 		{
 			if (baseContext == null)
-			{
 				throw new ArgumentNullException(nameof(baseContext));
-			}
 
 			CurrentPage = baseContext.CurrentPage;
 			TotalPage = baseContext.TotalPage;

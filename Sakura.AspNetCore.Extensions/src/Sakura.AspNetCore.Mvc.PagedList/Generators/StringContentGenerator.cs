@@ -35,7 +35,9 @@ namespace Sakura.AspNetCore.Mvc.Generators
 		/// <param name="context">The generation context.</param>
 		/// <returns>The generated HTML content for the pager item.</returns>
 		public IHtmlContent GenerateContent(PagerItemGenerationContext context)
-			=> GenerateContentString(context).ToHtmlContent(EncodeText);
+		{
+			return GenerateContentString(context).ToHtmlContent(EncodeText);
+		}
 
 		/// <summary>
 		///     When be derived, generate the content string.
