@@ -10,7 +10,7 @@ namespace Sakura.AspNetCore.Mvc.Generators
 	/// <summary>
 	///     Represent as base class for all query string based link generator.
 	/// </summary>
-	public abstract class QueryStringLinkGenerator : CurrentUriBasedLinkGenerator
+	public abstract class QueryStringLinkGenerator : BaseUriLinkGenerator
 	{
 		/// <summary>
 		///     Change a specified parameter value for an uri.
@@ -61,22 +61,22 @@ namespace Sakura.AspNetCore.Mvc.Generators
 		/// <summary>
 		///     The core method for handling the current uri.
 		/// </summary>
-		/// <param name="currentUri">The URL to handle, this URL is ensured in absolute mode.</param>
+		/// <param name="baseUri">The URL to handle, this URL is ensured in absolute mode.</param>
 		/// <param name="context">The generation context.</param>
 		/// <returns>The generated URL string.</returns>
 		/// <remarks>
 		///     Most URI handling method requirest the URI be absolute format, however in the view page relative URI is
-		///     recommended. The <paramref name="currentUri" /> argument in this method has been handled and is ensured to be
+		///     recommended. The <paramref name="baseUri" /> argument in this method has been handled and is ensured to be
 		///     absolute. The generator will correctly recover it to the original format after handling.
 		/// </remarks>
-		protected override Uri HandleUriCore(Uri currentUri, PagerItemGenerationContext context)
+		protected override Uri HandleUriCore(Uri baseUri, PagerItemGenerationContext context)
 		{
 			// Get name and value
 			var name = GenerateQueryParameterName(context);
 			var value = GenerateQueryParameterValue(context);
 
 			// Generate result
-			return ChangeQueryParameterValue(currentUri, name, value);
+			return ChangeQueryParameterValue(baseUri, name, value);
 		}
 	}
 }

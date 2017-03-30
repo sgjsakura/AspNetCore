@@ -9,7 +9,7 @@
     <AssemblyName>Sakura.AspNetCore.Mvc.PagedList</AssemblyName>
     <PackageId>Sakura.AspNetCore.Mvc.PagedList</PackageId>
     <PackageTags>ASP.NET;ASP.NETCore;MVC;MVCCore;Paging;Page;Pager;Bootstrap</PackageTags>
-    <PackageReleaseNotes>Fixed a bug that generated URI is incorrect when site is rooted in a subpath.</PackageReleaseNotes>
+    <PackageReleaseNotes>Add support for much more extended tag helpers used to simplify pager generation.</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/sgjsakura/AspNetCore</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/sgjsakura/AspNetCore/blob/master/LICENSE.txt</PackageLicenseUrl>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
@@ -18,7 +18,7 @@
     <RootNamespace>Sakura.AspNetCore.Mvc</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/sgjsakura/AspNetCore.git</RepositoryUrl>
-    <Version>2.0.12</Version>
+    <Version>3.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

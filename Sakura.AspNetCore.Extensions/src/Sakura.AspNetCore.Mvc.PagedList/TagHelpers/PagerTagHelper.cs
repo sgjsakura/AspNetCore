@@ -30,6 +30,18 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 
 		#endregion
 
+		#region Order
+
+		/// <summary>
+		/// Get the default <see cref="Order"/> value for this tag helper. This field is constant.
+		/// </summary>
+		public const int DefaultOrder = 0;
+
+		/// <inheritdoc />
+		public override int Order { get; } = DefaultOrder;
+
+		#endregion
+
 		#region Registered Service
 
 		/// <summary>
@@ -54,60 +66,27 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		/// <param name="totalPage">Return the total page count.</param>
 		private void GetPagingInfo(TagHelperContext context, out int currentPage, out int totalPage)
 		{
-			var hasSource = context.AllAttributes.ContainsName(SourceAttributeName);
 			var hasCurrentPage = context.AllAttributes.ContainsName(CurrentPageAttributeName);
 			var hasTotalPage = context.AllAttributes.ContainsName(TotalPageAttributeName);
 
-			if (hasTotalPage || hasCurrentPage)
-			{
-				// Not both set
-				if (!hasTotalPage || !hasCurrentPage)
-					throw new InvalidOperationException(
-						$"The '{TotalPageAttributeName}' and '{CurrentPageAttributeName}' attribute must both be set on the element.");
+			// Not both set
+			if (!hasTotalPage || !hasCurrentPage)
+				throw new InvalidOperationException(
+					$"The '{TotalPageAttributeName}' and '{CurrentPageAttributeName}' attribute must both be set on the element.");
 
-				// Cannot combined with source
-				if (hasSource)
-					throw new InvalidOperationException(
-						$"The '{SourceAttributeName}' attribute cannot be used together with either '{TotalPageAttributeName}' or '{CurrentPageAttributeName}' attribute.");
+			// Range check
+			if (TotalPage <= 0)
+				throw new InvalidOperationException(
+					$"The value of '{TotalPageAttributeName}' attribute must be positive integer.");
 
-				// Range check
-				if (TotalPage <= 0)
-					throw new InvalidOperationException(
-						$"The value of '{TotalPageAttributeName}' attribute must be positive integer.");
-
-				if (CurrentPage <= 0 || CurrentPage > TotalPage)
-					throw new InvalidOperationException(
-						$"The value of '{CurrentPageAttributeName}' attribute must between 1 and the value of '{TotalPageAttributeName}' attribute.");
+			if (CurrentPage <= 0 || CurrentPage > TotalPage)
+				throw new InvalidOperationException(
+					$"The value of '{CurrentPageAttributeName}' attribute must between 1 and the value of '{TotalPageAttributeName}' attribute.");
 
 
-				// Result
-				currentPage = CurrentPage;
-				totalPage = TotalPage;
-			}
-			else
-			{
-				IPagedList realSource;
-
-				if (hasSource)
-				{
-					if (Source == null)
-						throw new InvalidOperationException(
-							$"The pager source specified with '{SourceAttributeName}' attribute cannot be null.");
-
-					realSource = Source;
-				}
-				else
-				{
-					realSource = ViewContext.ViewData.Model as IPagedList;
-
-					if (realSource == null)
-						throw new InvalidOperationException(
-							$"The model of current view is either null or an object that cannot be converted to '{typeof(IPagedList).AssemblyQualifiedName}' type.");
-				}
-
-				currentPage = realSource.PageIndex;
-				totalPage = realSource.TotalPage;
-			}
+			// Result
+			currentPage = CurrentPage;
+			totalPage = TotalPage;
 		}
 
 		/// <summary>
@@ -268,11 +247,6 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		[PublicAPI] public const string OptionsAttributeName = "options";
 
 		/// <summary>
-		///     Get the HTML attribute name for <see cref="Source" /> property. This field is constant.
-		/// </summary>
-		[PublicAPI] public const string SourceAttributeName = "source";
-
-		/// <summary>
 		///     Get the HTML attribute name for <see cref="CurrentPage" /> property. This field is constant.
 		/// </summary>
 		[PublicAPI] public const string CurrentPageAttributeName = "current-page";
@@ -323,13 +297,6 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		/// </summary>
 		[HtmlAttributeName(OptionsAttributeName)]
 		public PagerOptions Options { get; set; }
-
-		/// <summary>
-		///     Get or set the source of the pager. This property cannot be used together with <see cref="CurrentPage" /> or
-		///     <see cref="TotalPage" />.
-		/// </summary>
-		[HtmlAttributeName(SourceAttributeName)]
-		public IPagedList Source { get; set; }
 
 		/// <summary>
 		///     Get or set the current page number or the pager. This property must use together with <see cref="TotalPage" />, and
