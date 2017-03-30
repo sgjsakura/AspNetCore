@@ -47,18 +47,28 @@ namespace Sakura.AspNetCore.Authentication
 		[PublicAPI]
 		public async Task<ClaimsPrincipal> SignInFromExternalCookieAsync()
 		{
-			var externalLoginInfo =
-				await
-					AuthenticationManager.AuthenticateAsync(IdentityOptions.Cookies.ExternalCookieAuthenticationScheme);
+			var externalLoginInfo = await GetExternalPrincipalAsync();
 
 			if (externalLoginInfo == null)
+			{
 				return null;
+			}
 
 			// the new schame to replace the old one
 			var newScheme = IdentityOptions.Cookies.ApplicationCookieAuthenticationScheme;
 
 			await AuthenticationManager.SignInAsync(newScheme, externalLoginInfo.CloneAs(newScheme));
 			return externalLoginInfo;
+		}
+
+		/// <summary>
+		/// Get the external principal stored in the external cookie.
+		/// </summary>
+		/// <returns>A <see cref="ClaimsPrincipal"/> object represents as the external principal.</returns>
+		[PublicAPI]
+		public Task<ClaimsPrincipal> GetExternalPrincipalAsync()
+		{
+			return AuthenticationManager.AuthenticateAsync(IdentityOptions.Cookies.ExternalCookieAuthenticationScheme);
 		}
 
 		/// <summary>
@@ -109,7 +119,6 @@ namespace Sakura.AspNetCore.Authentication
 
 			return principal.FindFirst(IdentityOptions.ClaimsIdentity.UserNameClaimType)?.Value;
 		}
-
 
 		/// <summary>
 		///     Get the user identifier from a <see cref="ClaimsIdentity" />.
@@ -205,6 +214,18 @@ namespace Sakura.AspNetCore.Authentication
 
 			return principal.Identities.Any(
 				i => i.AuthenticationType == IdentityOptions.Cookies.ApplicationCookieAuthenticationScheme);
+		}
+
+		/// <summary>
+		/// Get all external authentication schemes registered in the current appliation.
+		/// </summary>
+		/// <returns>The collection of <see cref="AuthenticationDescription"/> for all registered external authentication schemes.</returns>
+		[PublicAPI]
+		[NotNull]
+		[ItemNotNull]
+		public IEnumerable<AuthenticationDescription> GetExternalAuthenticationSchemes()
+		{
+			return AuthenticationManager.GetAuthenticationSchemes().Where(i => !string.IsNullOrEmpty(i.DisplayName));
 		}
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Sakura.AspNetCore.Authentication;
@@ -24,6 +25,8 @@ namespace Microsoft.Extensions.DependencyInjection
 		{
 			if (services == null)
 				throw new ArgumentNullException(nameof(services));
+
+			services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 			services.TryAddSingleton<ISecurityStampValidator, ExternalSecurityStampValidator>();
 			services.TryAddScoped<ExternalSignInManager>();
 

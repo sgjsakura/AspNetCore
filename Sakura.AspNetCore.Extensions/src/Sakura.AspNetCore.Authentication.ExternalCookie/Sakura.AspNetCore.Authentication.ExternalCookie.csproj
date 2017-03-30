@@ -9,7 +9,7 @@
     <AssemblyName>Sakura.AspNetCore.Authentication.ExternalCookie</AssemblyName>
     <PackageId>Sakura.AspNetCore.Authentication.ExternalCookie</PackageId>
     <PackageTags>ASP.NET;ASP.NETCore;Identity;External Cookie</PackageTags>
-    <PackageReleaseNotes>VS2017 Update</PackageReleaseNotes>
+    <PackageReleaseNotes>Add GetExternalAuthenticationSchemes methods, fix service dependency problem.</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/sgjsakura/AspNetCore</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/sgjsakura/AspNetCore/blob/master/LICENSE.txt</PackageLicenseUrl>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
@@ -19,7 +19,7 @@
     <PackageIconUrl></PackageIconUrl>
     <RepositoryUrl>https://github.com/sgjsakura/AspNetCore.git</RepositoryUrl>
     <RootNamespace>Sakura.AspNetCore.Authentication</RootNamespace>
-    <Version>2.0.0</Version>
+    <Version>2.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
