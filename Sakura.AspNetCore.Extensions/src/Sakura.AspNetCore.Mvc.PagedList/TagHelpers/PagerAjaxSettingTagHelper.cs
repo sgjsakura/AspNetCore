@@ -11,6 +11,7 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		public override IEnumerable<KeyValuePair<string, string>> GetSettings()
 		{
 			var dic = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+			return dic;
 		}
 
 		[HtmlAttributeName(IsAjaxEnabledAttributeName)]
