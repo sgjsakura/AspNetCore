@@ -50,9 +50,7 @@ namespace Sakura.AspNetCore.Authentication
 			var externalLoginInfo = await GetExternalPrincipalAsync();
 
 			if (externalLoginInfo == null)
-			{
 				return null;
-			}
 
 			// the new schame to replace the old one
 			var newScheme = IdentityOptions.Cookies.ApplicationCookieAuthenticationScheme;
@@ -62,9 +60,9 @@ namespace Sakura.AspNetCore.Authentication
 		}
 
 		/// <summary>
-		/// Get the external principal stored in the external cookie.
+		///     Get the external principal stored in the external cookie.
 		/// </summary>
-		/// <returns>A <see cref="ClaimsPrincipal"/> object represents as the external principal.</returns>
+		/// <returns>A <see cref="ClaimsPrincipal" /> object represents as the external principal.</returns>
 		[PublicAPI]
 		public Task<ClaimsPrincipal> GetExternalPrincipalAsync()
 		{
@@ -217,9 +215,9 @@ namespace Sakura.AspNetCore.Authentication
 		}
 
 		/// <summary>
-		/// Get all external authentication schemes registered in the current appliation.
+		///     Get all external authentication schemes registered in the current appliation.
 		/// </summary>
-		/// <returns>The collection of <see cref="AuthenticationDescription"/> for all registered external authentication schemes.</returns>
+		/// <returns>The collection of <see cref="AuthenticationDescription" /> for all registered external authentication schemes.</returns>
 		[PublicAPI]
 		[NotNull]
 		[ItemNotNull]
