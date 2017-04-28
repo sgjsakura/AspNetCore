@@ -8,7 +8,7 @@
     <AssemblyName>Sakura.AspNetCore.PagedList.Abstractions</AssemblyName>
     <PackageId>Sakura.AspNetCore.PagedList.Abstractions</PackageId>
     <PackageTags>ASP.NET;ASP.NETCore;Page;Paging</PackageTags>
-    <PackageReleaseNotes>VS 2017 Update</PackageReleaseNotes>
+    <PackageReleaseNotes>Update IPagedList&lt;T&gt; interface to solve ambiguous property slot.</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/sgjsakura/AspNetCore</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/sgjsakura/AspNetCore/blob/master/LICENSE.txt</PackageLicenseUrl>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
@@ -17,6 +17,7 @@
     <Authors>Iris Sakura</Authors>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/sgjsakura/AspNetCore.git</RepositoryUrl>
+    <Version>2.0.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

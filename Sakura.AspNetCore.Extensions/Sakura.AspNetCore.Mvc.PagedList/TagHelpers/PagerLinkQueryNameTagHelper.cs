@@ -21,6 +21,9 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		[HtmlAttributeName(QueryNameAttributeName)]
 		public string QueryName { get; set; }
 
+		/// <summary>
+		/// The HTML attribute name for <see cref="QueryName"/> attribute. This field is constant.
+		/// </summary>
 		public const string QueryNameAttributeName = "link-query-name";
 
 		#endregion
