@@ -9,7 +9,7 @@
     <AssemblyName>Sakura.AspNetCore.Mvc.Messages</AssemblyName>
     <PackageId>Sakura.AspNetCore.Mvc.Messages</PackageId>
     <PackageTags>ASP.NET;ASP.NETCore;MVC;MVCCore;Bootstrap;Message;Messages</PackageTags>
-    <PackageReleaseNotes>VS2017 Update</PackageReleaseNotes>
+    <PackageReleaseNotes>Fix HtmlGenerator bugs</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/sgjsakura/AspNetCore</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/sgjsakura/AspNetCore/blob/master/LICENSE.txt</PackageLicenseUrl>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
@@ -17,7 +17,7 @@
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <RepositoryUrl>https://github.com/sgjsakura/AspNetCore.git</RepositoryUrl>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
   </PropertyGroup>
 
   <ItemGroup>

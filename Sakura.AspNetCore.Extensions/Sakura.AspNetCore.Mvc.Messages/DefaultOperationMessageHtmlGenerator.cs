@@ -92,7 +92,11 @@ namespace Sakura.AspNetCore.Mvc
 			{
 				// Add a newline for two line mode.
 				if (useTwoLineMode)
-					result.Append("<br />");
+					result.AppendHtml("<br />");
+				else
+				{
+					result.AppendHtml("&nbsp;&nbsp;");
+				}
 
 				result.AppendHtml(GenerateDescrption(message.Description));
 			}
