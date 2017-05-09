@@ -10,9 +10,7 @@ namespace Sakura.AspNetCore.Mvc
 		/// <inheritdoc />
 		public override void OnException(ExceptionContext context)
 		{
-			var actionResultException = context.Exception as ActionResultException;
-
-			if (actionResultException != null)
+			if (context.Exception is ActionResultException actionResultException)
 			{
 				context.ExceptionHandled = true;
 				context.Result = actionResultException.Result;

@@ -8,10 +8,9 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 	public class PagerAjaxSettingTagHelper : PagerSettingTagHelper
 	{
 		/// <inheritdoc />
-		public override IEnumerable<KeyValuePair<string, string>> GetSettings()
+		public override void ApplySettings(IDictionary<string, string> settings)
 		{
-			var dic = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-			return dic;
+			throw new NotImplementedException();
 		}
 
 		[HtmlAttributeName(IsAjaxEnabledAttributeName)]

@@ -13,6 +13,7 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 	/// <summary>
 	/// Provide common feature used to generate pager links with a specified base URI.
 	/// </summary>
+	[HtmlTargetElement(PagerTagHelper.HtmlTagName)]
 	public abstract class PagerBaseUriLinkGeneratorTagHelper : PagerLinkGeneratorTagHelper
 	{
 		#region Constructor
@@ -26,6 +27,47 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 			UrlHelperFactory = urlHelperFactory;
 		}
 
+		#region Constants
+
+		/// <summary>
+		/// Get the HTML attribute name associated with the <see cref="Action"/> property. This field is constant.
+		/// </summary>
+		private const string ActionAttributeName = "asp-action";
+		/// <summary>
+		/// Get the HTML attribute name associated with the <see cref="Controller"/> property. This field is constant.
+		/// </summary>
+		private const string ControllerAttributeName = "asp-controller";
+		/// <summary>
+		/// Get the HTML attribute name associated with the <see cref="Area"/> property. This field is constant.
+		/// </summary>
+		private const string AreaAttributeName = "asp-area";
+		/// <summary>
+		/// Get the HTML attribute name associated with the <see cref="Protocol"/> property. This field is constant.
+		/// </summary>
+		private const string ProtocolAttributeName = "asp-protocol";
+		/// <summary>
+		/// Get the HTML attribute name associated with the <see cref="Host"/> property. This field is constant.
+		/// </summary>
+		private const string HostAttributeName = "asp-host";
+		/// <summary>
+		/// Get the HTML attribute name associated with the <see cref="Fragment"/> property. This field is constant.
+		/// </summary>
+		private const string FragmentAttributeName = "asp-fragment";
+		/// <summary>
+		/// Get the HTML attribute name associated with the <see cref="Route"/> property. This field is constant.
+		/// </summary>
+		public const string RouteAttributeName = "asp-route";
+		/// <summary>
+		/// Get the HTML attribute name associated with the <see cref="RouteValues"/> property. This field is constant.
+		/// </summary>
+		private const string AllRouteDataAttributeName = "asp-all-route-data";
+		/// <summary>
+		/// Get the HTML attribute prefix associated with the <see cref="RouteValues"/> property. This field is constant.
+		/// </summary>
+		private const string RouteAttributePrefix = "asp-route-";
+
+		#endregion
+
 		#endregion
 
 		#region Base URI Related Properties
@@ -37,40 +79,40 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 
 		/// <summary>The name of the action method.</summary>
 		/// <remarks>Must be <c>null</c> if <see cref="Route" /> is non-<c>null</c>.</remarks>
-		[HtmlAttributeName("asp-action")]
+		[HtmlAttributeName(ActionAttributeName)]
 		public string Action { get; set; }
 
 		/// <summary>The name of the controller.</summary>
 		/// <remarks>Must be <c>null</c> if <see cref="Route" /> is non-<c>null</c>.</remarks>
-		[HtmlAttributeName("asp-controller")]
+		[HtmlAttributeName(ControllerAttributeName)]
 		public string Controller { get; set; }
 
 		/// <summary>The name of the area.</summary>
 		/// <remarks>Must be <c>null</c> if <see cref="Route" /> is non-<c>null</c>.</remarks>
-		[HtmlAttributeName("asp-area")]
+		[HtmlAttributeName(AreaAttributeName)]
 		public string Area { get; set; }
 
 		/// <summary>The protocol for the URL, such as "http" or "https".</summary>
-		[HtmlAttributeName("asp-protocol")]
+		[HtmlAttributeName(ProtocolAttributeName)]
 		public string Protocol { get; set; }
 
 		/// <summary>The host name.</summary>
-		[HtmlAttributeName("asp-host")]
+		[HtmlAttributeName(HostAttributeName)]
 		public string Host { get; set; }
 
 		/// <summary>The URL fragment name.</summary>
-		[HtmlAttributeName("asp-fragment")]
+		[HtmlAttributeName(FragmentAttributeName)]
 		public string Fragment { get; set; }
 
 		/// <summary>Name of the route.</summary>
 		/// <remarks>
 		/// Must be <c>null</c> if <see cref="Action" /> or <see cref="Controller" /> is non-<c>null</c>.
 		/// </remarks>
-		[HtmlAttributeName("asp-route")]
+		[HtmlAttributeName(RouteAttributeName)]
 		public string Route { get; set; }
 
 		/// <summary>Additional parameters for the route.</summary>
-		[HtmlAttributeName("asp-all-route-data", DictionaryAttributePrefix = "asp-route-")]
+		[HtmlAttributeName(AllRouteDataAttributeName, DictionaryAttributePrefix = RouteAttributePrefix)]
 		public IDictionary<string, string> RouteValues
 		{
 			get => _routeValues ?? (_routeValues = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase));
