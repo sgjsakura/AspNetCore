@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using Microsoft.Extensions.Localization;
 
 namespace Sakura.AspNetCore.Mvc.TagHelpers
 {
@@ -13,6 +14,20 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 	[UsedImplicitly(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature)]
 	public class EnumTypeSelectTagHelper : EnumSelectTagHelper
 	{
+		#region Constrcutor
+
+		/// <summary>
+		/// Create a new instance of <see cref="EnumTypeSelectTagHelper"/>.
+		/// </summary>
+		/// <param name="stringLocalizerFactory">The service instance of <see cref="IStringLocalizerFactory"/>.</param>
+		public EnumTypeSelectTagHelper(IStringLocalizerFactory stringLocalizerFactory)
+			: base(stringLocalizerFactory)
+		{
+
+		}
+
+		#endregion
+
 		/// <summary>
 		///     Return the actual enum type for generating the list.
 		/// </summary>

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using Microsoft.Extensions.Localization;
 
 namespace Sakura.AspNetCore.Mvc.TagHelpers
 {
@@ -17,7 +18,9 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		///     Initialize an new instance with required services.
 		/// </summary>
 		/// <param name="generator">The HTML generator service.</param>
-		public EnumForSelectTagHelper(IHtmlGenerator generator)
+		/// <param name="stringLocalizerFactory">The service instance of <see cref="IStringLocalizerFactory"/>.</param>
+		public EnumForSelectTagHelper(IHtmlGenerator generator, IStringLocalizerFactory stringLocalizerFactory)
+			: base(stringLocalizerFactory)
 		{
 			Generator = generator;
 		}

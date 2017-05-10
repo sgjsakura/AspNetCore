@@ -19,7 +19,7 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 				throw new InvalidOperationException($"The '{nameof(BaseUriSettingName)}' setting has already be set by another tag helper.");
 			}
 
-			settings[BaseUriSettingName] = BaseUri;
+			settings[BaseUriSettingName] = GetBaseUri();
 		}
 	}
 }

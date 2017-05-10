@@ -9,7 +9,7 @@
     <AssemblyName>Sakura.AspNetCore.Mvc.TagHelpers</AssemblyName>
     <PackageId>Sakura.AspNetCore.Mvc.TagHelpers</PackageId>
     <PackageTags>ASP.NET;ASP.NETCore;MVC;MVCCore;TagHelper;Enum;Flags;OptionLabel;Select;Option</PackageTags>
-    <PackageReleaseNotes>VS 2017 Update</PackageReleaseNotes>
+    <PackageReleaseNotes>EnumSelectTagHelper now supports data annotation localization.</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/sgjsakura/AspNetCore</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/sgjsakura/AspNetCore/blob/master/LICENSE.txt</PackageLicenseUrl>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
@@ -17,6 +17,7 @@
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/sgjsakura/AspNetCore.git</RepositoryUrl>
+    <Version>1.3.4</Version>
   </PropertyGroup>
 
   <ItemGroup>
