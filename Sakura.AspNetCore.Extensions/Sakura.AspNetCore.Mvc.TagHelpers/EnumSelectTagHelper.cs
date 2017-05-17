@@ -5,6 +5,7 @@ using System.Reflection;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using Microsoft.Extensions.Localization;
 
 namespace Sakura.AspNetCore.Mvc.TagHelpers
 {
@@ -13,6 +14,31 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 	/// </summary>
 	public abstract class EnumSelectTagHelper : TagHelper
 	{
+		#region Constructor
+
+		/// <summary>
+		/// Create a new instance of <see cref="EnumSelectTagHelper"/>.
+		/// </summary>
+		/// <param name="stringLocalizerFactory">The service instance of <see cref="IStringLocalizerFactory"/>.</param>
+		protected EnumSelectTagHelper(IStringLocalizerFactory stringLocalizerFactory)
+		{
+			StringLocalizerFactory = stringLocalizerFactory;
+		}
+
+		#endregion
+
+		private IStringLocalizerFactory StringLocalizerFactory { get; }
+
+		#region Services
+
+		/// <summary>
+		/// Get the <see cref="IStringLocalizer"/> object used for localization.
+		/// </summary>
+		protected IStringLocalizer EnumTypeStringLocalizer => StringLocalizerFactory?.Create(GetEnumType());
+
+		#endregion
+
+
 		#region Abstract Methods
 
 		/// <summary>
@@ -71,7 +97,8 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		/// <returns><paramref name="memberInfo" />The option text associated with <paramref name="memberInfo" />.</returns>
 		protected virtual string GetTextForMember(MemberInfo memberInfo)
 		{
-			return memberInfo.GetTextForMember(TextSource);
+			var memberText = memberInfo.GetTextForMember(TextSource);
+			return EnumTypeStringLocalizer != null ? EnumTypeStringLocalizer[memberText] : memberText;
 		}
 
 		/// <summary>
