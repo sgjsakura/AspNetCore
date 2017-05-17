@@ -6,21 +6,21 @@ using Microsoft.AspNetCore.Mvc.Localization;
 namespace Sakura.AspNetCore.Localization.Internal
 {
 	/// <summary>
-	/// Provide the dynamic style implementation for <see cref="IHtmlLocalizer"/> object.
+	///     Provide the dynamic style implementation for <see cref="IHtmlLocalizer" /> object.
 	/// </summary>
 	public class DynamicViewLocalizer : DynamicObject
 	{
 		/// <summary>
-		/// Initialize a new instance of <see cref="DynamicViewLocalizer"/> object.
+		///     Initialize a new instance of <see cref="DynamicViewLocalizer" /> object.
 		/// </summary>
-		/// <param name="innerLocalizer">The internal <see cref="IViewLocalizer"/> object.</param>
+		/// <param name="innerLocalizer">The internal <see cref="IViewLocalizer" /> object.</param>
 		public DynamicViewLocalizer(IViewLocalizer innerLocalizer)
 		{
 			InnerLocalizer = innerLocalizer;
 		}
 
 		/// <summary>
-		/// Get the internal <see cref="IHtmlLocalizer"/> service.
+		///     Get the internal <see cref="IHtmlLocalizer" /> service.
 		/// </summary>
 		private IViewLocalizer InnerLocalizer { get; }
 
@@ -39,8 +39,9 @@ namespace Sakura.AspNetCore.Localization.Internal
 		}
 
 		/// <inheritdoc />
-		public override IEnumerable<string> GetDynamicMemberNames() => InnerLocalizer.GetAllStrings().Select(i => i.Name);
-
-
+		public override IEnumerable<string> GetDynamicMemberNames()
+		{
+			return InnerLocalizer.GetAllStrings().Select(i => i.Name);
+		}
 	}
 }
