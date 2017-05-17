@@ -16,7 +16,7 @@ namespace Sakura.AspNetCore.Localization
 		/// Add default implementation for <see cref="IDynamicLocallizer"/> service.
 		/// </summary>
 		/// <param name="services">The service collection container.</param>
-	    public static void AddDynamicLocalizer([NotNull] this ServiceCollection services)
+	    public static void AddDynamicLocalizer([NotNull] this IServiceCollection services)
 	    {
 		    if (services == null)
 		    {
