@@ -12,7 +12,7 @@ namespace Sakura.AspNetCore.Localization
 	public static class ServiceCollectionExtensions
 	{
 		/// <summary>
-		///     Add default implementation for <see cref="IDynamicLocalizerFactory" /> service.
+		///     Add default implementation for all dynamic resource accessing services.
 		/// </summary>
 		/// <param name="services">The service collection container.</param>
 		public static void AddDynamicLocalizer([NotNull] this IServiceCollection services)
@@ -20,9 +20,8 @@ namespace Sakura.AspNetCore.Localization
 			if (services == null)
 				throw new ArgumentNullException(nameof(services));
 
-			services.TryAddTransient<IDynamicLocalizerFactory, DynamicLocalizerFactory>();
 			services.TryAddTransient<IDynamicViewLocalizer, DynamicViewLocalizer>();
-			services.TryAddTransient(typeof(IDynamicStringLocalizer<>),typeof(DynamicStringLocalizer<>));
+			services.TryAddTransient(typeof(IDynamicStringLocalizer<>), typeof(DynamicStringLocalizer<>));
 			services.TryAddTransient(typeof(IDynamicHtmlLocalizer<>), typeof(DynamicHtmlLocalizer<>));
 		}
 	}

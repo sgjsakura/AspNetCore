@@ -1,78 +1,55 @@
-using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
+﻿using System;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Mvc.Localization;
 
 namespace Sakura.AspNetCore.Localization.Internal
 {
 	/// <summary>
-	///     Provide the dynamic style implementation for <see cref="IHtmlLocalizer" /> object.
+	///     Provide the default implementation for <see cref="IDynamicHtmlLocalizer" /> service.
 	/// </summary>
-	public class DynamicHtmlLocalizer : DynamicObject, IDynamicLocalizer
+	public abstract class DynamicHtmlLocalizer : IDynamicHtmlLocalizer
 	{
 		/// <summary>
-		///     Initialize a new instance of <see cref="DynamicHtmlLocalizer" /> object.
+		///     Initialize a new instance of <see cref="DynamicHtmlLocalizer" /> service.
 		/// </summary>
-		/// <param name="innerLocalizer">The internal <see cref="IHtmlLocalizer" /> object.</param>
-		public DynamicHtmlLocalizer([NotNull] IHtmlLocalizer innerLocalizer)
+		/// <param name="localizer">The internal <see cref="IHtmlLocalizer" /> service.</param>
+		/// <exception cref="ArgumentNullException">The <paramref name="localizer" /> is <c>null</c>.</exception>
+		protected DynamicHtmlLocalizer([NotNull] IHtmlLocalizer localizer)
 		{
-			InnerLocalizer = innerLocalizer ?? throw new ArgumentNullException(nameof(innerLocalizer));
-		}
+			Localizer = localizer ?? throw new ArgumentNullException(nameof(localizer));
 
-		/// <summary>
-		///     Get the internal <see cref="IHtmlLocalizer" /> service.
-		/// </summary>
-		private IHtmlLocalizer InnerLocalizer { get; }
-
-		/// <inheritdoc />
-		public override bool TryGetMember(GetMemberBinder binder, out object result)
-		{
-			result = InnerLocalizer[binder.Name];
-			return true;
+			Html = new DynamicHtmlLocalizerWrapper(localizer);
+			Text = new DynamicHtmlTextLocalizerWrapper(localizer);
 		}
 
 		/// <inheritdoc />
-		public override bool TryInvokeMember(InvokeMemberBinder binder, object[] args, out object result)
-		{
-			result = InnerLocalizer[binder.Name, args];
-			return true;
-		}
+		public dynamic Html { get; }
 
 		/// <inheritdoc />
-		public override bool TryGetIndex(GetIndexBinder binder, object[] indexes, out object result)
-		{
-			if (indexes.Length == 0)
-			{
-				throw new ArgumentException(nameof(indexes), "The length of index array cannot be zero.");
-			}
-
-			if (indexes[0] is string name)
-			{
-				result = InnerLocalizer[name, indexes.Skip(1).ToArray()];
-			}
-			else
-			{
-				throw new ArgumentException(nameof(indexes), "The first index value must be a string.");
-			}
-
-			return true;
-		}
+		public dynamic Text { get; }
 
 		/// <inheritdoc />
-		public override IEnumerable<string> GetDynamicMemberNames()
-		{
-			return InnerLocalizer.GetAllStrings().Select(i => i.Name);
-		}
+		public IHtmlLocalizer Localizer { get; }
 	}
 
+	/// <summary>
+	///     Provide the default implementation for <see cref="IDynamicHtmlLocalizer{TResource}" /> service.
+	/// </summary>
 	public class DynamicHtmlLocalizer<TResource> : DynamicHtmlLocalizer, IDynamicHtmlLocalizer<TResource>
 	{
+		/// <summary>
+		///     Initialize a new instance of <see cref="DynamicHtmlLocalizer{TResource}" /> service.
+		/// </summary>
+		/// <param name="localizer">The internal <see cref="IHtmlLocalizer{TResource}" /> service.</param>
+		/// <exception cref="ArgumentNullException">The <paramref name="localizer" /> is <c>null</c>.</exception>
 		[UsedImplicitly]
-		public DynamicHtmlLocalizer(IHtmlLocalizer<TResource> innerLocalizer) : base(innerLocalizer)
+		public DynamicHtmlLocalizer([NotNull] IHtmlLocalizer<TResource> localizer)
+			: base(localizer)
 		{
-
+			Localizer = localizer;
 		}
+
+		/// <inheritdoc />
+		public new IHtmlLocalizer<TResource> Localizer { get; }
 	}
 }

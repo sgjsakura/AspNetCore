@@ -1,76 +1,49 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
+using JetBrains.Annotations;
 using Microsoft.Extensions.Localization;
 
 namespace Sakura.AspNetCore.Localization.Internal
 {
 	/// <summary>
-	///     Provide the dynamic style implementation for <see cref="IStringLocalizer" /> object.
+	///     Provide the default implementation for <see cref="IDynamicStringLocalizer" /> service.
 	/// </summary>
-	public class DynamicStringLocalizer : DynamicObject
+	public class DynamicStringLocalizer : IDynamicStringLocalizer
 	{
 		/// <summary>
-		///     Initialize a new instance of <see cref="DynamicStringLocalizer" /> object.
+		///     Initialize a new instance of <see cref="DynamicStringLocalizer" /> service.
 		/// </summary>
-		/// <param name="innerLocalizer">The internal <see cref="IStringLocalizer" /> object.</param>
-		public DynamicStringLocalizer(IStringLocalizer innerLocalizer)
+		/// <param name="localizer">The internal <see cref="IStringLocalizer" /> service.</param>
+		/// <exception cref="ArgumentNullException">The <paramref name="localizer" /> is <c>null</c>.</exception>
+		public DynamicStringLocalizer([NotNull] IStringLocalizer localizer)
 		{
-			InnerLocalizer = innerLocalizer;
-		}
-
-		/// <summary>
-		///     Get the internal <see cref="IStringLocalizer" /> service.
-		/// </summary>
-		private IStringLocalizer InnerLocalizer { get; }
-
-		/// <inheritdoc />
-		public override bool TryGetMember(GetMemberBinder binder, out object result)
-		{
-			result = InnerLocalizer[binder.Name];
-			return true;
+			Localizer = localizer ?? throw new ArgumentNullException(nameof(localizer));
+			Text = new DynamicStringLocalizerWrapper(localizer);
 		}
 
 		/// <inheritdoc />
-		public override bool TryInvokeMember(InvokeMemberBinder binder, object[] args, out object result)
-		{
-			result = InnerLocalizer[binder.Name, args];
-			return true;
-		}
+		public dynamic Text { get; }
 
 		/// <inheritdoc />
-		public override bool TryGetIndex(GetIndexBinder binder, object[] indexes, out object result)
-		{
-			if (indexes.Length == 0)
-			{
-				throw new ArgumentException(nameof(indexes), "The length of index array cannot be zero.");
-			}
-
-			if (indexes[0] is string name)
-			{
-				result = InnerLocalizer[name, indexes.Skip(1).ToArray()];
-			}
-			else
-			{
-				throw new ArgumentException(nameof(indexes), "The first index value must be a string.");
-			}
-
-			return true;
-		}
-
-		/// <inheritdoc />
-		public override IEnumerable<string> GetDynamicMemberNames()
-		{
-			return InnerLocalizer.GetAllStrings().Select(i => i.Name);
-		}
+		public IStringLocalizer Localizer { get; }
 	}
 
+	/// <summary>
+	///     Provide the default implementation for <see cref="DynamicStringLocalizer{TResource}" /> service.
+	/// </summary>
 	public class DynamicStringLocalizer<TResource> : DynamicStringLocalizer, IDynamicStringLocalizer<TResource>
 	{
-		public DynamicStringLocalizer(IStringLocalizer<TResource> innerLocalizer) : base(innerLocalizer)
+		/// <summary>
+		///     Initialize a new instance of <see cref="DynamicStringLocalizer{TResource}" /> service.
+		/// </summary>
+		/// <param name="localizer">The internal <see cref="IStringLocalizer{TResource}" /> service.</param>
+		/// <exception cref="ArgumentNullException">The <paramref name="localizer" /> is <c>null</c>.</exception>
+		[UsedImplicitly]
+		public DynamicStringLocalizer([NotNull] IStringLocalizer<TResource> localizer) : base(localizer)
 		{
-
+			Localizer = localizer;
 		}
+
+		/// <inheritdoc />
+		public new IStringLocalizer<TResource> Localizer { get; }
 	}
 }

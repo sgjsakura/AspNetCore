@@ -1,14 +1,32 @@
-using Microsoft.AspNetCore.Mvc.Localization;
-using Microsoft.Extensions.Localization;
-using Sakura.AspNetCore.Localization.Internal;
+﻿using Microsoft.Extensions.Localization;
 
 namespace Sakura.AspNetCore.Localization
 {
 	/// <summary>
-	/// Provide dynamic style localizable string resource accessibility for <see cref="IStringLocalizer{T}"/> service.
+	///     Provide strong typed resource class for dynamic style text resource accessing.
 	/// </summary>
-	public interface IDynamicStringLocalizer<TResource> : IDynamicLocalizer
+	/// <typeparam name="TResource">The resource type.</typeparam>
+	public interface IDynamicStringLocalizer<TResource> : IDynamicStringLocalizer
 	{
-		
+		/// <summary>
+		///     Get the internal <see cref="IStringLocalizer{T}" /> service instance.
+		/// </summary>
+		new IStringLocalizer<TResource> Localizer { get; }
+	}
+
+	/// <summary>
+	///     Define the necessary feature for dynamic style text resource accessing.
+	/// </summary>
+	public interface IDynamicStringLocalizer
+	{
+		/// <summary>
+		///     Get the dynamic object used to access resource strings as text format.
+		/// </summary>
+		dynamic Text { get; }
+
+		/// <summary>
+		///     Get the internal <see cref="IStringLocalizer" /> service instance.
+		/// </summary>
+		IStringLocalizer Localizer { get; }
 	}
 }

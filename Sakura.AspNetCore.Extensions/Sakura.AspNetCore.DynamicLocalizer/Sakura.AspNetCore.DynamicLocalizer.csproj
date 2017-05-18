@@ -4,10 +4,17 @@
     <TargetFramework>netstandard1.6</TargetFramework>
     <RootNamespace>Sakura.AspNetCore.Localization</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Title>ASP.NET Core MVC Dynamic Localizer Service</Title>
     <Authors>Iris Sakura</Authors>
     <Company>Iris Sakura</Company>
     <Product>Sakura.AspNetCore.Extensions</Product>
     <Description>This package provide dynamic style localiazation resource accesing ability.</Description>
+    <PackageReleaseNotes>Update to new usage.</PackageReleaseNotes>
+    <PackageLicenseUrl>https://github.com/sgjsakura/AspNetCore/blob/master/LICENSE.txt</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/sgjsakura/AspNetCore</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/sgjsakura/AspNetCore.git</RepositoryUrl>
+    <PackageTags>ASP.NET;ASP.NETCore;MVC;MVCCore;Localization</PackageTags>
+    <Version>2.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
