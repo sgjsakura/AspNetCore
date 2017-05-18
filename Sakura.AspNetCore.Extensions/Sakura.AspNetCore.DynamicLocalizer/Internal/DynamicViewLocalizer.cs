@@ -1,14 +1,17 @@
+using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Localization;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace Sakura.AspNetCore.Localization.Internal
 {
 	/// <summary>
 	///     Provide the dynamic style implementation for <see cref="IHtmlLocalizer" /> object.
 	/// </summary>
-	public class DynamicViewLocalizer : DynamicObject
+	public class DynamicViewLocalizer : DynamicObject, IDynamicViewLocalizer
 	{
 		/// <summary>
 		///     Initialize a new instance of <see cref="DynamicViewLocalizer" /> object.
@@ -35,6 +38,26 @@ namespace Sakura.AspNetCore.Localization.Internal
 		public override bool TryInvokeMember(InvokeMemberBinder binder, object[] args, out object result)
 		{
 			result = InnerLocalizer[binder.Name, args];
+			return true;
+		}
+
+		/// <inheritdoc />
+		public override bool TryGetIndex(GetIndexBinder binder, object[] indexes, out object result)
+		{
+			if (indexes.Length == 0)
+			{
+				throw new ArgumentException(nameof(indexes), "The length of index array cannot be zero.");
+			}
+
+			if (indexes[0] is string name)
+			{
+				result = InnerLocalizer[name, indexes.Skip(1).ToArray()];
+			}
+			else
+			{
+				throw new ArgumentException(nameof(indexes), "The first index value must be a string.");
+			}
+
 			return true;
 		}
 

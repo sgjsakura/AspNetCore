@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using Microsoft.Extensions.Localization;
@@ -39,9 +40,37 @@ namespace Sakura.AspNetCore.Localization.Internal
 		}
 
 		/// <inheritdoc />
+		public override bool TryGetIndex(GetIndexBinder binder, object[] indexes, out object result)
+		{
+			if (indexes.Length == 0)
+			{
+				throw new ArgumentException(nameof(indexes), "The length of index array cannot be zero.");
+			}
+
+			if (indexes[0] is string name)
+			{
+				result = InnerLocalizer[name, indexes.Skip(1).ToArray()];
+			}
+			else
+			{
+				throw new ArgumentException(nameof(indexes), "The first index value must be a string.");
+			}
+
+			return true;
+		}
+
+		/// <inheritdoc />
 		public override IEnumerable<string> GetDynamicMemberNames()
 		{
 			return InnerLocalizer.GetAllStrings().Select(i => i.Name);
+		}
+	}
+
+	public class DynamicStringLocalizer<TResource> : DynamicStringLocalizer, IDynamicStringLocalizer<TResource>
+	{
+		public DynamicStringLocalizer(IStringLocalizer<TResource> innerLocalizer) : base(innerLocalizer)
+		{
+
 		}
 	}
 }

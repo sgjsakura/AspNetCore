@@ -6,7 +6,7 @@ namespace Sakura.AspNetCore.Localization
 	/// <summary>
 	///     Provide abilities to access localizers as dynamic objects.
 	/// </summary>
-	public interface IDynamicLocalizer
+	public interface IDynamicLocalizerFactory
 	{
 		/// <summary>
 		///     Get a dynamic object that can be used to access localizble strings similar as <see cref="IViewLocalizer" /> type.

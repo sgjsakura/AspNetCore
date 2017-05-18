@@ -10,7 +10,7 @@ namespace Sakura.AspNetCore.Localization.Internal
 	/// <summary>
 	///     Provide the dynamic style implementation for <see cref="IHtmlLocalizer" /> object.
 	/// </summary>
-	public class DynamicHtmlLocalizer : DynamicObject
+	public class DynamicHtmlLocalizer : DynamicObject, IDynamicLocalizer
 	{
 		/// <summary>
 		///     Initialize a new instance of <see cref="DynamicHtmlLocalizer" /> object.
@@ -41,9 +41,38 @@ namespace Sakura.AspNetCore.Localization.Internal
 		}
 
 		/// <inheritdoc />
+		public override bool TryGetIndex(GetIndexBinder binder, object[] indexes, out object result)
+		{
+			if (indexes.Length == 0)
+			{
+				throw new ArgumentException(nameof(indexes), "The length of index array cannot be zero.");
+			}
+
+			if (indexes[0] is string name)
+			{
+				result = InnerLocalizer[name, indexes.Skip(1).ToArray()];
+			}
+			else
+			{
+				throw new ArgumentException(nameof(indexes), "The first index value must be a string.");
+			}
+
+			return true;
+		}
+
+		/// <inheritdoc />
 		public override IEnumerable<string> GetDynamicMemberNames()
 		{
 			return InnerLocalizer.GetAllStrings().Select(i => i.Name);
+		}
+	}
+
+	public class DynamicHtmlLocalizer<TResource> : DynamicHtmlLocalizer, IDynamicHtmlLocalizer<TResource>
+	{
+		[UsedImplicitly]
+		public DynamicHtmlLocalizer(IHtmlLocalizer<TResource> innerLocalizer) : base(innerLocalizer)
+		{
+
 		}
 	}
 }

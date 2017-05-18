@@ -2,6 +2,7 @@
 using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Sakura.AspNetCore.Localization.Internal;
 
 namespace Sakura.AspNetCore.Localization
 {
@@ -11,7 +12,7 @@ namespace Sakura.AspNetCore.Localization
 	public static class ServiceCollectionExtensions
 	{
 		/// <summary>
-		///     Add default implementation for <see cref="IDynamicLocalizer" /> service.
+		///     Add default implementation for <see cref="IDynamicLocalizerFactory" /> service.
 		/// </summary>
 		/// <param name="services">The service collection container.</param>
 		public static void AddDynamicLocalizer([NotNull] this IServiceCollection services)
@@ -19,7 +20,10 @@ namespace Sakura.AspNetCore.Localization
 			if (services == null)
 				throw new ArgumentNullException(nameof(services));
 
-			services.TryAddTransient<IDynamicLocalizer, DynamicLocalizer>();
+			services.TryAddTransient<IDynamicLocalizerFactory, DynamicLocalizerFactory>();
+			services.TryAddTransient<IDynamicViewLocalizer, DynamicViewLocalizer>();
+			services.TryAddTransient(typeof(IDynamicStringLocalizer<>),typeof(DynamicStringLocalizer<>));
+			services.TryAddTransient(typeof(IDynamicHtmlLocalizer<>), typeof(DynamicHtmlLocalizer<>));
 		}
 	}
 }
