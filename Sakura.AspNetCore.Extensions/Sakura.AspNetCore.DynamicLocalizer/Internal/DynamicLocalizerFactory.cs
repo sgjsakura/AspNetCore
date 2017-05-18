@@ -111,9 +111,12 @@ namespace Sakura.AspNetCore.Localization.Internal
 		private static bool IsInViewContext { get; set; } = false;
 
 		/// <inheritdoc />
-		public void Contextualize(ViewContext viewContext)
+		void IViewContextAware.Contextualize(ViewContext viewContext)
 		{
 			IsInViewContext = true;
+
+			//  Contextualize view context
+			((IViewContextAware)_View).Contextualize(viewContext);
 		}
 
 		#endregion

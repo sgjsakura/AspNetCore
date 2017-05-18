@@ -11,7 +11,7 @@ namespace Sakura.AspNetCore.Localization.Internal
 	/// <summary>
 	///     Provide the dynamic style implementation for <see cref="IHtmlLocalizer" /> object.
 	/// </summary>
-	public class DynamicViewLocalizer : DynamicObject, IDynamicViewLocalizer
+	public class DynamicViewLocalizer : DynamicObject, IDynamicViewLocalizer, IViewContextAware
 	{
 		/// <summary>
 		///     Initialize a new instance of <see cref="DynamicViewLocalizer" /> object.
@@ -65,6 +65,16 @@ namespace Sakura.AspNetCore.Localization.Internal
 		public override IEnumerable<string> GetDynamicMemberNames()
 		{
 			return InnerLocalizer.GetAllStrings().Select(i => i.Name);
+		}
+
+
+		/// <inheritdoc />
+		void IViewContextAware.Contextualize(ViewContext viewContext)
+		{
+			if (InnerLocalizer is IViewContextAware viewLocalizer)
+			{
+				viewLocalizer.Contextualize(viewContext);
+			}
 		}
 	}
 }
