@@ -77,6 +77,55 @@ In MVC Projects, you need to return a instance of `IActionResult` to finish the 
 
 In order to enable this feature, all you need is adding an `EnableActionResultException` attribute on a controller or action, and then you can throw an `ActionResultException`instance to terminate a action executing pipeline directly and provide the final action result. If you need to enable this feature globally, you can use `EnableActionResultExceptionFilter` extension method on `MvcOptions` parameter when you add the MVC middleware.
 
+### ASP.NET Core MVC Dyanmic Localizer Package
+
+*Nuget Package Name: `Sakura.AspNetCore.DynamicLocalizer`*
+
+ASP.NET Core 1.0 introduced a new localization design model, which allow developers to access localized resources using `IStringLocalizer`, `IHtmlLocalizer` or `IViewLocalizer` service instances. In order to keep compatibilty and reduce the time cost for switching the developing time single language website into production multiple language implementation, ASP.NET Core team suggests developers to use string context itself as the language resource keys. e.g. the following code
+```HTML
+@ViewLocalizer["Hello World"]
+```
+while output the key string "hello world" when there's no resource files defined or the resource for current culture is unavialable.
+
+Although this design reduces the time cost of enabling multiple language support, lots of developers may still build the website with multiple language support from the beginning. The above manner may not be optimized for these scenes, since under such circumstance, developers may choose to use identifier-like word as keys for long messages, e.g. the final code in the CSHTML file maybe: 
+```HTML
+@ViewLocalizer["HelloWorldMessage"]
+```
+However, actually developers may love the following code style much more:
+```HTML
+@ViewLocalizer.HelloWorldMessage
+```
+The above code style looks with much more object-oriented code style, and may also take a lot of editing and compiling time benefits such as identifier checking, searching and intellisence. This behaviour is also favorite for old-time .NET Resource Manager based localizaable applications, in which each resources is named with an identifier and the resource file generators will help you to generate classes for resources, and developers may use strong named propreties to access resources. 
+
+The `Sakura.AspNetCore.DynamicLocalizer` package now provides a simplified simulation for object-oreinted resource accessing style using .NET dynamic objects. For a simple usage, you may install this package and add the necessary services on startup using the following code:
+
+```C#
+public void ConfigureServices(IServiceCollection services)
+{
+  // other service configurations here
+  
+  // Note: the following base services are necessary and must be also added manually in your startup code
+  services.AddLocalization();
+  services.AddMvc().AddViewLocalization();
+  
+  // add core services used for dynamic localizer
+  services.AddDynamicLocalizer();
+}
+```
+
+And now in MVC views, you may using dyanmic object as localization services, the basic usage is shown in the following code:
+
+```HTML
+@inject Sakura.AspNetCore.IDyanmicLocalizerFactory Localizers
+
+<p>@Localizers.View.WelcomeMessageA</p>
+<p>@Localizers.View.UserNameFormat(ViewBag.UserName)</p>
+
+<p>@Localizers.Html<Hello>
+
+```
+
+
 ---
 
 ## Contribution and Discussion
