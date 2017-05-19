@@ -116,15 +116,34 @@ public void ConfigureServices(IServiceCollection services)
 And now in MVC views, you may using dyanmic object as localization services, the basic usage is shown in the following code:
 
 ```HTML
-@inject Sakura.AspNetCore.IDyanmicLocalizerFactory Localizers
+@inject Sakura.AspNetCore.IDynamicViewLocalizer ViewLocalizer
+@inject Sakura.AspNetCore.IDynamicHtmlLocalizer<MyResource> MyResourceLocalizer
 
-<p>@Localizers.View.WelcomeMessageA</p>
-<p>@Localizers.View.UserNameFormat(ViewBag.UserName)</p>
+<p>@ViewLocalizer.Html.WelcomeMessage</p>
+<p>@ViewLocalizer.Html.UserNameFormat(ViewBag.UserName)</p>
 
-<p>@Localizers.Html<Hello>
-
+<p>@MyResourceLocalizer.Html.ImportantTip<Hello>
 ```
+More specifically, the relationship between original localizers and dynamic localizers are shown as bellow:
 
+|Original|Dynamic|
+|--------|-------|
+|`IViewLocalizer`|`IDyanmicViewLocalizer`|
+|`IHtmlLocalizer<T>`|`IDynamicHtmlLocalizer<T>`|
+|`IStringLocalizer<T>`|`IDynamicStringLocalizer<T>`|
+
+The following tables showes the supported invocation syntax for dynamic localizers (words in braces are identfier placeholders):
+
+|Syntax|Equivelant Orignal Syntax|Notes|
+|------|-------------------------|-----|
+|`localizer.Html.{Key}`|`localizer.GetHtml("{Key}")]`|This method is not available in `IStringLocalizer`|
+|`localizer.Html.{Key}({Value1}, {Value2})`|`localizer.GetHtml("{Key}", Value1, Value2)]`|This method is not available in `IStringLocalizer`|
+|`localizer.Text.{Key}`|`localizer.GetString("{Key}")`|Allowed in all localizers|
+|`localizer.Text.{Key}({Value1}, {Value2})`|`localizer.GetString("{Key}", Value1, Value2)]`|Allowed in all localizers|
+
+Note: The behaviour default index-style syntax (e.g. `localizer["Key", Value1, Value2]`) depends on the type of the localizer. For `IViewLocalizer` and `IHtmlLocalizer`, it is equivelant to `GetHtml`,  while for `IStringLocalizer`, it's equivelant to `GetString`.
+
+For compatbility reason, the dynamic localizer also support the index style syntax, which will generate the same effect for the new syntax, e.g. `localizer.Html["{Key}", Value1, Value2]` are equivelant to `localizer.Html.Key(Value1, Value2)`.
 
 ---
 
