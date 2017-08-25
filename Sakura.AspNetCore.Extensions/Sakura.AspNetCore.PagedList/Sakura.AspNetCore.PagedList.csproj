@@ -4,11 +4,12 @@
     <Description>ASP.NET Core PagedList core library provides data paging functionality for ASP.NET Core targeted projects.</Description>
     <AssemblyTitle>ASP.NET Core PagedList Core Library</AssemblyTitle>
     <VersionPrefix>2.0.1</VersionPrefix>
-    <TargetFramework>netstandard1.0</TargetFramework>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
     <AssemblyName>Sakura.AspNetCore.PagedList</AssemblyName>
     <PackageId>Sakura.AspNetCore.PagedList</PackageId>
     <PackageTags>ASP.NET;ASP.NETCore;Page;Paging;Cache;Caching</PackageTags>
-    <PackageReleaseNotes>Update dependency</PackageReleaseNotes>
+    <PackageReleaseNotes>Update to .NET Core 2.0</PackageReleaseNotes>
+    <AssetTargetFallback>$(AssetTargetFallback);dnxcore50</AssetTargetFallback>
     <PackageProjectUrl>https://github.com/sgjsakura/AspNetCore</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/sgjsakura/AspNetCore/blob/master/LICENSE.txt</PackageLicenseUrl>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>

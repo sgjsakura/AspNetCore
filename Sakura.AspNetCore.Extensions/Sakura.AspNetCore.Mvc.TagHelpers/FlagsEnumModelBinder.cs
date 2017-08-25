@@ -1,15 +1,14 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.Internal;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Sakura.AspNetCore.Mvc.TagHelpers
 {
-	/// <summary>
-	///     Support binding a flags enum value with multiple flag inputs.
-	/// </summary>
-	public class FlagsEnumModelBinder : IModelBinder
+    /// <summary>
+    ///     Support binding a flags enum value with multiple flag inputs.
+    /// </summary>
+    public class FlagsEnumModelBinder : IModelBinder
 	{
 		/// <summary>Attempts to bind a model.</summary>
 		/// <param name="bindingContext">The <see cref="ModelBindingContext" />.</param>
@@ -30,13 +29,13 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		{
 			// Only accept enum values
 			if (!bindingContext.ModelMetadata.IsFlagsEnum)
-				return TaskCache.CompletedTask;
+				return Task.CompletedTask;
 
 			var provideValue = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
 
 			// Do nothing if there is no actual values
 			if (provideValue == ValueProviderResult.None)
-				return TaskCache.CompletedTask;
+				return Task.CompletedTask;
 
 			// Get the real enum type
 			var enumType = bindingContext.ModelType;
@@ -57,7 +56,7 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 			// Result
 			bindingContext.Result = ModelBindingResult.Success(realResult);
 
-			return TaskCache.CompletedTask;
+			return Task.CompletedTask;
 		}
 	}
 }
