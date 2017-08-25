@@ -4,11 +4,12 @@
     <Description>ASP.NET Core PagedList abstraction layer defines the IPagedList and IDynamicPagedList interface and useful extension methods for ASP.NET Core targeted projects. This project does not contains the implementation for creating paged list from a certain data source.</Description>
     <AssemblyTitle>ASP.NET Core PagedList Core Abstraction Layer</AssemblyTitle>
     <VersionPrefix>2.0.0</VersionPrefix>
-    <TargetFramework>netstandard1.0</TargetFramework>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
     <AssemblyName>Sakura.AspNetCore.PagedList.Abstractions</AssemblyName>
     <PackageId>Sakura.AspNetCore.PagedList.Abstractions</PackageId>
     <PackageTags>ASP.NET;ASP.NETCore;Page;Paging</PackageTags>
-    <PackageReleaseNotes>Update IPagedList&lt;T&gt; interface to solve ambiguous property slot.</PackageReleaseNotes>
+    <PackageReleaseNotes>Update to .NET Core 2.0</PackageReleaseNotes>
+    <AssetTargetFallback>$(AssetTargetFallback);dnxcore50</AssetTargetFallback>
     <PackageProjectUrl>https://github.com/sgjsakura/AspNetCore</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/sgjsakura/AspNetCore/blob/master/LICENSE.txt</PackageLicenseUrl>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>

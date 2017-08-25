@@ -1,18 +1,17 @@
-﻿using System.Security.Claims;
-using System.Threading.Tasks;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using System.Threading.Tasks;
 
 namespace Sakura.AspNetCore.Mvc.TagHelpers
 {
-	/// <summary>
-	///     Provide common implementations for both <see cref="AuthorizeTagHelper" /> and
-	///     <see cref="AuthorizeAttributeTagHelper" />.
-	/// </summary>
-	public abstract class AuthorizeTagHelperBase : TagHelper
+    /// <summary>
+    ///     Provide common implementations for both <see cref="AuthorizeTagHelper" /> and
+    ///     <see cref="AuthorizeAttributeTagHelper" />.
+    /// </summary>
+    public abstract class AuthorizeTagHelperBase : TagHelper
 	{
 		/// <summary>
 		///     Initialize a new instance of <see cref="AuthorizeTagHelperBase" />.
@@ -48,9 +47,9 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		///     Get a value that indicates if the current user is authorized.
 		/// </summary>
 		/// <returns>If the current user is authorized, returns <c>true</c>; otherwise, returns <c>false</c>.</returns>
-		protected Task<bool> IsAuthorizedAsync()
+		protected async Task<bool> IsAuthorizedAsync()
 		{
-			return AuthorizationService.AuthorizeAsync(ViewContext.HttpContext.User, Resource, Policy);
+			return (await AuthorizationService.AuthorizeAsync(ViewContext.HttpContext.User, Resource, Policy)).Succeeded;
 		}
 
 		#region Overrides of TagHelper

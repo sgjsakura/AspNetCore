@@ -4,12 +4,13 @@
     <Description>This library classes and helper methods which can be used to return action results directly during the MVC executing pipeline.</Description>
     <AssemblyTitle>ASP.NET Core ActionResult Extension Library</AssemblyTitle>
     <Authors>Iris Sakura</Authors>
-    <TargetFrameworks>net451;netstandard1.6</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.0</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>Sakura.AspNetCore.Mvc.ActionResultExceptionExtensions</AssemblyName>
     <PackageId>Sakura.AspNetCore.Mvc.ActionResultExceptionExtensions</PackageId>
     <PackageTags>ASP.NET;ASP.NETCore;MVC;MVCCore;Exception</PackageTags>
-    <PackageReleaseNotes>Update to .NET Core 1.1</PackageReleaseNotes>
+    <PackageReleaseNotes>Update to .NET Core 2.0</PackageReleaseNotes>
+    <AssetTargetFallback>$(AssetTargetFallback);dnxcore50</AssetTargetFallback>
     <PackageProjectUrl>https://github.com/sgjsakura/AspNetCore</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/sgjsakura/AspNetCore/blob/master/LICENSE.txt</PackageLicenseUrl>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
@@ -21,7 +22,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="1.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
