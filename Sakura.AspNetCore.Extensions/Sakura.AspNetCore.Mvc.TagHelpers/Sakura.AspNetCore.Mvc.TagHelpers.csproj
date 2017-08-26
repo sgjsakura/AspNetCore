@@ -5,11 +5,11 @@
     <AssemblyTitle>ASP.NET Core MVC Extensions Library</AssemblyTitle>
     <VersionPrefix>1.3.3</VersionPrefix>
     <Authors>Iris Sakura</Authors>
-    <TargetFrameworks>netstandard1.6;net451</TargetFrameworks>
+    <TargetFrameworks>netstandard1.6;net451;netstandard2.0</TargetFrameworks>
     <AssemblyName>Sakura.AspNetCore.Mvc.TagHelpers</AssemblyName>
     <PackageId>Sakura.AspNetCore.Mvc.TagHelpers</PackageId>
     <PackageTags>ASP.NET;ASP.NETCore;MVC;MVCCore;TagHelper;Enum;Flags;OptionLabel;Select;Option</PackageTags>
-    <PackageReleaseNotes>EnumSelectTagHelper now supports data annotation localization.</PackageReleaseNotes>
+    <PackageReleaseNotes>Add NETSTD2 support.</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/sgjsakura/AspNetCore</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/sgjsakura/AspNetCore/blob/master/LICENSE.txt</PackageLicenseUrl>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
@@ -17,7 +17,7 @@
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/sgjsakura/AspNetCore.git</RepositoryUrl>
-    <Version>1.3.4</Version>
+    <Version>1.3.5</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -32,5 +32,9 @@
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.0.0" />
+	</ItemGroup>
 
 </Project>

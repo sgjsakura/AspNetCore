@@ -4,11 +4,13 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Sakura.AspNetCore.Mvc.TagHelpers
 {
+	/// <inheritdoc />
 	/// <summary>
 	///     An <see cref="IModelBinderProvider" /> used to provider <see cref="FlagsEnumModelBinder" /> instances.
 	/// </summary>
 	public class FlagsEnumModelBinderProvider : IModelBinderProvider
 	{
+		/// <inheritdoc />
 		/// <summary>
 		///     Creates a <see cref="IModelBinder" /> based on <see cref="ModelBinderProviderContext" />.
 		/// </summary>

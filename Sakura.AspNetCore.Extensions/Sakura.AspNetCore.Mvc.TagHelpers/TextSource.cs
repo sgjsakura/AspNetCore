@@ -3,31 +3,30 @@
 namespace Sakura.AspNetCore.Mvc.TagHelpers
 {
 	/// <summary>
-	///     Define the text source for <see cref="EnumSelectTagHelper" />.
+	///     Define the text source for text generators for a relection items.
 	/// </summary>
-	/// <seealso cref="EnumSelectTagHelper" />
-	public enum EnumOptionTextSource
+	public enum TextSource
 	{
 		/// <summary>
-		///     Use the enum name as the text.
+		///     Use the member name as the text.
 		/// </summary>
-		EnumNameOnly = 0,
+		MemberNameOnly = 0,
 
 		/// <summary>
 		///     If <see cref="DisplayAttribute" /> is defined and <see cref="DisplayAttribute.Name" /> is provided, use its value;
-		///     Otherwise, fallback to the <see cref="EnumNameOnly" /> option.
+		///     Otherwise, fallback to the <see cref="MemberNameOnly" /> option.
 		/// </summary>
 		Name,
 
 		/// <summary>
 		///     If <see cref="DisplayAttribute" /> is defined and <see cref="DisplayAttribute.ShortName" /> is provided, use its
-		///     value; Otherwise, fallback to the <see cref="EnumNameOnly" /> option.
+		///     value; Otherwise, fallback to the <see cref="MemberNameOnly" /> option.
 		/// </summary>
 		ShortName,
 
 		/// <summary>
 		///     If <see cref="DisplayAttribute" /> is defined and <see cref="DisplayAttribute.Description" /> is provided, use its
-		///     value; Otherwise, fallback to the <see cref="EnumNameOnly" /> option.
+		///     value; Otherwise, fallback to the <see cref="MemberNameOnly" /> option.
 		/// </summary>
 		Description
 	}

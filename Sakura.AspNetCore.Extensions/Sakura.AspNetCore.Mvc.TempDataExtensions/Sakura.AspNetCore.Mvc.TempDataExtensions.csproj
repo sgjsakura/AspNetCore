@@ -17,6 +17,7 @@
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/sgjsakura/AspNetCore.git</RepositoryUrl>
+    <RootNamespace>Sakura.AspNetCore.Mvc</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

@@ -16,6 +16,7 @@
     <Authors>Iris Sakura</Authors>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/sgjsakura/AspNetCore.git</RepositoryUrl>
+    <RootNamespace>Sakura.AspNetCore</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

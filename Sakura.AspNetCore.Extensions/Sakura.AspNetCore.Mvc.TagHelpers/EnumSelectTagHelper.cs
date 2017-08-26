@@ -9,6 +9,7 @@ using Microsoft.Extensions.Localization;
 
 namespace Sakura.AspNetCore.Mvc.TagHelpers
 {
+	/// <inheritdoc />
 	/// <summary>
 	///     Generate the item list for a "select" element with all items defined in an enum type.
 	/// </summary>
@@ -74,10 +75,10 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 
 		/// <summary>
 		///     Get or set the text source for the generated options. The default value of this property is
-		///     <see cref="EnumOptionTextSource.EnumNameOnly" />.
+		///     <see cref="TagHelpers.TextSource.MemberNameOnly" />.
 		/// </summary>
 		[HtmlAttributeName(TextSourceAttributeName)]
-		public EnumOptionTextSource TextSource { get; set; } = EnumOptionTextSource.EnumNameOnly;
+		public TextSource TextSource { get; set; } = TextSource.MemberNameOnly;
 
 		/// <summary>
 		///     Get or set the value source for the generated options. The default value of this property is
@@ -98,7 +99,7 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		protected virtual string GetTextForMember(MemberInfo memberInfo)
 		{
 			var memberText = memberInfo.GetTextForMember(TextSource);
-			return EnumTypeStringLocalizer != null ? EnumTypeStringLocalizer[memberText] : memberText;
+			return EnumTypeStringLocalizer.TryGetLocalizedText(memberText);
 		}
 
 		/// <summary>
@@ -108,7 +109,7 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		/// <returns><paramref name="memberInfo" />The option value associated with <paramref name="memberInfo" />.</returns>
 		protected virtual string GetValueForMember(MemberInfo memberInfo)
 		{
-			return memberInfo.GetValueForMember(ValueSource);
+			return memberInfo.GetValueForEnumMember(ValueSource);
 		}
 
 		/// <summary>

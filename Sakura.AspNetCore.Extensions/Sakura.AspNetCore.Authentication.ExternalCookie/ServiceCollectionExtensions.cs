@@ -32,6 +32,16 @@ namespace Microsoft.Extensions.DependencyInjection
 
 			if (setupOptions != null)
 				services.Configure(setupOptions);
+
+#if NETSTANDARD2_0
+
+			services.AddAuthentication(IdentityConstants.ApplicationScheme)
+				.AddCookie(IdentityConstants.ApplicationScheme)
+				.AddCookie(IdentityConstants.ExternalScheme)
+				.AddCookie(IdentityConstants.TwoFactorUserIdScheme)
+				.AddCookie(IdentityConstants.TwoFactorRememberMeScheme);
+
+#endif
 		}
 	}
 }

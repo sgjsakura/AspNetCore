@@ -19,6 +19,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/sgjsakura/AspNetCore.git</RepositoryUrl>
     <Version>1.0.1</Version>
+    <RootNamespace>Sakura.AspNetCore</RootNamespace>
   </PropertyGroup>
 
 </Project>

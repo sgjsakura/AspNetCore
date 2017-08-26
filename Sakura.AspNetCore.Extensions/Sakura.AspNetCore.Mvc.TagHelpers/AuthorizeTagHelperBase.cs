@@ -44,6 +44,19 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		[UsedImplicitly(ImplicitUseKindFlags.Assign)]
 		public ViewContext ViewContext { get; set; }
 
+#if NETSTANDARD2_0
+
+		/// <summary>
+		///     Get a value that indicates if the current user is authorized.
+		/// </summary>
+		/// <returns>If the current user is authorized, returns <c>true</c>; otherwise, returns <c>false</c>.</returns>
+		protected async Task<bool> IsAuthorizedAsync()
+		{
+			var result = await AuthorizationService.AuthorizeAsync(ViewContext.HttpContext.User, Resource, Policy);
+			return result.Succeeded;
+		}
+
+#else
 		/// <summary>
 		///     Get a value that indicates if the current user is authorized.
 		/// </summary>
@@ -52,6 +65,8 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		{
 			return AuthorizationService.AuthorizeAsync(ViewContext.HttpContext.User, Resource, Policy);
 		}
+
+#endif
 
 		#region Overrides of TagHelper
 

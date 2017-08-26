@@ -7,12 +7,14 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Sakura.AspNetCore.Authentication
 {
+	/// <inheritdoc />
 	/// <summary>
-	///     Provide default implementation for <see cref="ISecurityStampValidator" /> service.
+	///     Provide default implementation for <see cref="T:Microsoft.AspNetCore.Identity.ISecurityStampValidator" /> service.
 	/// </summary>
 	[UsedImplicitly]
 	public class ExternalSecurityStampValidator : ISecurityStampValidator
 	{
+
 		/// <summary>
 		///     Validates a security stamp of an identity as an asynchronous operation, and rebuilds the identity if the validation
 		///     succeeds, otherwise rejects

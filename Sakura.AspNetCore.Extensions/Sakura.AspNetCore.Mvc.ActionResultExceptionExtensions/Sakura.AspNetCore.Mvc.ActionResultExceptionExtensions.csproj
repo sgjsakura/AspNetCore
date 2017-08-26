@@ -18,6 +18,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/sgjsakura/AspNetCore.git</RepositoryUrl>
     <Version>1.0.0</Version>
+    <RootNamespace>Sakura.AspNetCore.Mvc</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

@@ -3,14 +3,15 @@ using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Reflection;
 using JetBrains.Annotations;
+using Microsoft.Extensions.Localization;
 
 namespace Sakura.AspNetCore.Mvc.TagHelpers
 {
 	/// <summary>
-	///     Provide supporting method to operate enum types. This class is static.
+	///     Provide supporting method to reflection operations. This class is static.
 	/// </summary>
 	[PublicAPI]
-	public static class EnumHelper
+	public static class ReflectionHelper
 	{
 		/// <summary>
 		///     Get the <see cref="FieldInfo" /> definition for an enum value object.
@@ -25,16 +26,17 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		}
 
 		/// <summary>
-		///     Get the display text of an enum item from the specified text source.
+		///     Get the display text of an <see cref="MemberInfo"/> from the specified text source.
 		/// </summary>
-		/// <param name="memberInfo">The <see cref="MemberInfo" /> object represented as an enum item.</param>
+		/// <param name="memberInfo">The <see cref="MemberInfo" /> object.</param>
 		/// <param name="textSource">The text source for the enum item.</param>
+		/// <param name="localizer">A <see cref="IStringLocalizer"/> service used to get the localized text version. If this argument is <c>null</c>, non-localized version will be returned.</param>
 		/// <returns>
 		///     The text retrieved from the <paramref name="memberInfo" /> definition. If there is no text in the location
 		///     <paramref name="textSource" /> specified, this method will return <see cref="MemberInfo.Name" />.
 		/// </returns>
 		/// <exception cref="ArgumentException">The value of <paramref name="textSource" /> is not a valid enum item.</exception>
-		public static string GetTextForMember(this MemberInfo memberInfo, EnumOptionTextSource textSource)
+		public static string GetTextForMember(this MemberInfo memberInfo, TextSource textSource)
 		{
 			// Get DisplayAttribute instance
 			var attr = memberInfo.GetCustomAttribute<DisplayAttribute>();
@@ -49,16 +51,16 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 			// Get data according to the source
 			switch (textSource)
 			{
-				case EnumOptionTextSource.EnumNameOnly:
+				case TextSource.MemberNameOnly:
 					result = memberInfo.Name;
 					break;
-				case EnumOptionTextSource.Name:
+				case TextSource.Name:
 					result = attr.GetName();
 					break;
-				case EnumOptionTextSource.ShortName:
+				case TextSource.ShortName:
 					result = attr.GetShortName();
 					break;
-				case EnumOptionTextSource.Description:
+				case TextSource.Description:
 					result = attr.GetDescription();
 					break;
 				default:
@@ -80,12 +82,12 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		/// <param name="valueSource">The value source for the enum item.</param>
 		/// <returns>The text retrieved from the <paramref name="memberInfo" /> definition.</returns>
 		/// <exception cref="ArgumentException">The value of <paramref name="valueSource" /> is not a valid enum item.</exception>
-		public static string GetValueForMember(this MemberInfo memberInfo, EnumOptionValueSource valueSource)
+		public static string GetValueForEnumMember(this MemberInfo memberInfo, EnumOptionValueSource valueSource)
 		{
 			switch (valueSource)
 			{
 				case EnumOptionValueSource.Value:
-					return ((int) Enum.Parse(memberInfo.DeclaringType, memberInfo.Name)).ToString("D", CultureInfo.InvariantCulture);
+					return ((int)Enum.Parse(memberInfo.DeclaringType ?? throw new InvalidOperationException("The enum member has no declaring type."), memberInfo.Name)).ToString("D", CultureInfo.InvariantCulture);
 				case EnumOptionValueSource.Name:
 					return memberInfo.Name;
 				default:
