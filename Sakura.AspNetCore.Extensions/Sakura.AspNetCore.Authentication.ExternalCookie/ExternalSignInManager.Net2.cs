@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Authentication;
@@ -18,12 +17,13 @@ namespace Sakura.AspNetCore.Authentication
 	public partial class ExternalSignInManager
 	{
 		/// <summary>
-		/// Intialize a new instande of <see cref="ExternalSignInManager"/>.
+		///     Intialize a new instande of <see cref="ExternalSignInManager" />.
 		/// </summary>
-		/// <param name="httpContextAccessor">The <see cref="IHttpContextAccessor"/> service isntance.</param>
-		/// <param name="authenticationSchemeProvider">the <see cref="IAuthenticationSchemeProvider"/> service instance.</param>
-		/// <param name="identityOptions">The Options of <see cref="Microsoft.AspNetCore.Identity.IdentityOptions"/>.</param>
-		public ExternalSignInManager(IHttpContextAccessor httpContextAccessor, IAuthenticationSchemeProvider authenticationSchemeProvider, IOptions<IdentityOptions> identityOptions)
+		/// <param name="httpContextAccessor">The <see cref="IHttpContextAccessor" /> service isntance.</param>
+		/// <param name="authenticationSchemeProvider">the <see cref="IAuthenticationSchemeProvider" /> service instance.</param>
+		/// <param name="identityOptions">The Options of <see cref="Microsoft.AspNetCore.Identity.IdentityOptions" />.</param>
+		public ExternalSignInManager(IHttpContextAccessor httpContextAccessor,
+			IAuthenticationSchemeProvider authenticationSchemeProvider, IOptions<IdentityOptions> identityOptions)
 		{
 			HttpContext = httpContextAccessor.HttpContext;
 			AuthenticationSchemeProvider = authenticationSchemeProvider;
@@ -31,17 +31,17 @@ namespace Sakura.AspNetCore.Authentication
 		}
 
 		/// <summary>
-		/// Get the <see cref="Microsoft.AspNetCore.Http.HttpContext"/> instance.
+		///     Get the <see cref="Microsoft.AspNetCore.Http.HttpContext" /> instance.
 		/// </summary>
 		private HttpContext HttpContext { get; }
 
 		/// <summary>
-		/// Get thse <see cref="Microsoft.AspNetCore.Identity.IdentityOptions"/> value.
+		///     Get thse <see cref="Microsoft.AspNetCore.Identity.IdentityOptions" /> value.
 		/// </summary>
 		private IdentityOptions IdentityOptions { get; }
 
 		/// <summary>
-		/// Get the <see cref="IAuthenticationSchemeProvider"/> service.
+		///     Get the <see cref="IAuthenticationSchemeProvider" /> service.
 		/// </summary>
 		private IAuthenticationSchemeProvider AuthenticationSchemeProvider { get; }
 
@@ -122,5 +122,4 @@ namespace Sakura.AspNetCore.Authentication
 	}
 
 #endif
-
 }

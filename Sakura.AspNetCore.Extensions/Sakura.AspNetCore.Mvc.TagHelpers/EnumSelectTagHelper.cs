@@ -18,9 +18,9 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		#region Constructor
 
 		/// <summary>
-		/// Create a new instance of <see cref="EnumSelectTagHelper"/>.
+		///     Create a new instance of <see cref="EnumSelectTagHelper" />.
 		/// </summary>
-		/// <param name="stringLocalizerFactory">The service instance of <see cref="IStringLocalizerFactory"/>.</param>
+		/// <param name="stringLocalizerFactory">The service instance of <see cref="IStringLocalizerFactory" />.</param>
 		protected EnumSelectTagHelper(IStringLocalizerFactory stringLocalizerFactory)
 		{
 			StringLocalizerFactory = stringLocalizerFactory;
@@ -33,7 +33,7 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		#region Services
 
 		/// <summary>
-		/// Get the <see cref="IStringLocalizer"/> object used for localization.
+		///     Get the <see cref="IStringLocalizer" /> object used for localization.
 		/// </summary>
 		protected IStringLocalizer EnumTypeStringLocalizer => StringLocalizerFactory?.Create(GetEnumType());
 

@@ -30,18 +30,6 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 
 		#endregion
 
-		#region Order
-
-		/// <summary>
-		/// Get the default <see cref="Order"/> value for this tag helper. This field is constant.
-		/// </summary>
-		public const int DefaultOrder = 0;
-
-		/// <inheritdoc />
-		public override int Order { get; } = DefaultOrder;
-
-		#endregion
-
 		#region Registered Service
 
 		/// <summary>
@@ -233,6 +221,18 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 			// Append pager content
 			output.PostElement.AppendHtml(result);
 		}
+
+		#region Order
+
+		/// <summary>
+		///     Get the default <see cref="Order" /> value for this tag helper. This field is constant.
+		/// </summary>
+		public const int DefaultOrder = 0;
+
+		/// <inheritdoc />
+		public override int Order { get; } = DefaultOrder;
+
+		#endregion
 
 		#region Html Constants
 

@@ -141,7 +141,7 @@ namespace Sakura.AspNetCore.Mvc.Internal
 			foreach (var item in items)
 			{
 				// Try to get cached options, or create a new option instance
-				if (!optionsCache.TryGetValue(item.ItemType, out PagerItemOptions itemOptions))
+				if (!optionsCache.TryGetValue(item.ItemType, out var itemOptions))
 				{
 					itemOptions = context.Options.ItemOptions.GetMergedOptionsFor(item);
 					optionsCache[item.ItemType] = itemOptions;

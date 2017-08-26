@@ -17,13 +17,12 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		#region Constrcutor
 
 		/// <summary>
-		/// Create a new instance of <see cref="EnumTypeSelectTagHelper"/>.
+		///     Create a new instance of <see cref="EnumTypeSelectTagHelper" />.
 		/// </summary>
-		/// <param name="stringLocalizerFactory">The service instance of <see cref="IStringLocalizerFactory"/>.</param>
+		/// <param name="stringLocalizerFactory">The service instance of <see cref="IStringLocalizerFactory" />.</param>
 		public EnumTypeSelectTagHelper(IStringLocalizerFactory stringLocalizerFactory)
 			: base(stringLocalizerFactory)
 		{
-
 		}
 
 		#endregion

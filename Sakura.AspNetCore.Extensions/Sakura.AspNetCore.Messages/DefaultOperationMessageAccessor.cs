@@ -60,7 +60,7 @@ namespace Sakura.AspNetCore
 				ICollection<OperationMessage> result = null;
 
 				// Retrieve the data and convert to the collection type
-				if (TempData.TryGetValue(key, out object value))
+				if (TempData.TryGetValue(key, out var value))
 				{
 					result = value as ICollection<OperationMessage>;
 

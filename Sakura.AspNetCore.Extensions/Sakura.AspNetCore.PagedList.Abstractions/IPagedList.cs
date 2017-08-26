@@ -44,14 +44,15 @@ namespace Sakura.AspNetCore
 	public interface IPagedList<out T> : IPagedList, IReadOnlyList<T>
 	{
 		/// <summary>
-		/// Get the element count in the collection.
+		///     Get the element count in the collection.
 		/// </summary>
 		new int Count { get; }
+
 		/// <summary>
-		/// Get the element at the specified location.
+		///     Get the element at the specified location.
 		/// </summary>
 		/// <param name="index">The zero-based index of the specified element.</param>
-		/// <returns>The element at the <paramref name="index"/> location.</returns>
+		/// <returns>The element at the <paramref name="index" /> location.</returns>
 		new T this[int index] { get; }
 	}
 }

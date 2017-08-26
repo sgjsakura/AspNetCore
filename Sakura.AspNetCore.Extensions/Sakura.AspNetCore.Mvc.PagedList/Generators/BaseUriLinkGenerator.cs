@@ -12,19 +12,10 @@ namespace Sakura.AspNetCore.Mvc.Generators
 	public abstract class BaseUriLinkGenerator : IPagerItemLinkGenerator
 	{
 		/// <summary>
-		/// Get or set the base URI used to generate the full URI. If this property is null, the current relative URI is used as the base URI.
+		///     Get or set the base URI used to generate the full URI. If this property is null, the current relative URI is used
+		///     as the base URI.
 		/// </summary>
 		public string BaseUri { get; set; }
-
-		/// <summary>
-		/// Get the real base URI used to calculate the final URI.
-		/// </summary>
-		/// <param name="viewContext">The <see cref="ViewContext"/> instance.</param>
-		/// <returns>The real base URI.</returns>
-		protected string GetRealBaseUri(ViewContext viewContext)
-		{
-			return BaseUri ?? GetCurrentUriWithQuery(viewContext);
-		}
 
 		/// <summary>
 		///     Generate the link url for the specified <see cref="PagerItem" />.
@@ -65,6 +56,16 @@ namespace Sakura.AspNetCore.Mvc.Generators
 				result = "/" + result;
 
 			return result;
+		}
+
+		/// <summary>
+		///     Get the real base URI used to calculate the final URI.
+		/// </summary>
+		/// <param name="viewContext">The <see cref="ViewContext" /> instance.</param>
+		/// <returns>The real base URI.</returns>
+		protected string GetRealBaseUri(ViewContext viewContext)
+		{
+			return BaseUri ?? GetCurrentUriWithQuery(viewContext);
 		}
 
 		/// <summary>

@@ -52,7 +52,7 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		/// <returns>The selected value string from the context. If no selected value is set, this method will returns <c>null</c>.</returns>
 		protected string GetSelectedValueFromContext(TagHelperContext context)
 		{
-			return context.Items.TryGetValue(SelectedValueItemKey, out object result) ? result as string : null;
+			return context.Items.TryGetValue(SelectedValueItemKey, out var result) ? result as string : null;
 		}
 
 		/// <summary>

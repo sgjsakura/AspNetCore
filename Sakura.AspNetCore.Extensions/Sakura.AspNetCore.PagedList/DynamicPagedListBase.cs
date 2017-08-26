@@ -222,7 +222,7 @@ namespace Sakura.AspNetCore
 		/// </summary>
 		public int PageIndex
 		{
-			get { return _PageIndex; }
+			get => _PageIndex;
 			set
 			{
 				// If initialized, make detailed value check

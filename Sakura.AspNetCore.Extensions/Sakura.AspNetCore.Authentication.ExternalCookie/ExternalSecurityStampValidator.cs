@@ -14,7 +14,6 @@ namespace Sakura.AspNetCore.Authentication
 	[UsedImplicitly]
 	public class ExternalSecurityStampValidator : ISecurityStampValidator
 	{
-
 		/// <summary>
 		///     Validates a security stamp of an identity as an asynchronous operation, and rebuilds the identity if the validation
 		///     succeeds, otherwise rejects

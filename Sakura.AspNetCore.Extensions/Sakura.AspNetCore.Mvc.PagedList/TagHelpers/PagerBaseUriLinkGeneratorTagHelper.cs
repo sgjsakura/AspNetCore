@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using JetBrains.Annotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.Routing;
@@ -11,17 +9,40 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 namespace Sakura.AspNetCore.Mvc.TagHelpers
 {
 	/// <summary>
-	/// Provide common feature used to generate pager links with a specified base URI.
+	///     Provide common feature used to generate pager links with a specified base URI.
 	/// </summary>
 	[HtmlTargetElement(PagerTagHelper.HtmlTagName)]
 	public abstract class PagerBaseUriLinkGeneratorTagHelper : PagerLinkGeneratorTagHelper
 	{
+		/// <summary>
+		///     Generate the base URI used to calculate the final URL.
+		/// </summary>
+		/// <returns></returns>
+		protected string GenerateBaseUri()
+		{
+			var helper = UrlHelperFactory.GetUrlHelper(ViewContext);
+			return helper.Action(Action, Controller, RouteValues, Protocol, Host, Fragment);
+		}
+
+		/// <inheritdoc />
+		public override IPagerItemLinkGenerator GetLinkGenerator()
+		{
+			return GetLinkGenerator(GenerateBaseUri());
+		}
+
+		/// <summary>
+		///     Generate the final URI according to a specified base URI.
+		/// </summary>
+		/// <param name="baseUri">The base URI.</param>
+		/// <returns>The final URI.</returns>
+		protected abstract IPagerItemLinkGenerator GetLinkGenerator(string baseUri);
+
 		#region Constructor
 
 		/// <summary>
-		/// Initialize a new instance of <see cref="PagerBaseUriLinkGeneratorTagHelper"/>.
+		///     Initialize a new instance of <see cref="PagerBaseUriLinkGeneratorTagHelper" />.
 		/// </summary>
-		/// <param name="urlHelperFactory">The <see cref="IUrlHelperFactory"/> service instance.</param>
+		/// <param name="urlHelperFactory">The <see cref="IUrlHelperFactory" /> service instance.</param>
 		protected PagerBaseUriLinkGeneratorTagHelper(IUrlHelperFactory urlHelperFactory)
 		{
 			UrlHelperFactory = urlHelperFactory;
@@ -30,39 +51,47 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		#region Constants
 
 		/// <summary>
-		/// Get the HTML attribute name associated with the <see cref="Action"/> property. This field is constant.
+		///     Get the HTML attribute name associated with the <see cref="Action" /> property. This field is constant.
 		/// </summary>
 		private const string ActionAttributeName = "asp-action";
+
 		/// <summary>
-		/// Get the HTML attribute name associated with the <see cref="Controller"/> property. This field is constant.
+		///     Get the HTML attribute name associated with the <see cref="Controller" /> property. This field is constant.
 		/// </summary>
 		private const string ControllerAttributeName = "asp-controller";
+
 		/// <summary>
-		/// Get the HTML attribute name associated with the <see cref="Area"/> property. This field is constant.
+		///     Get the HTML attribute name associated with the <see cref="Area" /> property. This field is constant.
 		/// </summary>
 		private const string AreaAttributeName = "asp-area";
+
 		/// <summary>
-		/// Get the HTML attribute name associated with the <see cref="Protocol"/> property. This field is constant.
+		///     Get the HTML attribute name associated with the <see cref="Protocol" /> property. This field is constant.
 		/// </summary>
 		private const string ProtocolAttributeName = "asp-protocol";
+
 		/// <summary>
-		/// Get the HTML attribute name associated with the <see cref="Host"/> property. This field is constant.
+		///     Get the HTML attribute name associated with the <see cref="Host" /> property. This field is constant.
 		/// </summary>
 		private const string HostAttributeName = "asp-host";
+
 		/// <summary>
-		/// Get the HTML attribute name associated with the <see cref="Fragment"/> property. This field is constant.
+		///     Get the HTML attribute name associated with the <see cref="Fragment" /> property. This field is constant.
 		/// </summary>
 		private const string FragmentAttributeName = "asp-fragment";
+
 		/// <summary>
-		/// Get the HTML attribute name associated with the <see cref="Route"/> property. This field is constant.
+		///     Get the HTML attribute name associated with the <see cref="Route" /> property. This field is constant.
 		/// </summary>
 		public const string RouteAttributeName = "asp-route";
+
 		/// <summary>
-		/// Get the HTML attribute name associated with the <see cref="RouteValues"/> property. This field is constant.
+		///     Get the HTML attribute name associated with the <see cref="RouteValues" /> property. This field is constant.
 		/// </summary>
 		private const string AllRouteDataAttributeName = "asp-all-route-data";
+
 		/// <summary>
-		/// Get the HTML attribute prefix associated with the <see cref="RouteValues"/> property. This field is constant.
+		///     Get the HTML attribute prefix associated with the <see cref="RouteValues" /> property. This field is constant.
 		/// </summary>
 		private const string RouteAttributePrefix = "asp-route-";
 
@@ -73,7 +102,7 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		#region Base URI Related Properties
 
 		/// <summary>
-		/// Internal dictionary for route values.
+		///     Internal dictionary for route values.
 		/// </summary>
 		private IDictionary<string, string> _routeValues;
 
@@ -106,7 +135,7 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 
 		/// <summary>Name of the route.</summary>
 		/// <remarks>
-		/// Must be <c>null</c> if <see cref="Action" /> or <see cref="Controller" /> is non-<c>null</c>.
+		///     Must be <c>null</c> if <see cref="Action" /> or <see cref="Controller" /> is non-<c>null</c>.
 		/// </remarks>
 		[HtmlAttributeName(RouteAttributeName)]
 		public string Route { get; set; }
@@ -130,28 +159,5 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		protected IUrlHelperFactory UrlHelperFactory { get; }
 
 		#endregion
-
-		/// <summary>
-		/// Generate the base URI used to calculate the final URL.
-		/// </summary>
-		/// <returns></returns>
-		protected string GenerateBaseUri()
-		{
-			var helper = UrlHelperFactory.GetUrlHelper(ViewContext);
-			return helper.Action(Action, Controller, RouteValues, Protocol, Host, Fragment);
-		}
-
-		/// <inheritdoc />
-		public override IPagerItemLinkGenerator GetLinkGenerator()
-		{
-			return GetLinkGenerator(GenerateBaseUri());
-		}
-
-		/// <summary>
-		/// Generate the final URI according to a specified base URI.
-		/// </summary>
-		/// <param name="baseUri">The base URI.</param>
-		/// <returns>The final URI.</returns>
-		protected abstract IPagerItemLinkGenerator GetLinkGenerator(string baseUri);
 	}
 }

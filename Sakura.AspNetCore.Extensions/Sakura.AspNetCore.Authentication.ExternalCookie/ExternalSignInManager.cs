@@ -2,14 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using JetBrains.Annotations;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Authentication;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Options;
 
 namespace Sakura.AspNetCore.Authentication
 {
@@ -18,7 +11,6 @@ namespace Sakura.AspNetCore.Authentication
 	/// </summary>
 	public partial class ExternalSignInManager
 	{
-	
 		/// <summary>
 		///     Get the user name from a <see cref="ClaimsIdentity" />.
 		/// </summary>

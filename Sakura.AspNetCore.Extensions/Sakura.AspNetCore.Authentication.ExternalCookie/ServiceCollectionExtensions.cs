@@ -1,10 +1,13 @@
 ﻿using System;
 using JetBrains.Annotations;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Sakura.AspNetCore.Authentication;
+
+#if !NETSTANDARD2_0
+using Microsoft.AspNetCore.Builder;
+#endif
 
 // ReSharper disable once CheckNamespace
 
@@ -20,6 +23,7 @@ namespace Microsoft.Extensions.DependencyInjection
 		/// </summary>
 		/// <param name="services">The <see cref="IServiceCollection" /> instance.</param>
 		/// <param name="setupOptions">A setup method for configuring identity options.</param>
+		[PublicAPI]
 		public static void AddExternalSignInManager([NotNull] this IServiceCollection services,
 			Action<IdentityOptions> setupOptions = null)
 		{
@@ -40,7 +44,6 @@ namespace Microsoft.Extensions.DependencyInjection
 				.AddCookie(IdentityConstants.ExternalScheme)
 				.AddCookie(IdentityConstants.TwoFactorUserIdScheme)
 				.AddCookie(IdentityConstants.TwoFactorRememberMeScheme);
-
 #endif
 		}
 	}

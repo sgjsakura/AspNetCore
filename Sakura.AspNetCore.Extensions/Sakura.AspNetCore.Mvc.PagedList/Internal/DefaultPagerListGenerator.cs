@@ -177,7 +177,7 @@ namespace Sakura.AspNetCore.Mvc.Internal
 			foreach (var element in layout)
 			{
 				// If the dictionary not contains the layout result, generate once and store it to the dictionary
-				if (!layoutResult.TryGetValue(element, out PagerItem[] elementResult))
+				if (!layoutResult.TryGetValue(element, out var elementResult))
 				{
 					elementResult = GenerateItemsForLayoutElement(element, currentPage, totalPage, options).ToArray();
 					layoutResult[element] = elementResult;

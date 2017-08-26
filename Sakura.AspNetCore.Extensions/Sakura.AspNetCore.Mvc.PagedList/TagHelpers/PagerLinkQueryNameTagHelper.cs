@@ -1,30 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using Sakura.AspNetCore.Mvc.Generators;
 
 namespace Sakura.AspNetCore.Mvc.TagHelpers
 {
 	/// <summary>
-	/// Provide <see cref="QueryName"/> property to help generate pager links.
+	///     Provide <see cref="QueryName" /> property to help generate pager links.
 	/// </summary>
 	[HtmlTargetElement(PagerTagHelper.HtmlTagName, Attributes = QueryNameAttributeName)]
 	public class PagerLinkQueryNameTagHelper : PagerBaseUriLinkGeneratorTagHelper
 	{
-		#region Core Properties
+		#region Constructor
 
 		/// <summary>
-		/// Get or set the query name used to generate the link.
+		///     Initialize a new instance of <see cref="PagerLinkQueryNameTagHelper" />.
 		/// </summary>
-		[HtmlAttributeName(QueryNameAttributeName)]
-		public string QueryName { get; set; }
-
-		/// <summary>
-		/// The HTML attribute name for <see cref="QueryName"/> attribute. This field is constant.
-		/// </summary>
-		public const string QueryNameAttributeName = "link-query-name";
+		/// <param name="urlHelperFactory">The <see cref="IUrlHelperFactory" /> service instance.</param>
+		public PagerLinkQueryNameTagHelper(IUrlHelperFactory urlHelperFactory) : base(urlHelperFactory)
+		{
+		}
 
 		#endregion
 
@@ -34,9 +28,8 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		protected override IPagerItemLinkGenerator GetLinkGenerator(string baseUri)
 		{
 			if (string.IsNullOrEmpty(QueryName))
-			{
-				throw new InvalidOperationException($"The value of '{QueryNameAttributeName}' attribute cannot be null or empty string.");
-			}
+				throw new InvalidOperationException(
+					$"The value of '{QueryNameAttributeName}' attribute cannot be null or empty string.");
 
 			var result = PagerItemLinkGenerators.QueryName(QueryName);
 			result.BaseUri = baseUri;
@@ -46,15 +39,18 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 
 		#endregion
 
-		#region Constructor
+		#region Core Properties
 
 		/// <summary>
-		/// Initialize a new instance of <see cref="PagerLinkQueryNameTagHelper"/>.
+		///     Get or set the query name used to generate the link.
 		/// </summary>
-		/// <param name="urlHelperFactory">The <see cref="IUrlHelperFactory"/> service instance.</param>
-		public PagerLinkQueryNameTagHelper(IUrlHelperFactory urlHelperFactory) : base(urlHelperFactory)
-		{
-		} 
+		[HtmlAttributeName(QueryNameAttributeName)]
+		public string QueryName { get; set; }
+
+		/// <summary>
+		///     The HTML attribute name for <see cref="QueryName" /> attribute. This field is constant.
+		/// </summary>
+		public const string QueryNameAttributeName = "link-query-name";
 
 		#endregion
 	}

@@ -26,12 +26,15 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		///         A <see cref="T:System.Threading.Tasks.Task" /> which will complete when the model binding process completes.
 		///     </para>
 		///     <para>
-		///         If model binding was successful, the <see cref="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext.Result" /> should have
+		///         If model binding was successful, the
+		///         <see cref="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext.Result" /> should have
 		///         <see cref="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingResult.IsModelSet" /> set to <c>true</c>.
 		///     </para>
 		///     <para>
-		///         A model binder that completes successfully should set <see cref="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext.Result" /> to
-		///         a value returned from <see cref="M:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingResult.Success(System.Object)" />.
+		///         A model binder that completes successfully should set
+		///         <see cref="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext.Result" /> to
+		///         a value returned from
+		///         <see cref="M:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingResult.Success(System.Object)" />.
 		///     </para>
 		/// </returns>
 		public Task BindModelAsync(ModelBindingContext bindingContext)
@@ -57,7 +60,7 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 			var actualValues = strs.Select(valueString => Enum.Parse(enumType, valueString));
 
 			// Merge to final result
-			var result = actualValues.Aggregate(0, (current, value) => current | (int)value);
+			var result = actualValues.Aggregate(0, (current, value) => current | (int) value);
 
 			// Convert to Enum object
 			var realResult = Enum.ToObject(enumType, result);

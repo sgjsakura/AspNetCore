@@ -94,9 +94,7 @@ namespace Sakura.AspNetCore.Mvc
 				if (useTwoLineMode)
 					result.AppendHtml("<br />");
 				else
-				{
 					result.AppendHtml("&nbsp;&nbsp;");
-				}
 
 				result.AppendHtml(GenerateDescrption(message.Description));
 			}
