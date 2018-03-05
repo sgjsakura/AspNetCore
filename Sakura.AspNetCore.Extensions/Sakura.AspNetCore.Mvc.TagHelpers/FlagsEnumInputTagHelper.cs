@@ -84,13 +84,13 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 				throw new InvalidOperationException(
 					$"The value of the {EnumFlagValueAttributeName} attribute is not a valid enum flag item.");
 
-			// Do nothing if value is null
-			if (EnumFlagFor.Model == null)
-				return;
-
 			// Set name and value
 			output.Attributes.SetAttribute("name", EnumFlagFor.Name);
 			output.Attributes.SetAttribute("value", enumName);
+
+			// Do nothing if value is null
+			if (EnumFlagFor.Model == null)
+				return;
 
 			// Set checked attribute
 			if (((Enum) EnumFlagFor.Model).HasFlag(EnumFlagValue))
