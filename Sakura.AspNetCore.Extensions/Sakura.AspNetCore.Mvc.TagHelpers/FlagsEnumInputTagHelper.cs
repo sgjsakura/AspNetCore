@@ -88,12 +88,8 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 			output.Attributes.SetAttribute("name", EnumFlagFor.Name);
 			output.Attributes.SetAttribute("value", enumName);
 
-			// Do nothing if value is null
-			if (EnumFlagFor.Model == null)
-				return;
-
 			// Set checked attribute
-			if (((Enum) EnumFlagFor.Model).HasFlag(EnumFlagValue))
+			if (EnumFlagFor.Model is Enum value && value.HasFlag(EnumFlagValue))
 			{
 				output.Attributes.SetAttribute("checked", "checked");
 			}

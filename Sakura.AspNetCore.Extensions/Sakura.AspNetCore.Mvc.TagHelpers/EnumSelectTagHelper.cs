@@ -5,6 +5,7 @@ using System.Reflection;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 
 namespace Sakura.AspNetCore.Mvc.TagHelpers
@@ -20,14 +21,17 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		/// <summary>
 		///     Create a new instance of <see cref="EnumSelectTagHelper" />.
 		/// </summary>
-		/// <param name="stringLocalizerFactory">The service instance of <see cref="IStringLocalizerFactory" />.</param>
-		protected EnumSelectTagHelper(IStringLocalizerFactory stringLocalizerFactory)
+		/// <param name="serviceProvider">The <see cref="IServiceProvider"/> instance used to find dependent services.</param>
+		protected EnumSelectTagHelper(IServiceProvider serviceProvider)
 		{
-			StringLocalizerFactory = stringLocalizerFactory;
+			StringLocalizerFactory = serviceProvider.GetService<IStringLocalizerFactory>();
 		}
 
 		#endregion
 
+		/// <summary>
+		/// The serivce used to provide text localization.
+		/// </summary>
 		private IStringLocalizerFactory StringLocalizerFactory { get; }
 
 		#region Services
