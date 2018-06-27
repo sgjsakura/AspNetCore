@@ -9,7 +9,7 @@
     <AssemblyName>Sakura.AspNetCore.Mvc.TagHelpers</AssemblyName>
     <PackageId>Sakura.AspNetCore.Mvc.TagHelpers</PackageId>
     <PackageTags>ASP.NET;ASP.NETCore;MVC;MVCCore;TagHelper;Enum;Flags;OptionLabel;Select;Option</PackageTags>
-    <PackageReleaseNotes>Fix a bug that enum-for and enum-type tag helper incorrectly required the localization services.</PackageReleaseNotes>
+    <PackageReleaseNotes>Fix a bug that enum-for and enum-type tag helper incorrectly required the localization services. Add display-text and enum-item-display-text tag.</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/sgjsakura/AspNetCore</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/sgjsakura/AspNetCore/blob/master/LICENSE.txt</PackageLicenseUrl>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
