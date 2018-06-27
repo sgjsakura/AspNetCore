@@ -1,5 +1,6 @@
 ﻿using System;
 using JetBrains.Annotations;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Sakura.AspNetCore;
 
@@ -28,6 +29,7 @@ namespace Microsoft.Extensions.DependencyInjection
 				throw new ArgumentNullException(nameof(services));
 
 			// Try add service
+			services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 			services.TryAddScoped<IOperationMessageAccessor, DefaultOperationMessageAccessor>();
 
 			// Configure the service

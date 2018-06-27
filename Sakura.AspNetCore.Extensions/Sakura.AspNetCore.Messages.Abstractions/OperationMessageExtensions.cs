@@ -13,21 +13,21 @@ namespace Sakura.AspNetCore
 		/// <summary>
 		///     Add a new message into the message collection.
 		/// </summary>
-		/// <param name="collection">The collection of messages to be adding the new message.</param>
+		/// <param name="messageAccessor">The collection of messages to be adding the new message.</param>
 		/// <param name="level">The level of the new message.</param>
 		/// <param name="title">The title of the new message.</param>
 		/// <param name="description">The detailed description of the new message.</param>
 		/// <returns>The newly added <see cref="OperationMessage" /> object.</returns>
-		/// <exception cref="ArgumentNullException"><paramref name="collection" /> is <c>null</c>.</exception>
-		public static OperationMessage Add([NotNull] this ICollection<OperationMessage> collection,
+		/// <exception cref="ArgumentNullException"><paramref name="messageAccessor" /> is <c>null</c>.</exception>
+		public static OperationMessage Add([NotNull] this IOperationMessageAccessor messageAccessor,
 			OperationMessageLevel level, [CanBeNull] [LocalizationRequired] string title,
 			[CanBeNull] [LocalizationRequired] string description = null)
 		{
-			if (collection == null)
-				throw new ArgumentNullException(nameof(collection));
+			if (messageAccessor == null)
+				throw new ArgumentNullException(nameof(messageAccessor));
 
 			var item = new OperationMessage(level, title, description);
-			collection.Add(item);
+			messageAccessor.Messages.Add(item);
 
 			return item;
 		}

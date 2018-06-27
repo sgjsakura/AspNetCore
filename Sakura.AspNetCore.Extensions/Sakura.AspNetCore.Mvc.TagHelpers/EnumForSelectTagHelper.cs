@@ -18,9 +18,9 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		///     Initialize an new instance with required services.
 		/// </summary>
 		/// <param name="generator">The HTML generator service.</param>
-		/// <param name="stringLocalizerFactory">The service instance of <see cref="IStringLocalizerFactory" />.</param>
-		public EnumForSelectTagHelper(IHtmlGenerator generator, IStringLocalizerFactory stringLocalizerFactory)
-			: base(stringLocalizerFactory)
+		/// <param name="serviceProvider">The service instance of <see cref="IServiceProvider" />.</param>
+		public EnumForSelectTagHelper(IHtmlGenerator generator, IServiceProvider serviceProvider)
+			: base(serviceProvider)
 		{
 			Generator = generator;
 		}

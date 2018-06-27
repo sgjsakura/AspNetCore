@@ -30,10 +30,6 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		/// </summary>
 		/// <param name="memberInfo">The <see cref="MemberInfo" /> object.</param>
 		/// <param name="textSource">The text source for the enum item.</param>
-		/// <param name="localizer">
-		///     A <see cref="IStringLocalizer" /> service used to get the localized text version. If this
-		///     argument is <c>null</c>, non-localized version will be returned.
-		/// </param>
 		/// <returns>
 		///     The text retrieved from the <paramref name="memberInfo" /> definition. If there is no text in the location
 		///     <paramref name="textSource" /> specified, this method will return <see cref="MemberInfo.Name" />.

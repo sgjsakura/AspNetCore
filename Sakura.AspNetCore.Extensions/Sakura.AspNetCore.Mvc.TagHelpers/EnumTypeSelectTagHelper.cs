@@ -19,9 +19,9 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		/// <summary>
 		///     Create a new instance of <see cref="EnumTypeSelectTagHelper" />.
 		/// </summary>
-		/// <param name="stringLocalizerFactory">The service instance of <see cref="IStringLocalizerFactory" />.</param>
-		public EnumTypeSelectTagHelper(IStringLocalizerFactory stringLocalizerFactory)
-			: base(stringLocalizerFactory)
+		/// <param name="serviceProvider">The service instance of <see cref="IServiceProvider" />.</param>
+		public EnumTypeSelectTagHelper(IServiceProvider serviceProvider)
+			: base(serviceProvider)
 		{
 		}
 
