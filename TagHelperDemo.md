@@ -175,6 +175,27 @@ will generate the following code if the model's `Features` property contains the
 ```
 *NOTE: This tag helper only helps you to generate an input element. Unforetunately, the default MVC model binding system cannot handle flags enum items and merge them correctly. In order to receive the final data in you back end callback action, you may also need the `FlagsEnumModelBinder` feature, this binder can be found in the next section.*
 
+### `DisplayTextTagHelper`
+
+In classical ASP.NET Project, `Html.DisplayText` method is used to display labels with data annotation related dynamic data model. This method is also inherited by the new ASP.NET Core framework. Now for tag helper enabled new Razor page syntax, this method is a bit obesoleted. Another problem for this method is that it lakes the control of text source.
+
+The new `<display-text>` tag is designed to provide modern and flexible data annotation based text extraction. Similar with the `EnumSelectForTagHelper`, it also provides the `text-source` attribute to control the display text source. For example, a backend data model may be defined as:
+```C#
+public class Account
+{
+  [Display(Name="User Name")]
+  public string UserName { get; set; }
+}
+```
+And when a page is designed to show or edit account information, you may want to extract the `Name` property defined in the `DisplayAttribute` as some label text, in this case you may write:
+```HTML
+@model Account 
+
+<label><display-text for="UserName" text-source="Name" /></label>
+```
+
+Then the `<display-text>` tag will be converted to a plain HTML content text "User Name" in place.
+
 ###  `ConditionalClassTagHelper`
 
 CSS class is an important part for HTML element. It can be used to both styling and item filtering. An element can belong to one or more classes sepecifed by `class` attribute. The `class` attribute is a composed value contains a list of class names, each of them a sepereated with spaces. You cannot specify multiple `class` attributes on a single element, and if you wish to apply some class conditionally, you may:
