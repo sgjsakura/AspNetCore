@@ -179,7 +179,7 @@ will generate the following code if the model's `Features` property contains the
 
 In classical ASP.NET Project, `Html.DisplayText` method is used to display labels with data annotation related dynamic data model. This method is also inherited by the new ASP.NET Core framework. Now for tag helper enabled new Razor page syntax, this method is a bit obesoleted. Another problem for this method is that it lakes the control of text source.
 
-The new `<display-text>` tag is designed to provide modern and flexible data annotation based text extraction. Similar with the `EnumSelectForTagHelper`, it also provides the `text-source` attribute to control the display text source. For example, a backend data model may be defined as:
+The new `<display-text>` tag is designed to provide modern and flexible data annotation based text extraction, together with standard ASP.NET Core localization framework. Similar with the `EnumSelectForTagHelper`, it also provides the `text-source` attribute to control the display text source. For example, a backend data model may be defined as:
 ```C#
 public class Account
 {
@@ -195,6 +195,38 @@ And when a page is designed to show or edit account information, you may want to
 ```
 
 Then the `<display-text>` tag will be converted to a plain HTML content text "User Name" in place.
+
+### `EnumItemDisplayTextTagHelper`
+
+Convert a enum item to a user friendly display text is a common task in lots of appliations. In .NET Framework, enum types are auto sealed and thus we cannot add new methods or override existing methods (especially for the `ToString` method). This limitation brings much more work when we trying to convert enum item to a custom string. 
+
+A typical solution is defining an extension method such as `GetString` and then call this method in the source code. This manner works, however it is lake of the variation ability in different sneces (i.e. when you want to show long and short display strings in two pages) and localization supports. Using `DisplayAtttribute` combined with resource files is a generic way to add full-level visualization support for them, while it needs reflection operation and thus it is not easy to use it.
+
+Now the `<enum-item-display-text>` tag helper wrapped all necessary works for you and you may just use the `DisplayAttribute` to define display texts for enum items with localization support. For example, an enum type and a typical usage are defined as:
+```C#
+public enum UserType
+{
+   [Display(Name = "Generic User")]
+   User,
+   [Display(Name = "System Adminisrator")]
+   Admin,
+}
+
+public class User
+{
+  public UserType UserType { get; set; }
+}
+
+```
+And for a page is designed for a `User` model, you may write:
+```HTML
+@model User
+
+<p>Your user type: <enum-item-display-text for="UserType" text-source="Name" /><p>
+
+```
+Then the placeholder tag helper will be replaced with text "Generic User" if your user type value is `UserType.User` and "System Administrator" if your type is `UserType.Admin`.
+
 
 ###  `ConditionalClassTagHelper`
 
