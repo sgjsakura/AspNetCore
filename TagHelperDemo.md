@@ -227,6 +227,8 @@ And for a page is designed for a `User` model, you may write:
 ```
 Then the placeholder tag helper will be replaced with text "Generic User" if your user type value is `UserType.User` and "System Administrator" if your type is `UserType.Admin`.
 
+Besides the `for` attribute, you may also use the `value` attribute if you want to show the display text for an existing enum value directly which is not directly related with the page model (and is difficult to extract with `for` attribute). The `text-source` attribute can be used as the same as some other tag helpers above.
+
 
 ###  `ConditionalClassTagHelper`
 
