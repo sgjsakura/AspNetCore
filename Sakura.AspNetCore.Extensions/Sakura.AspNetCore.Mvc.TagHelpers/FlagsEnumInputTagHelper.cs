@@ -67,7 +67,8 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		{
 			// Argument check
 			if (EnumFlagValue == null)
-				throw new InvalidOperationException($"The value of the {EnumFlagValueAttributeName} attribute cannot be empty.");
+				throw new InvalidOperationException(
+					$"The value of the {EnumFlagValueAttributeName} attribute cannot be empty.");
 
 			if (!EnumFlagFor.ModelExplorer.Metadata.IsFlagsEnum)
 				throw new InvalidOperationException(

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -44,29 +45,44 @@ namespace Microsoft.Framework.DependencyInjection
 		}
 
 		/// <summary>
+		/// Find the insert location for <see cref="FlagsEnumModelBinderProvider"/> instance.
+		/// </summary>
+		/// <param name="modelBinderProviders">The MVC <see cref="IModelBinderProvider"/> list.</param>
+		/// <returns></returns>
+		private static int FindModelBinderProviderInsertLocation(this IList<IModelBinderProvider> modelBinderProviders)
+		{
+#if NETSTANDARD1_6 || NET451
+			return modelBinderProviders.FirstIndexOfOrDefault(i => i is SimpleTypeModelBinderProvider);
+#else
+			var index = modelBinderProviders.FirstIndexOfOrDefault(i => i is FloatingPointTypeModelBinderProvider);
+			return index < 0 ? index : index + 1;
+#endif
+		}
+
+		/// <summary>
 		///     Insert the <see cref="FlagsEnumModelBinder" /> in the correct location of a list of model binders.
 		/// </summary>
-		/// <param name="modelBinders">The list of model binders.</param>
+		/// <param name="modelBinderProviders">The list of model binders.</param>
 		/// <remarks>
-		///     This method will insert <see cref="FlagsEnumModelBinder" /> before <see cref="SimpleTypeModelBinder" /> in order to
-		///     replace the default behavior for simple enum values. If no <see cref="SimpleTypeModelBinder" /> is found. This
-		///     method will add the <see cref="FlagsEnumModelBinder" /> to the end of the <paramref name="modelBinders" />.
+		///     This method will insert <see cref="FlagsEnumModelBinder" /> in MVC model binder chain in order to
+		///     replace the default behavior for simple enum values. If no insert location is found, this
+		///     method will add the <see cref="FlagsEnumModelBinder" /> to the end of the <paramref name="modelBinderProviders" />.
 		/// </remarks>
-		public static void InsertFlagsEnumModelBinderProvider(this IList<IModelBinderProvider> modelBinders)
+		public static void InsertFlagsEnumModelBinderProvider(this IList<IModelBinderProvider> modelBinderProviders)
 		{
 			// Argument Check
-			if (modelBinders == null)
-				throw new ArgumentNullException(nameof(modelBinders));
+			if (modelBinderProviders == null)
+				throw new ArgumentNullException(nameof(modelBinderProviders));
 
 			var providerToInsert = new FlagsEnumModelBinderProvider();
 
 			// Find the location of SimpleTypeModelBinder, the FlagsEnumModelBinder must be inserted before it.
-			var index = modelBinders.FirstIndexOfOrDefault(i => i is SimpleTypeModelBinderProvider);
+			var index = modelBinderProviders.FindModelBinderProviderInsertLocation();
 
 			if (index != -1)
-				modelBinders.Insert(index, providerToInsert);
+				modelBinderProviders.Insert(index, providerToInsert);
 			else
-				modelBinders.Add(providerToInsert);
+				modelBinderProviders.Add(providerToInsert);
 		}
 
 		/// <summary>

@@ -36,7 +36,8 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 					output.PostContent.AppendHtml(optionTag);
 					break;
 				default:
-					throw new InvalidOperationException("The value of OptionLabelPosition property is not a valid enum item.");
+					throw new InvalidOperationException(
+						"The value of OptionLabelPosition property is not a valid enum item.");
 			}
 		}
 

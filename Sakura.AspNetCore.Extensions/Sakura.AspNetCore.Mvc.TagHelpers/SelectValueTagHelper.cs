@@ -41,7 +41,8 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		///     <see cref=" SelectValueOptionTagHelper.DefaultSelectValueCompareMode" />.
 		/// </summary>
 		[HtmlAttributeName(ValueCompareModeAttributeName)]
-		public StringComparison ValueCompareMode { get; set; } = SelectValueOptionTagHelper.DefaultSelectValueCompareMode;
+		public StringComparison ValueCompareMode { get; set; } =
+			SelectValueOptionTagHelper.DefaultSelectValueCompareMode;
 
 		#endregion
 	}

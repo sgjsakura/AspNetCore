@@ -38,8 +38,7 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		///     Get or set the <see cref="ViewContext" /> related to this <see cref="TagHelper" />.
 		/// </summary>
 		[ViewContext]
-		[HtmlAttributeNotBound]
-		public ViewContext ViewContext { get; set; }
+		[HtmlAttributeNotBound] public ViewContext ViewContext { get; set; }
 
 		/// <summary>
 		///     Get the dictionary stored the id format counting inforamtion.
@@ -68,7 +67,8 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		protected int GetNextCount()
 		{
 			if (string.IsNullOrEmpty(IdFormat))
-				throw new InvalidOperationException($"The value of html attribute '{IdFormatAttributeName}' cannot be null.");
+				throw new InvalidOperationException(
+					$"The value of html attribute '{IdFormatAttributeName}' cannot be null.");
 
 			return IdFormatCountDictionary.AddOrUpdate(IdFormat, IdStart, (key, value) => value + 1);
 		}
@@ -82,7 +82,8 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		public override void Process(TagHelperContext context, TagHelperOutput output)
 		{
 			if (string.IsNullOrEmpty(IdFormat))
-				throw new InvalidOperationException($"The value of html attribute '{IdFormatAttributeName}' cannot be null.");
+				throw new InvalidOperationException(
+					$"The value of html attribute '{IdFormatAttributeName}' cannot be null.");
 
 			if (context.AllAttributes.ContainsName("id"))
 				throw new InvalidOperationException(

@@ -8,7 +8,7 @@ using Microsoft.Extensions.Localization;
 namespace Sakura.AspNetCore.Mvc.TagHelpers
 {
 	/// <summary>
-	///	Provide general ability for extra data annotation text from its enum item definition for a enum value.
+	///     Provide general ability for extra data annotation text from its enum item definition for a enum value.
 	/// </summary>
 	/// <inheritdoc />
 	[HtmlTargetElement(TargetElementName)]
@@ -53,23 +53,27 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		public override void Process(TagHelperContext context, TagHelperOutput output)
 		{
 			if (output.TagMode != TagMode.SelfClosing)
-				throw new InvalidOperationException($"The '{TargetElementName}' element can only use the self closing mode.");
+				throw new InvalidOperationException(
+					$"The '{TargetElementName}' element can only use the self closing mode.");
 
 			if (Value == null && For == null)
 			{
-				throw new InvalidOperationException($"Either the '{ValueHtmlAttributeName}' attribute or the '{ForHtmlAttributeName}' attribute should be specified.");
+				throw new InvalidOperationException(
+					$"Either the '{ValueHtmlAttributeName}' attribute or the '{ForHtmlAttributeName}' attribute should be specified.");
 			}
 
 			if (Value != null && For != null)
 			{
-				throw new InvalidOperationException($"Only one of the '{ValueHtmlAttributeName}' attribute and the '{ForHtmlAttributeName}' attribute can be specified.");
+				throw new InvalidOperationException(
+					$"Only one of the '{ValueHtmlAttributeName}' attribute and the '{ForHtmlAttributeName}' attribute can be specified.");
 			}
 
 			var realValue = Value ?? For.Model;
 
 			if (!(realValue is Enum enumValue))
 			{
-				throw new InvalidOperationException($"Your specified value from the '{ValueHtmlAttributeName} attribute or the '{ForHtmlAttributeName}' attribute is not a valid enum value.");
+				throw new InvalidOperationException(
+					$"Your specified value from the '{ValueHtmlAttributeName} attribute or the '{ForHtmlAttributeName}' attribute is not a valid enum value.");
 			}
 
 			// get property definition
@@ -93,12 +97,12 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		public const string TargetElementName = "enum-item-display-text";
 
 		/// <summary>
-		/// The HTML attribute related with the <see cref="Value" /> property. This field is constant.
+		///     The HTML attribute related with the <see cref="Value" /> property. This field is constant.
 		/// </summary>
 		public const string ValueHtmlAttributeName = "value";
 
 		/// <summary>
-		/// The HTML attribute related with the <see cref="For" /> property. This field is constant.
+		///     The HTML attribute related with the <see cref="For" /> property. This field is constant.
 		/// </summary>
 		public const string ForHtmlAttributeName = "for";
 

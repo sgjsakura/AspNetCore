@@ -10,7 +10,7 @@ using Microsoft.Extensions.Localization;
 namespace Sakura.AspNetCore.Mvc.TagHelpers
 {
 	/// <summary>
-	///	Provide general ability for extract data annotation text from property definition for a model expression.
+	///     Provide general ability for extract data annotation text from property definition for a model expression.
 	/// </summary>
 	/// <inheritdoc />
 	[HtmlTargetElement(Attributes = TargetElementName)]
@@ -68,7 +68,7 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		#region TagHelper Constants
 
 		/// <summary>
-		/// The HTML target element name for this tag helper. This field is constant.
+		///     The HTML target element name for this tag helper. This field is constant.
 		/// </summary>
 		public const string TargetElementName = "display-text";
 

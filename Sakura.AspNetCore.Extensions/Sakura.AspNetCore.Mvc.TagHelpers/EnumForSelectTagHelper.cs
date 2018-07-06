@@ -29,8 +29,7 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		///     Get or set the view context object.
 		/// </summary>
 		[HtmlAttributeNotBound]
-		[ViewContext]
-		public ViewContext ViewContext { get; set; }
+		[ViewContext] public ViewContext ViewContext { get; set; }
 
 		/// <summary>
 		///     Get the Html Generator service object.
@@ -45,7 +44,8 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		protected override Type GetEnumType()
 		{
 			if (EnumFor == null)
-				throw new InvalidOperationException($"The expression for `{EnumForAttributeName}` attribute cannot be null.");
+				throw new InvalidOperationException(
+					$"The expression for `{EnumForAttributeName}` attribute cannot be null.");
 
 			if (!EnumFor.Metadata.IsEnum)
 				throw new InvalidOperationException(
@@ -69,7 +69,8 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 			var currentValues = Generator.GetCurrentValues(ViewContext, EnumFor.ModelExplorer, EnumFor.Name, false);
 
 
-			var tag = Generator.GenerateSelect(ViewContext, EnumFor?.ModelExplorer, null, EnumFor?.Name, selectListItems,
+			var tag = Generator.GenerateSelect(ViewContext, EnumFor?.ModelExplorer, null, EnumFor?.Name,
+				selectListItems,
 				currentValues, false,
 				null);
 
