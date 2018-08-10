@@ -12,6 +12,7 @@
     <RepositoryType />
     <PackageReleaseNotes>First Release.</PackageReleaseNotes>
     <PackageTags>EntityFramework;EntityFrameworkCore;FromSql;Extension</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
