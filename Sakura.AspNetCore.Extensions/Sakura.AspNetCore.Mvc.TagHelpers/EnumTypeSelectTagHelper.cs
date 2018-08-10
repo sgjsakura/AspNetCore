@@ -60,7 +60,7 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 			var items = GenerateListForEnumType().ToArray();
 
 			// Get value
-			var selectedValue = GetValueForMember(EnumValue.GetMember());
+			var selectedValue = EnumValue == null ? string.Empty : GetValueForMember(EnumValue.GetMember());
 
 			// Set selected Item
 			items.First(i => i.Value == selectedValue).Selected = true;
