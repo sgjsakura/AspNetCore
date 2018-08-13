@@ -149,9 +149,9 @@ For compatbility reason, the dynamic localizer also support the index style synt
 
 *Nuget Package Name: `Sakura.EntityFrameworkCore.FromSqlExtensions`*
 
-In Entity Framework Core 2.1, the concept of the new `QueryType` is introduced, which allows develops to mapping non-table-based query results (e.g. data comes from a database view or a stored procedure) to CLR types. However, in order to use query types, you must first include it in your model. This restriction will cause you to take a lot of unnecessary work when you want to executing a raw SQL statement directly.
+In Entity Framework Core 2.1, the concept of the new `QueryType` is introduced, which allows developers to mapping non-table-based query results (e.g. data comes from a database view or a stored procedure) to CLR types. However, in order to use query types, you must first include it in your model. This restriction will cause you to take a lot of unnecessary work when you want to executing a raw SQL statement directly.
 
-More specifically, let's see an example. You want to query some data using a stored procedure named "GetTopStudents" from your database, you know the procedure will produce the top 10 students with highest scores with their name, and then you may defined a query type along with the following executing codes:
+More specifically, let's see an example. You want to query some data using a stored procedure named "GetTopStudents" from your database, you know the procedure will produce the top 10 students with highest scores along with their name, and then you may define a query type as well as the following executing codes:
 
 ```C#
 public class TopStudentInfo
@@ -164,7 +164,7 @@ public class TopStudentInfo
 var result = MyDbContext.Query<TopStudentInfo>().FromSql("EXEC [GetTopStudents]");
 ```
 
-However when you try to executing the above code, Entity Framework Core will tell you that the `TopStudentInfo` is not included in the model. In order to fix this exception, you must first include it just like:
+However, when you try to execute the code above, Entity Framework Core will tell you that the `TopStudentInfo` is not included in the model. In order to fix this exception, you must first include it just like:
 
 ```C#
 public class StudentDbContext : DbContext
@@ -173,19 +173,26 @@ public class StudentDbContext : DbContext
 }
 ```
 
-And then you can get the result using both `MyDbContext.Query<TopStudentInfo>().FromSql("EXEC [GetTopStudents]")` or `MyDbContext.TopStudents.FromSql("EXEC [GetTopStudents]")`.
+And then you can get the result using either 
+```C#
+MyDbContext.Query<TopStudentInfo>().FromSql("EXEC [GetTopStudents]")
+```
+or
+```C#
+MyDbContext.TopStudents.FromSql("EXEC [GetTopStudents]")
+```
 
-The reason why EF requires you to define include the query type is to support a chained-query just like `from i in MyDbContext.TopStudents select i`. Under such circumstance, the query type must be included and mapped with either `ToView` or `ToQuery` to declare its original data source. However, if you just want to use the `FromSql` method, the mapping step will be reduntant, but you still need to defined the query type as above in your `DbContext` class. 
+The reason why EF requires you to include the query type is to support a chained-query just like `from i in MyDbContext.TopStudents select i`. Under such circumstance, the query type must be included and mapped with either `ToView` or `ToQuery` to declare its original data source. However, if you just want to take usage of the `FromSql` method, the mapping step will be reduntant, but you still need to define the query type in your `DbContext` class. 
 
-Cosidering that you may executing serveral different raw SQL query or stored procedures in your project. For each of them you must include the query type into your model individually and it will be a quite boring work. Now the `Sakura.EntityFrameworkCore.FromSqlExtensions` package provides extension methods for including query types and executing raw SQL statements directly, now you may using the following code:
+Considering that you may executing serveral different raw SQL queries or stored procedures in your project. For each of them, you must include the query type into your model individually and this requirement will be a quite boring work. Now the `Sakura.EntityFrameworkCore.FromSqlExtensions` package provides extension methods for including query types and executing raw SQL statements directly, now you may using the following code:
 
 ```C#
 var result = MyDbContext.FromSql<TopStudents>("EXEC [GetTopStudents]");
 ```
 
-to get the result without explicitly define a context-level `DbQuery` instance.
+to get the result without explicitly defining a context-level `DbQuery` instance.
 
-*Note: Internally, this extension method will register the query type into the model globally when you call it if it not exists before, and thus after you call this method sereval times with different types, there will be a huge number of query types newly added in your model. It may seems to be a side-effect (although adding a new query type actually does not generate performance burden for EF Core), however is problem is caused by the internal design of the EF Core and currently it is not possible to implement query-level type registrations.*
+*Note: Internally, this extension method will register the query type into the model globally when you call it if it not exists before, and thus after you call this method sereval times with different types, there will be a huge number of query types added in your model. It may seems to be a side-effect (although adding a new query type actually does not generate performance burden for EF Core), while is problem is caused by the internal design of the EF Core and currently it is not possible to implement query-level type registrations.*
 
 ---
 
