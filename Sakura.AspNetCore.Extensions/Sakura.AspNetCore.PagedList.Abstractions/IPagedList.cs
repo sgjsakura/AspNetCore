@@ -35,6 +35,22 @@ namespace Sakura.AspNetCore
 		/// </summary>
 		[PublicAPI]
 		int TotalCount { get; }
+
+#if NETCOREAPP3_0
+
+		/// <summary>
+		/// Get a value that indicates whether the paged list is currently at the first page.
+		/// </summary>
+		public bool IsFirstPage => PageIndex == 1;
+
+		/// <summary>
+		/// Get a value that indicates whether the paged list is currently at the last page.
+		/// </summary>
+		public bool IsLastPage => PageIndex == TotalPage;
+
+
+#endif
+
 	}
 
 	/// <summary>

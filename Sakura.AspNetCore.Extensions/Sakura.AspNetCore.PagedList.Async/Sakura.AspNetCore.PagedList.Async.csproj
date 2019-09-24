@@ -7,9 +7,9 @@
     <AssemblyName>Sakura.AspNetCore.PagedList.Async</AssemblyName>
     <PackageId>Sakura.AspNetCore.PagedList.Async</PackageId>
     <PackageTags>ASP.NET;ASP.NETCore;Page;Paging;Cache;Caching</PackageTags>
-    <PackageReleaseNotes>VS 2017 Update</PackageReleaseNotes>
+    <PackageReleaseNotes>Add Cancellation Support</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/sgjsakura/AspNetCore</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/sgjsakura/AspNetCore/blob/master/LICENSE.txt</PackageLicenseUrl>
+    <PackageLicenseUrl></PackageLicenseUrl>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
@@ -17,6 +17,8 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/sgjsakura/AspNetCore.git</RepositoryUrl>
     <RootNamespace>Sakura.AspNetCore</RootNamespace>
+    <Version>1.1.0</Version>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>

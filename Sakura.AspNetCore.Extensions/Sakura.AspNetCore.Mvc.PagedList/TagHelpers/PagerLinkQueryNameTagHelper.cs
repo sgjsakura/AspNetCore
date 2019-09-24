@@ -8,7 +8,7 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 	///     Provide <see cref="QueryName" /> property to help generate pager links.
 	/// </summary>
 	[HtmlTargetElement(PagerTagHelper.HtmlTagName, Attributes = QueryNameAttributeName)]
-	public class PagerLinkQueryNameTagHelper : PagerBaseUriLinkGeneratorTagHelper
+	public class PagerLinkQueryNameTagHelper : PagerLinkBaseUriAspRouteTagHelper
 	{
 		#region Constructor
 

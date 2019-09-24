@@ -3,6 +3,9 @@ using JetBrains.Annotations;
 
 namespace Sakura.AspNetCore
 {
+
+	// Features are provided by interface default implementation for C#8 targetd framework.
+#if !NETCOREAPP3
 	/// <summary>
 	///     Provide additional extension method for <see cref="IPagedList" /> objects. This class is static.
 	/// </summary>
@@ -47,4 +50,5 @@ namespace Sakura.AspNetCore
 			return pagedList.PageIndex == pagedList.TotalPage;
 		}
 	}
+#endif
 }

@@ -18,6 +18,53 @@ namespace Sakura.AspNetCore
 		/// </summary>
 		[PublicAPI]
 		new int PageSize { get; set; }
+
+#if NETCOREAPP3_0
+
+		/// <summary>
+		///     Move the paged list to the first page.
+		/// </summary>
+		/// <param name="pagedList">The paged list to be moving.</param>
+		public void GoToFirstPage() => PageIndex = 1;
+
+		/// <summary>
+		///     Move the paged list to the last page.
+		/// </summary>
+		public void GoToLastPage() => PageIndex = TotalPage;
+
+		/// <summary>
+		///     Move the paged list to the previous page.
+		/// </summary>
+		/// <returns>
+		///     If the operation is successful, returns <c>true</c>; If the paged list is already in the first page, return
+		///     <c>false</c>.
+		/// </returns>
+		public bool GoToPreviousPage()
+		{
+			if (IsFirstPage)
+				return false;
+
+			PageIndex--;
+			return true;
+		}
+
+		/// <summary>
+		///     Move the paged list to the next page.
+		/// </summary>
+		/// <returns>
+		///     If the operation is successful, returns <c>true</c>; If the paged list is already in the last page, return
+		///     <c>false</c>.
+		/// </returns>
+		public bool GoToNextPage()
+		{
+			if (IsLastPage)
+				return false;
+
+			PageIndex++;
+			return true;
+		}
+#endif
+
 	}
 
 	/// <summary>

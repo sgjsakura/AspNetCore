@@ -21,6 +21,7 @@ namespace Sakura.AspNetCore.Mvc.Generators
 		///     Generate the link url for the specified <see cref="PagerItem" />.
 		/// </summary>
 		/// <param name="context">The generation context.</param>
+		[Pure]
 		public string GenerateLink(PagerItemGenerationContext context)
 		{
 			var baseUri = GetRealBaseUri(context.ViewContext);
@@ -63,6 +64,7 @@ namespace Sakura.AspNetCore.Mvc.Generators
 		/// </summary>
 		/// <param name="viewContext">The <see cref="ViewContext" /> instance.</param>
 		/// <returns>The real base URI.</returns>
+		[Pure]
 		protected string GetRealBaseUri(ViewContext viewContext)
 		{
 			return BaseUri ?? GetCurrentUriWithQuery(viewContext);
@@ -77,7 +79,7 @@ namespace Sakura.AspNetCore.Mvc.Generators
 		protected static string GetCurrentUriWithQuery(ViewContext viewContext)
 		{
 			var request = viewContext.HttpContext.Request;
-			return request.PathBase + request.Path + request.QueryString;
+			return string.Concat(request.PathBase, request.Path, request.QueryString);
 		}
 
 		/// <summary>

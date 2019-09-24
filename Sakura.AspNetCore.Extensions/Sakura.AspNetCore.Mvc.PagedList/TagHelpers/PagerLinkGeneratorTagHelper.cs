@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Razor.TagHelpers;
+﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Sakura.AspNetCore.Mvc.TagHelpers
 {
@@ -21,11 +20,7 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		/// <inheritdoc />
 		public override void Process(TagHelperContext context, TagHelperOutput output)
 		{
-			// Check for confliction
-			if (context.AllAttributes.ContainsName(PagerTagHelper.ItemDefaultLinkGeneratorAttributeName))
-				throw new InvalidOperationException(
-					$"The '{PagerTagHelper.ItemDefaultLinkGeneratorAttributeName}' attribute has already set from code explicitly or from another tag helper.");
-
+			context.CheckAttributeConflicting(PagerTagHelper.ItemDefaultLinkGeneratorAttributeName);
 			output.Attributes.SetAttribute(PagerTagHelper.ItemDefaultLinkGeneratorAttributeName, GetLinkGenerator());
 		}
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.Routing;
@@ -12,7 +13,7 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 	///     Provide common feature used to generate pager links with a specified base URI.
 	/// </summary>
 	[HtmlTargetElement(PagerTagHelper.HtmlTagName)]
-	public abstract class PagerBaseUriLinkGeneratorTagHelper : PagerLinkGeneratorTagHelper
+	public abstract class PagerLinkBaseUriAspRouteTagHelper : PagerLinkGeneratorTagHelper
 	{
 		/// <summary>
 		///     Generate the base URI used to calculate the final URL.
@@ -40,10 +41,10 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		#region Constructor
 
 		/// <summary>
-		///     Initialize a new instance of <see cref="PagerBaseUriLinkGeneratorTagHelper" />.
+		///     Initialize a new instance of <see cref="PagerLinkBaseUriAspRouteTagHelper" />.
 		/// </summary>
 		/// <param name="urlHelperFactory">The <see cref="IUrlHelperFactory" /> service instance.</param>
-		protected PagerBaseUriLinkGeneratorTagHelper(IUrlHelperFactory urlHelperFactory)
+		protected PagerLinkBaseUriAspRouteTagHelper(IUrlHelperFactory urlHelperFactory)
 		{
 			UrlHelperFactory = urlHelperFactory;
 		}
@@ -104,21 +105,24 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		/// <summary>
 		///     Internal dictionary for route values.
 		/// </summary>
-		private IDictionary<string, string> _routeValues;
+		private IDictionary<string, string> _RouteValues;
 
 		/// <summary>The name of the action method.</summary>
 		/// <remarks>Must be <c>null</c> if <see cref="Route" /> is non-<c>null</c>.</remarks>
 		[HtmlAttributeName(ActionAttributeName)]
+		[AspMvcAction]
 		public string Action { get; set; }
 
 		/// <summary>The name of the controller.</summary>
 		/// <remarks>Must be <c>null</c> if <see cref="Route" /> is non-<c>null</c>.</remarks>
 		[HtmlAttributeName(ControllerAttributeName)]
+		[AspMvcController]
 		public string Controller { get; set; }
 
 		/// <summary>The name of the area.</summary>
 		/// <remarks>Must be <c>null</c> if <see cref="Route" /> is non-<c>null</c>.</remarks>
 		[HtmlAttributeName(AreaAttributeName)]
+		[AspMvcArea]
 		public string Area { get; set; }
 
 		/// <summary>The protocol for the URL, such as "http" or "https".</summary>
@@ -144,8 +148,8 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		[HtmlAttributeName(AllRouteDataAttributeName, DictionaryAttributePrefix = RouteAttributePrefix)]
 		public IDictionary<string, string> RouteValues
 		{
-			get => _routeValues ?? (_routeValues = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase));
-			set => _routeValues = value;
+			get => _RouteValues ?? (_RouteValues = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase));
+			set => _RouteValues = value;
 		}
 
 		#endregion
