@@ -6,20 +6,19 @@ using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 
 namespace Sakura.AspNetCore.Authentication
 {
-#if NETSTANDARD2_0
+#if NETSTANDARD2_0 || NETCOREAPP3_0
 
 	public partial class ExternalSignInManager
 	{
 		/// <summary>
-		///     Intialize a new instande of <see cref="ExternalSignInManager" />.
+		///     Initialize a new instance of <see cref="ExternalSignInManager" />.
 		/// </summary>
-		/// <param name="httpContextAccessor">The <see cref="IHttpContextAccessor" /> service isntance.</param>
+		/// <param name="httpContextAccessor">The <see cref="IHttpContextAccessor" /> service instance.</param>
 		/// <param name="authenticationSchemeProvider">the <see cref="IAuthenticationSchemeProvider" /> service instance.</param>
 		/// <param name="identityOptions">The Options of <see cref="Microsoft.AspNetCore.Identity.IdentityOptions" />.</param>
 		public ExternalSignInManager(IHttpContextAccessor httpContextAccessor,

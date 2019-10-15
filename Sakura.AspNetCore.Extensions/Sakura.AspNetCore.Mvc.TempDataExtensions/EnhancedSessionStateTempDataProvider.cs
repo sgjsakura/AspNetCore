@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿#if !NETCOREAPP3_0
+
+using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
@@ -11,6 +13,9 @@ namespace Sakura.AspNetCore.Mvc
 	/// </summary>
 	public class EnhancedSessionStateTempDataProvider : SessionStateTempDataProvider
 	{
+
+
+
 		/// <summary>
 		///     Initialize an new instance with required services.
 		/// </summary>
@@ -56,3 +61,5 @@ namespace Sakura.AspNetCore.Mvc
 		}
 	}
 }
+
+#endif

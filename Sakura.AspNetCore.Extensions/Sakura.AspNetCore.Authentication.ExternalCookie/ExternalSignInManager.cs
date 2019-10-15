@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using JetBrains.Annotations;
+using Microsoft.AspNetCore.Identity;
 
 namespace Sakura.AspNetCore.Authentication
 {
 	/// <summary>
-	///     Provde methods used for external signing-in cooperations.
+	///     Provide methods used for external signing-in co-operations.
 	/// </summary>
 	public partial class ExternalSignInManager
 	{

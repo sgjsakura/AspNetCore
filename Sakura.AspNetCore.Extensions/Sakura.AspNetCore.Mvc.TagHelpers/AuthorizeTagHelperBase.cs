@@ -45,7 +45,7 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		[UsedImplicitly(ImplicitUseKindFlags.Assign)]
 		public ViewContext ViewContext { get; set; }
 
-#if NETSTANDARD2_0 || NETCOREAPP2_1
+#if NETSTANDARD2_0 || NETCOREAPP2_1 || NETCOREAPP3_0
 		/// <summary>
 		///     Get a value that indicates if the current user is authorized.
 		/// </summary>

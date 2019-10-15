@@ -4,24 +4,29 @@
     <Description>This library classes and helper methods which can be used to return action results directly during the MVC executing pipeline.</Description>
     <AssemblyTitle>ASP.NET Core ActionResult Extension Library</AssemblyTitle>
     <Authors>Iris Sakura</Authors>
-    <TargetFrameworks>net451;netstandard1.6</TargetFrameworks>
+    <TargetFrameworks>net451;netstandard1.6;netcoreapp3.0</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>Sakura.AspNetCore.Mvc.ActionResultExceptionExtensions</AssemblyName>
     <PackageId>Sakura.AspNetCore.Mvc.ActionResultExceptionExtensions</PackageId>
     <PackageTags>ASP.NET;ASP.NETCore;MVC;MVCCore;Exception</PackageTags>
-    <PackageReleaseNotes>Update to .NET Core 1.1</PackageReleaseNotes>
+    <PackageReleaseNotes>Update to support ASP.NET Core 3.0</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/sgjsakura/AspNetCore</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/sgjsakura/AspNetCore/blob/master/LICENSE.txt</PackageLicenseUrl>
+    <PackageLicenseUrl></PackageLicenseUrl>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/sgjsakura/AspNetCore.git</RepositoryUrl>
-    <Version>1.0.0</Version>
+    <Version>1.1.0</Version>
     <RootNamespace>Sakura.AspNetCore.Mvc</RootNamespace>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
   </PropertyGroup>
 
-  <ItemGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.0' ">
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />	
+	</ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' != 'netcoreapp3.0' ">
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="1.0.0" />
   </ItemGroup>
 

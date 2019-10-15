@@ -1,7 +1,7 @@
 ﻿using System;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Builder;
-
+using Microsoft.AspNetCore.Identity;
 #if !NETSTANDARD2_0
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -20,7 +20,7 @@ namespace Microsoft.AspNet.Builder
 		/// </summary>
 		/// <param name="app">The <see cref="IApplicationBuilder" /> object.</param>
 		/// <exception cref="ArgumentNullException">The <paramref name="app" /> is <c>null</c>.</exception>
-#if NETSTANDARD2_0
+#if NETSTANDARD2_0 || NETCOREAPP3_0
 		[PublicAPI]
 		[Obsolete("This API is obsolete. Plase use UseAuthentication method provided by ASP.NET Core 2 directly.")]
 		public static void UseAllCookies([NotNull] this IApplicationBuilder app)

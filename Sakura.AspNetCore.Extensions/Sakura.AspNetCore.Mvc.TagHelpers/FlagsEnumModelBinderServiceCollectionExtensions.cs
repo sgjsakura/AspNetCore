@@ -51,7 +51,7 @@ namespace Microsoft.Framework.DependencyInjection
 		/// <returns></returns>
 		private static int FindModelBinderProviderInsertLocation(this IList<IModelBinderProvider> modelBinderProviders)
 		{
-#if NETSTANDARD1_6 || NET451
+#if NETSTANDARD1_6 || NET451 || NETCOREAPP2_0
 			return modelBinderProviders.FirstIndexOfOrDefault(i => i is SimpleTypeModelBinderProvider);
 #else
 			var index = modelBinderProviders.FirstIndexOfOrDefault(i => i is FloatingPointTypeModelBinderProvider);

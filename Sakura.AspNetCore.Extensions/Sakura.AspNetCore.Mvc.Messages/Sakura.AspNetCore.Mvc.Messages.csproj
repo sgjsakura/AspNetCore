@@ -1,41 +1,45 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <Description>This library provides HTML generator and tag helpers to display bootstrap-styled operation message alerts for ASP.NET Core MVC projects.</Description>
-    <AssemblyTitle>ASP.NET Core MVC Message Extension Library</AssemblyTitle>
-    <VersionPrefix>1.0.2</VersionPrefix>
-    <Authors>Iris Sakura</Authors>
-    <TargetFrameworks>netstandard1.6;net451</TargetFrameworks>
-    <AssemblyName>Sakura.AspNetCore.Mvc.Messages</AssemblyName>
-    <PackageId>Sakura.AspNetCore.Mvc.Messages</PackageId>
-    <PackageTags>ASP.NET;ASP.NETCore;MVC;MVCCore;Bootstrap;Message;Messages</PackageTags>
-    <PackageReleaseNotes>Fix HtmlGenerator bugs</PackageReleaseNotes>
-    <PackageProjectUrl>https://github.com/sgjsakura/AspNetCore</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/sgjsakura/AspNetCore/blob/master/LICENSE.txt</PackageLicenseUrl>
-    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    <RepositoryUrl>https://github.com/sgjsakura/AspNetCore.git</RepositoryUrl>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.0.3</Version>
-    <RootNamespace>Sakura.AspNetCore.Mvc</RootNamespace>
-  </PropertyGroup>
+	<PropertyGroup>
+		<Description>This library provides HTML generator and tag helpers to display bootstrap-styled operation message alerts for ASP.NET Core MVC projects.</Description>
+		<AssemblyTitle>ASP.NET Core MVC Message Extension Library</AssemblyTitle>
+		<VersionPrefix>1.0.2</VersionPrefix>
+		<Authors>Iris Sakura</Authors>
+		<TargetFrameworks>netstandard1.6;net451;netcoreapp3.0</TargetFrameworks>
+		<AssemblyName>Sakura.AspNetCore.Mvc.Messages</AssemblyName>
+		<PackageId>Sakura.AspNetCore.Mvc.Messages</PackageId>
+		<PackageTags>ASP.NET;ASP.NETCore;MVC;MVCCore;Bootstrap;Message;Messages</PackageTags>
+		<PackageReleaseNotes>Update to support ASp.NET Core 3.0</PackageReleaseNotes>
+		<PackageProjectUrl>https://github.com/sgjsakura/AspNetCore</PackageProjectUrl>
+		<PackageLicenseUrl>https://github.com/sgjsakura/AspNetCore/blob/master/LICENSE.txt</PackageLicenseUrl>
+		<GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+		<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+		<RepositoryUrl>https://github.com/sgjsakura/AspNetCore.git</RepositoryUrl>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Version>1.1.0</Version>
+		<RootNamespace>Sakura.AspNetCore.Mvc</RootNamespace>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Sakura.AspNetCore.Messages\Sakura.AspNetCore.Messages.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Sakura.AspNetCore.Messages\Sakura.AspNetCore.Messages.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Razor.Runtime" Version="1.0.0" />
-  </ItemGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' != 'netcoreapp3.0' ">
+		<PackageReference Include="Microsoft.AspNetCore.Razor.Runtime" Version="1.0.0" />
+	</ItemGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-  </PropertyGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.0' ">
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
-    <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />
-  </ItemGroup>
+	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
+		<Reference Include="System" />
+		<Reference Include="Microsoft.CSharp" />
+	</ItemGroup>
 
 </Project>

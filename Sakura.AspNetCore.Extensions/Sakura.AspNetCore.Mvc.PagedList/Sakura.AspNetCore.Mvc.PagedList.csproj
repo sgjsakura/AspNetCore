@@ -1,42 +1,51 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <Description>This library provides data-paging functionality and pager UI for ASP.NET Core MVC projects.</Description>
-    <AssemblyTitle>ASP.NET Core MVC Pager</AssemblyTitle>
-    <VersionPrefix>2.0.11</VersionPrefix>
-    <Authors>Iris Sakura</Authors>
-    <TargetFrameworks>netstandard1.6;net451</TargetFrameworks>
-    <AssemblyName>Sakura.AspNetCore.Mvc.PagedList</AssemblyName>
-    <PackageId>Sakura.AspNetCore.Mvc.PagedList</PackageId>
-    <PackageTags>ASP.NET;ASP.NETCore;MVC;MVCCore;Paging;Page;Pager;Bootstrap</PackageTags>
-    <PackageReleaseNotes>Add support for much more extended tag helpers used to simplify pager generation.</PackageReleaseNotes>
-    <PackageProjectUrl>https://github.com/sgjsakura/AspNetCore</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/sgjsakura/AspNetCore/blob/master/LICENSE.txt</PackageLicenseUrl>
-    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    <RootNamespace>Sakura.AspNetCore.Mvc</RootNamespace>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <RepositoryUrl>https://github.com/sgjsakura/AspNetCore.git</RepositoryUrl>
-    <Version>3.0.0</Version>
-  </PropertyGroup>
+	<PropertyGroup>
+		<Description>This library provides data-paging functionality and pager UI for ASP.NET Core MVC projects.</Description>
+		<AssemblyTitle>ASP.NET Core MVC Pager</AssemblyTitle>
+		<VersionPrefix>2.0.11</VersionPrefix>
+		<Authors>Iris Sakura</Authors>
+		<TargetFrameworks>netstandard1.6;net451;netcoreapp3.0</TargetFrameworks>
+		<AssemblyName>Sakura.AspNetCore.Mvc.PagedList</AssemblyName>
+		<PackageId>Sakura.AspNetCore.Mvc.PagedList</PackageId>
+		<PackageTags>ASP.NET;ASP.NETCore;MVC;MVCCore;Paging;Page;Pager;Bootstrap</PackageTags>
+		<PackageReleaseNotes>Update to support ASP.NET Core 3.0.</PackageReleaseNotes>
+		<PackageProjectUrl>https://github.com/sgjsakura/AspNetCore</PackageProjectUrl>
+		<PackageLicenseUrl></PackageLicenseUrl>
+		<GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+		<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+		<RootNamespace>Sakura.AspNetCore.Mvc</RootNamespace>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<RepositoryUrl>https://github.com/sgjsakura/AspNetCore.git</RepositoryUrl>
+		<Version>2.1.0</Version>
+		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Sakura.AspNetCore.PagedList.Abstractions\Sakura.AspNetCore.PagedList.Abstractions.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Sakura.AspNetCore.PagedList.Abstractions\Sakura.AspNetCore.PagedList.Abstractions.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="1.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Razor.Runtime" Version="1.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+	</ItemGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	</PropertyGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
-    <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />
-  </ItemGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.0' ">
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' != 'netcoreapp3.0' ">
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="1.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Razor.Runtime" Version="1.0.0" />
+	</ItemGroup>
+
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
+		<Reference Include="System" />
+		<Reference Include="Microsoft.CSharp" />
+	</ItemGroup>
 
 </Project>

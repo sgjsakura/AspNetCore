@@ -1,6 +1,11 @@
 ﻿using System;
 using JetBrains.Annotations;
+
+#if NETCOREAPP3_0
+using System.Text.Json;
+#else
 using Newtonsoft.Json;
+#endif
 
 namespace Sakura.AspNetCore.Mvc
 {
@@ -27,7 +32,12 @@ namespace Sakura.AspNetCore.Mvc
 			var data = arr[1];
 
 			var type = Type.GetType(typeName);
+
+#if NETCOREAPP3_0
+			return JsonSerializer.Deserialize(data, type);
+#else
 			return JsonConvert.DeserializeObject(data, type);
+#endif
 		}
 
 		/// <summary>
@@ -38,7 +48,12 @@ namespace Sakura.AspNetCore.Mvc
 		public object Serialize(object obj)
 		{
 			var typeName = obj.GetType().AssemblyQualifiedName;
+
+#if NETCOREAPP3_0
+			var data = JsonSerializer.Serialize(obj);
+#else
 			var data = JsonConvert.SerializeObject(obj);
+#endif
 
 			return new[] {typeName, data};
 		}

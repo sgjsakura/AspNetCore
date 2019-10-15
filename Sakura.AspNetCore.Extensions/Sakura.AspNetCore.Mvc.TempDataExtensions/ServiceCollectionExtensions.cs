@@ -14,8 +14,7 @@ namespace Microsoft.Extensions.DependencyInjection
 	public static class ServiceCollectionExtensions
 	{
 		/// <summary>
-		///     Set <see cref="EnhancedSessionStateTempDataProvider" /> as the default <see cref="ITempDataProvider" /> service
-		///     implementation.
+		///     Replace the default temp data implementation in order to support complex data storage.
 		/// </summary>
 		/// <param name="services">The service container to adding the service.</param>
 		/// <exception cref="ArgumentNullException"><paramref name="services" /> is <c>null</c>.</exception>
@@ -29,10 +28,14 @@ namespace Microsoft.Extensions.DependencyInjection
 			// Add the IObjectSerializer implementation
 			services.TryAddSingleton<IObjectSerializer, JsonObjectSerializer>();
 
+#if NETCOREAPP3_0
+			services.Replace(new ServiceDescriptor(typeof(TypedJsonTempDataSerializer),
+				typeof(TypedJsonTempDataSerializer), ServiceLifetime.Singleton));
+#else
 			// Replace default ITempDataProvider
 			services.Replace(new ServiceDescriptor(typeof(ITempDataProvider), typeof(EnhancedSessionStateTempDataProvider),
 				ServiceLifetime.Singleton));
-
+#endif
 			return services;
 		}
 	}

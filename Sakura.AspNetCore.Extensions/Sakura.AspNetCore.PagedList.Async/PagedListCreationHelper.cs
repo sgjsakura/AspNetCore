@@ -21,6 +21,7 @@ namespace Sakura.AspNetCore
 		/// <param name="source">The source <see cref="IQueryable{T}" /> object to be converting.</param>
 		/// <param name="pageSize">The size of each page.</param>
 		/// <param name="pageIndex">The index of the current page. Page index starts from 1.</param>
+		/// <param name="cancellationToken">The cancellation token used to cancel the operation.</param>
 		/// <returns>A <see cref="IPagedList{T}" /> object created by paging the <paramref name="source" /> object.</returns>
 		public static Task<PagedList<IQueryable<T>, T>> ToPagedListAsync<T>([NotNull] this IQueryable<T> source, int pageSize,
 			int pageIndex = 1, CancellationToken cancellationToken = default)
@@ -58,8 +59,8 @@ namespace Sakura.AspNetCore
 			var skipValue = pageSize * (pageIndex - 1);
 			var takeValue = pageSize;
 
-			var currentPage = await pageFunc(source, skipValue, takeValue);
-			var totalCount = await countFunc(source);
+			var currentPage = await pageFunc(source, skipValue, takeValue).ConfigureAwait(true);
+			var totalCount = await countFunc(source).ConfigureAwait(true);
 			var totalPage = (totalCount - 1) / pageSize + 1;
 
 			return new PagedList<TSource, TElement>(currentPage, source, pageSize, pageIndex, totalCount, totalPage);

@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if NET451 || NETSTANDARD1_3
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -11,7 +13,6 @@ using Microsoft.Extensions.Options;
 
 namespace Sakura.AspNetCore.Authentication
 {
-#if !NETSTANDARD2_0
 
 	public partial class ExternalSignInManager
 	{
@@ -108,6 +109,6 @@ namespace Sakura.AspNetCore.Authentication
 		}
 
 	}
+}
 
 #endif
-}

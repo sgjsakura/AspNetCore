@@ -7,7 +7,7 @@
     <AssemblyName>Sakura.AspNetCore.PagedList.Async</AssemblyName>
     <PackageId>Sakura.AspNetCore.PagedList.Async</PackageId>
     <PackageTags>ASP.NET;ASP.NETCore;Page;Paging;Cache;Caching</PackageTags>
-    <PackageReleaseNotes>Add Cancellation Support</PackageReleaseNotes>
+    <PackageReleaseNotes>Minor update to improvement performance.</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/sgjsakura/AspNetCore</PackageProjectUrl>
     <PackageLicenseUrl></PackageLicenseUrl>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
@@ -17,7 +17,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/sgjsakura/AspNetCore.git</RepositoryUrl>
     <RootNamespace>Sakura.AspNetCore</RootNamespace>
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
   </PropertyGroup>
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.Internal;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Sakura.AspNetCore.Mvc.TagHelpers
@@ -12,10 +11,10 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 	/// </summary>
 	public class FlagsEnumModelBinder : IModelBinder
 	{
-#if NETSTANDARD2_0
+#if NETSTANDARD2_0 || NETCOREAPP2_1 || NETCOREAPP3_0
 		private static Task CompletedTask => Task.CompletedTask;
 #else
-		private static Task CompletedTask => TaskCache.CompletedTask;
+		private static Task CompletedTask => Microsoft.AspNetCore.Mvc.Internal.TaskCache.CompletedTask;
 #endif
 
 		/// <inheritdoc />
@@ -60,7 +59,7 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 			var actualValues = strs.Select(valueString => Enum.Parse(enumType, valueString));
 
 			// Merge to final result
-			var result = actualValues.Aggregate(0, (current, value) => current | (int) value);
+			var result = actualValues.Aggregate(0, (current, value) => current | (int)value);
 
 			// Convert to Enum object
 			var realResult = Enum.ToObject(enumType, result);
