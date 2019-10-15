@@ -8,7 +8,7 @@
     <AssemblyName>Sakura.AspNetCore.Mvc.TagHelpers</AssemblyName>
     <PackageId>Sakura.AspNetCore.Mvc.TagHelpers</PackageId>
     <PackageTags>ASP.NET;ASP.NETCore;MVC;MVCCore;TagHelper;Enum;Flags;OptionLabel;Select;Option</PackageTags>
-    <PackageReleaseNotes>Update to support ASP.NET Core 3.0</PackageReleaseNotes>
+    <PackageReleaseNotes>Fix a problem for EnumSelectTagHelper</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/sgjsakura/AspNetCore</PackageProjectUrl>
     <PackageLicenseUrl></PackageLicenseUrl>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
@@ -16,7 +16,7 @@
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/sgjsakura/AspNetCore.git</RepositoryUrl>
-    <Version>1.4.0</Version>
+    <Version>1.4.1</Version>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
   </PropertyGroup>
 

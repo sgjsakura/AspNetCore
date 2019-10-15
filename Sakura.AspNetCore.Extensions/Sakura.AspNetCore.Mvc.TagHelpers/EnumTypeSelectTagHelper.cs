@@ -56,14 +56,19 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		/// <param name="output">A stateful HTML element used to generate an HTML tag.</param>
 		public override void Process(TagHelperContext context, TagHelperOutput output)
 		{
-			// Get list and convert to array (avoiding duplicate enumration)
+			// Get list and convert to array (avoiding duplicate enumeration)
 			var items = GenerateListForEnumType().ToArray();
 
 			// Get value
 			var selectedValue = EnumValue == null ? string.Empty : GetValueForMember(EnumValue.GetMember());
 
 			// Set selected Item
-			items.First(i => i.Value == selectedValue).Selected = true;
+			var selectedItem = items.FirstOrDefault(i => i.Value == selectedValue);
+
+			if (selectedItem != null)
+			{
+				selectedItem.Selected = true;
+			}
 
 			// Append list items
 			output.PostContent.AppendHtml(HtmlGeneratorHelper.GenerateGroupsAndOptions(null, items));
