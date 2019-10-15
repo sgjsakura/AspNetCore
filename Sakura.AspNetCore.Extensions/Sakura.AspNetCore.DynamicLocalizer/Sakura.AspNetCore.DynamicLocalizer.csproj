@@ -15,7 +15,8 @@
 		<RepositoryUrl>https://github.com/sgjsakura/AspNetCore.git</RepositoryUrl>
 		<PackageTags>ASP.NET;ASP.NETCore;MVC;MVCCore;Localization</PackageTags>
 		<Version>2.1.0</Version>
-		<PackageLicenseFile>Apache-2.0</PackageLicenseFile>
+		<PackageLicenseFile></PackageLicenseFile>
+		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -28,13 +29,6 @@
 
 	<ItemGroup Condition=" $(TargetFramework) == 'netcoreapp3.0 '">
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Include="Apache-2.0">
-	    <Pack>True</Pack>
-	    <PackagePath></PackagePath>
-	  </None>
 	</ItemGroup>
 
 </Project>
