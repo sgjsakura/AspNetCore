@@ -9,7 +9,7 @@
 		<AssemblyName>Sakura.AspNetCore.Mvc.PagedList</AssemblyName>
 		<PackageId>Sakura.AspNetCore.Mvc.PagedList</PackageId>
 		<PackageTags>ASP.NET;ASP.NETCore;MVC;MVCCore;Paging;Page;Pager;Bootstrap</PackageTags>
-		<PackageReleaseNotes>Update to support ASP.NET Core 3.0.</PackageReleaseNotes>
+		<PackageReleaseNotes>Fix the missing source bug.</PackageReleaseNotes>
 		<PackageProjectUrl>https://github.com/sgjsakura/AspNetCore</PackageProjectUrl>
 		<PackageLicenseUrl></PackageLicenseUrl>
 		<GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
@@ -18,7 +18,7 @@
 		<RootNamespace>Sakura.AspNetCore.Mvc</RootNamespace>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<RepositoryUrl>https://github.com/sgjsakura/AspNetCore.git</RepositoryUrl>
-		<Version>2.1.0</Version>
+		<Version>2.1.1</Version>
 		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 	</PropertyGroup>
 

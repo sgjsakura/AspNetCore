@@ -47,6 +47,22 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		public ViewContext ViewContext { get; set; }
 
 		/// <summary>
+		/// Try to get the paging info from the bind <see cref="Source"/>.
+		/// </summary>
+		/// <param name="currentPage">The output current page info.</param>
+		/// <param name="totalPage">The output total page info.</param>
+		private void GetPagingInfoFromSource(out int currentPage, out int totalPage)
+		{
+			if (Source == null)
+			{
+				throw new InvalidOperationException($"The specified paging source came from the '{SourceAttributeName}' cannot be null.");
+			}
+
+			currentPage = Source.PageIndex;
+			totalPage = Source.TotalPage;
+		}
+
+		/// <summary>
 		///     Try to get the page information from the current context.
 		/// </summary>
 		/// <param name="context">The <see cref="TagHelperContext" /> object.</param>
@@ -54,8 +70,31 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		/// <param name="totalPage">Return the total page count.</param>
 		private void GetPagingInfo(TagHelperContext context, out int currentPage, out int totalPage)
 		{
+			var hasSource = context.AllAttributes.ContainsName(SourceAttributeName);
+
 			var hasCurrentPage = context.AllAttributes.ContainsName(CurrentPageAttributeName);
 			var hasTotalPage = context.AllAttributes.ContainsName(TotalPageAttributeName);
+
+			// Check for source
+			if (hasSource)
+			{
+				if (hasCurrentPage || hasTotalPage)
+				{
+					throw new InvalidOperationException($"The '{SourceAttributeName}' attribute cannot be used together with either the '{CurrentPageAttributeName}' or the '{TotalPageAttributeName}' attribute.");
+				}
+
+
+
+				GetPagingInfoFromSource(out currentPage, out totalPage);
+				return;
+			}
+
+			// No static page is specified, using inferred source.
+			if (!hasCurrentPage && !hasTotalPage)
+			{
+				GetPagingInfoFromSource(out currentPage, out totalPage);
+				return;
+			}
 
 			// Not both set
 			if (!hasTotalPage || !hasCurrentPage)
@@ -286,6 +325,12 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		/// </summary>
 		[PublicAPI] public const string ItemDefaultLinkGeneratorAttributeName = "item-default-link";
 
+		/// <summary>
+		///     Get the HTML attribute name for <see cref="Source" /> property. This field is constant.
+		/// </summary>
+		[PublicAPI]
+		public const string SourceAttributeName = "source";
+
 		#endregion
 
 		#region Html Bounded Properties
@@ -324,6 +369,12 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		/// </summary>
 		[HtmlAttributeName(GenerationModeAttributeName)]
 		public PagerGenerationMode GenerationMode { get; set; }
+
+		/// <summary>
+		/// Get or set the source for the pager.
+		/// </summary>
+		[HtmlAttributeName(SourceAttributeName)]
+		public IPagedList Source { get; set; }
 
 		#endregion
 
