@@ -47,19 +47,15 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		public ViewContext ViewContext { get; set; }
 
 		/// <summary>
-		/// Try to get the paging info from the bind <see cref="Source"/>.
+		/// Try to get the paging info from the binding source.
 		/// </summary>
+		/// <param name="source">The paged list source.</param>
 		/// <param name="currentPage">The output current page info.</param>
 		/// <param name="totalPage">The output total page info.</param>
-		private void GetPagingInfoFromSource(out int currentPage, out int totalPage)
+		private static void GetPagingInfoFromSource([NotNull]IPagedList source, out int currentPage, out int totalPage)
 		{
-			if (Source == null)
-			{
-				throw new InvalidOperationException($"The specified paging source came from the '{SourceAttributeName}' cannot be null.");
-			}
-
-			currentPage = Source.PageIndex;
-			totalPage = Source.TotalPage;
+			currentPage = source.PageIndex;
+			totalPage = source.TotalPage;
 		}
 
 		/// <summary>
@@ -83,17 +79,27 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 					throw new InvalidOperationException($"The '{SourceAttributeName}' attribute cannot be used together with either the '{CurrentPageAttributeName}' or the '{TotalPageAttributeName}' attribute.");
 				}
 
+				if (Source == null)
+				{
+					throw new InvalidOperationException($"The specified paging source came from the '{SourceAttributeName}' attribute cannot be null.");
+				}
 
-
-				GetPagingInfoFromSource(out currentPage, out totalPage);
+				GetPagingInfoFromSource(Source, out currentPage, out totalPage);
 				return;
 			}
 
 			// No static page is specified, using inferred source.
 			if (!hasCurrentPage && !hasTotalPage)
 			{
-				GetPagingInfoFromSource(out currentPage, out totalPage);
-				return;
+				var model = ViewContext.ViewData.Model;
+
+				if (model is IPagedList source)
+				{
+					GetPagingInfoFromSource(source, out currentPage, out totalPage);
+					return;
+				}
+
+				throw new InvalidOperationException($"The inferred paging source came from the view model is null or cannot be converted into '{typeof(IPagedList).FullName}' type.");
 			}
 
 			// Not both set
@@ -102,11 +108,18 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 					$"The '{TotalPageAttributeName}' and '{CurrentPageAttributeName}' attribute must both be set on the element.");
 
 			// Range check
-			if (TotalPage <= 0)
+			if (TotalPage < 0)
 				throw new InvalidOperationException(
-					$"The value of '{TotalPageAttributeName}' attribute must be positive integer.");
+					$"The value of '{TotalPageAttributeName}' attribute cannot be negative.");
 
-			if (CurrentPage <= 0 || CurrentPage > TotalPage)
+			if (TotalPage == 0 && CurrentPage != 1)
+			{
+				throw new InvalidOperationException(
+					$"The value of '{CurrentPageAttributeName}' attribute must 1 (one) when the value of '{TotalPageAttributeName}' attribute is 0 (zero).");
+
+			}
+
+			if (TotalPage != 0 && (CurrentPage <= 0 || CurrentPage > TotalPage))
 				throw new InvalidOperationException(
 					$"The value of '{CurrentPageAttributeName}' attribute must between 1 and the value of '{TotalPageAttributeName}' attribute.");
 
