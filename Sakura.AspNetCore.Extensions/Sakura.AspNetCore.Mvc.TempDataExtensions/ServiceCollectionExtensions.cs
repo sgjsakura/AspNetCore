@@ -29,7 +29,7 @@ namespace Microsoft.Extensions.DependencyInjection
 			services.TryAddSingleton<IObjectSerializer, JsonObjectSerializer>();
 
 #if NETCOREAPP3_0
-			services.Replace(new ServiceDescriptor(typeof(TypedJsonTempDataSerializer),
+			services.Replace(new ServiceDescriptor(typeof(Microsoft.AspNetCore.Mvc.ViewFeatures.Infrastructure.TempDataSerializer),
 				typeof(TypedJsonTempDataSerializer), ServiceLifetime.Singleton));
 #else
 			// Replace default ITempDataProvider

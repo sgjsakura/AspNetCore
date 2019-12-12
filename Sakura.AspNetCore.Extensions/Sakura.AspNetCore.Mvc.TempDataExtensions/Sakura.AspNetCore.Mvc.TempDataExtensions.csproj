@@ -9,7 +9,7 @@
 		<AssemblyName>Sakura.AspNetCore.Mvc.TempDataExtensions</AssemblyName>
 		<PackageId>Sakura.AspNetCore.Mvc.TempDataExtensions</PackageId>
 		<PackageTags>ASP.NET;ASP.NETCore;MVC;MVCCore;TempData;ITempDataProvider</PackageTags>
-		<PackageReleaseNotes>Upgrade project to support .NET Core App 3.0</PackageReleaseNotes>
+		<PackageReleaseNotes>Fix bug for .NET Core App 3.0</PackageReleaseNotes>
 		<PackageProjectUrl>https://github.com/sgjsakura/AspNetCore</PackageProjectUrl>
 		<PackageLicenseUrl></PackageLicenseUrl>
 		<GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
@@ -19,6 +19,7 @@
 		<RepositoryUrl>https://github.com/sgjsakura/AspNetCore.git</RepositoryUrl>
 		<RootNamespace>Sakura.AspNetCore.Mvc</RootNamespace>
 		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+		<Version>1.1.1</Version>
 	</PropertyGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' != 'netcoreapp3.0' ">
