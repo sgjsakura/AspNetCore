@@ -26,7 +26,7 @@ namespace Sakura.AspNetCore
 		///     <see cref="TempDataKeyName" /> but it cannot be converted into <see cref="ICollection{T}" /> type. If the property
 		///     is set to <c>true</c>, the original value will be automatically discarded and replaced with a new instance of
 		///     <see cref="ICollection{OperationMessage}" /> type. Otherwise, <see cref="InvalidOperationException" /> will be
-		///     throwed.
+		///     threw.
 		/// </summary>
 		[PublicAPI]
 		public bool AutomaticOverwriteOnTypeError { get; set; }

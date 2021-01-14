@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Razor.TagHelpers;
@@ -12,7 +13,7 @@ namespace Sakura.AspNetCore.Mvc
 	public class DefaultOperationMessageHtmlGenerator : IOperationMessageHtmlGenerator
 	{
 		/// <summary>
-		///     Intialize a new instance of <see cref="DefaultOperationMessageHtmlGenerator" />.
+		///     Initialize a new instance of <see cref="DefaultOperationMessageHtmlGenerator" />.
 		/// </summary>
 		/// <param name="levelClassMapper">The message-level to CSS class mapper.</param>
 		public DefaultOperationMessageHtmlGenerator(IOperationMessageLevelClassMapper levelClassMapper)
@@ -55,10 +56,10 @@ namespace Sakura.AspNetCore.Mvc
 		/// </summary>
 		/// <param name="title">The content of the title.</param>
 		/// <returns>The generated HTML content.</returns>
-		private static IHtmlContent GenerateTitle(string title)
+		private static IHtmlContent GenerateTitle(IHtmlContent title)
 		{
 			var tag = new TagBuilder("strong");
-			tag.InnerHtml.Append(title);
+			tag.InnerHtml.AppendHtml(title);
 			return tag;
 		}
 
@@ -67,10 +68,10 @@ namespace Sakura.AspNetCore.Mvc
 		/// </summary>
 		/// <param name="description">The description of the title.</param>
 		/// <returns>The generated HTML content.</returns>
-		private static IHtmlContent GenerateDescrption(string description)
+		private static IHtmlContent GenerateDescription(IHtmlContent description)
 		{
 			var tag = new TagBuilder("span");
-			tag.InnerHtml.Append(description);
+			tag.InnerHtml.AppendHtml(description);
 			return tag;
 		}
 
@@ -88,7 +89,7 @@ namespace Sakura.AspNetCore.Mvc
 			result.AppendHtml(GenerateTitle(message.Title));
 
 			// If description exists, add it
-			if (!string.IsNullOrEmpty(message.Description))
+			if (message.Description != null)
 			{
 				// Add a newline for two line mode.
 				if (useTwoLineMode)
@@ -96,7 +97,7 @@ namespace Sakura.AspNetCore.Mvc
 				else
 					result.AppendHtml("&nbsp;&nbsp;");
 
-				result.AppendHtml(GenerateDescrption(message.Description));
+				result.AppendHtml(GenerateDescription(message.Description));
 			}
 
 			return result;

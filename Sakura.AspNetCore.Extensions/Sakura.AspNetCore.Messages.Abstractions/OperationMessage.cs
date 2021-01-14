@@ -1,4 +1,5 @@
 ﻿using JetBrains.Annotations;
+using Microsoft.AspNetCore.Html;
 
 namespace Sakura.AspNetCore
 {
@@ -23,8 +24,8 @@ namespace Sakura.AspNetCore
 		/// <param name="description">The detailed description of the message. The default value of this parameter is <c>null</c>.</param>
 		public OperationMessage(
 			OperationMessageLevel level,
-			[CanBeNull] [LocalizationRequired] string title,
-			[CanBeNull] [LocalizationRequired] string description = null)
+			[CanBeNull] [LocalizationRequired] IHtmlContent title,
+			[CanBeNull] [LocalizationRequired] IHtmlContent description = null)
 		{
 			Level = level;
 			Title = title;
@@ -36,7 +37,7 @@ namespace Sakura.AspNetCore
 		/// </summary>
 		[LocalizationRequired]
 		[CanBeNull]
-		public string Description { get; set; }
+		public IHtmlContent Description { get; set; }
 
 		/// <summary>
 		///     Get or set the level of the message.
@@ -48,6 +49,6 @@ namespace Sakura.AspNetCore
 		/// </summary>
 		[LocalizationRequired]
 		[CanBeNull]
-		public string Title { get; set; }
+		public IHtmlContent Title { get; set; }
 	}
 }
