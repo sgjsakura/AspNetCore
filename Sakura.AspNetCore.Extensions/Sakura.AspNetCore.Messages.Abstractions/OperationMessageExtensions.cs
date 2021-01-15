@@ -51,10 +51,15 @@ namespace Sakura.AspNetCore
 			if (messageAccessor == null)
 				throw new ArgumentNullException(nameof(messageAccessor));
 
-			var item = new OperationMessage(level, new HtmlString(title), new HtmlString(description));
+			var item = new OperationMessage(level, EncodeToHtml(title), EncodeToHtml(description));
 			messageAccessor.Messages.Add(item);
 
 			return item;
+		}
+
+		private static IHtmlContent EncodeToHtml(string value)
+		{
+			return new HtmlContentBuilder().Append(value);
 		}
 	}
 }
