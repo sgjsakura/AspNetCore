@@ -55,7 +55,7 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		///     The <see cref="ViewContext" /> Service object.
 		/// </summary>
 		[ViewContext]
-		protected ViewContext ViewContext { get; set; }
+		public ViewContext ViewContext { get; set; }
 
 		/// <summary>
 		///     Get or set the model expression to retrieve the enum flag value from model.
@@ -92,26 +92,33 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 			var type = EnumFlagFor.ModelExplorer.ModelType;
 			type = Nullable.GetUnderlyingType(type) ?? type;
 
-			((IViewContextAware) HtmlHelper).Contextualize(ViewContext);
-
 			// Get the defined enum name
 			var enumName = Enum.GetName(type, EnumFlagValue);
 			if (enumName == null)
 				throw new InvalidOperationException(
 					$"The value of the {EnumFlagValueAttributeName} attribute is not a valid enum flag item.");
 
-			
-			// Now you can use the HtmlFieldPrefix if set
-			var name = ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix;
-			if (!string.IsNullOrEmpty(name))
+			var name = "";
+			if (ViewContext != null)
 			{
-				name += ".";
+				((IViewContextAware)HtmlHelper).Contextualize(ViewContext);
+
+				// Now you can use the HtmlFieldPrefix if set
+				name = ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix;
+				if (!string.IsNullOrEmpty(name))
+				{
+					name += ".";
+				}
 			}
 
 			name += EnumFlagFor.Name;
 
+			// Set id if possible
+			if (ViewContext != null)
+			{
+				output.Attributes.SetAttribute("id", HtmlHelper.GenerateIdFromName($"{name}.{enumName}"));
+			}
 			// Set name and value
-			output.Attributes.SetAttribute("id", HtmlHelper.GenerateIdFromName($"{name}.{enumName}"));
 			output.Attributes.SetAttribute("name", name);
 			output.Attributes.SetAttribute("value", enumName);
 
