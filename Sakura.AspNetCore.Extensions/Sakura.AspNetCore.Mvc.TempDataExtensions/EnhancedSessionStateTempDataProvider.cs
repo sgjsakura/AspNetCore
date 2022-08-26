@@ -40,7 +40,7 @@ namespace Sakura.AspNetCore.Mvc
 		{
 			var baseResult = base.LoadTempData(context);
 
-			return baseResult?.ToDictionary(item => item.Key, item => ObjectSerializer.Deserialize(item.Value));
+			return baseResult?.ToDictionary(item => item.Key, item => ObjectSerializer.Deserialize(item.Value as string));
 		}
 
 		/// <summary>
@@ -56,7 +56,7 @@ namespace Sakura.AspNetCore.Mvc
 				return;
 			}
 
-			var newDic = values.ToDictionary(item => item.Key, item => ObjectSerializer.Serialize(item.Value));
+			var newDic = values.ToDictionary(item => item.Key, item => (object)ObjectSerializer.Serialize(item.Value));
 			base.SaveTempData(context, newDic);
 		}
 	}

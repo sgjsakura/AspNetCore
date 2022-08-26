@@ -10,13 +10,13 @@
 		/// </summary>
 		/// <param name="obj">The object to be serializing.</param>
 		/// <returns>The serialized object.</returns>
-		object Serialize(object obj);
+		string Serialize(object obj);
 
 		/// <summary>
 		///     Deserialize object to the original object.
 		/// </summary>
 		/// <param name="obj">The string to be deserializing.</param>
 		/// <returns>The deserialized object.</returns>
-		object Deserialize(object obj);
+		object Deserialize(string obj);
 	}
 }

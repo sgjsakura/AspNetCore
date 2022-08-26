@@ -30,7 +30,7 @@ namespace Sakura.AspNetCore.Mvc
 		/// <inheritdoc />
 		public override IDictionary<string, object> Deserialize(byte[] unprotectedData)
 		{
-			var dic = JsonSerializer.Deserialize<Dictionary<string, object>>(unprotectedData);
+			var dic = JsonSerializer.Deserialize<Dictionary<string, string>>(unprotectedData);
 
 			var result = new Dictionary<string, object>();
 
@@ -50,7 +50,7 @@ namespace Sakura.AspNetCore.Mvc
 				return Array.Empty<byte>();
 			}
 
-			var realDictionary = new Dictionary<string, object>();
+			var realDictionary = new Dictionary<string, string>();
 
 			foreach (var (key, value) in values)
 			{

@@ -25,24 +25,19 @@ namespace Sakura.AspNetCore.Mvc
 		/// </summary>
 		/// <param name="obj">The string to be deserializing.</param>
 		/// <returns>The deserialized object.</returns>
-		public object Deserialize(object obj)
+		public object Deserialize(string obj)
 		{
-			if (obj is not string str)
-			{
-				throw new InvalidOperationException(
-					$"Non-string value is not supported for {nameof(JsonObjectSerializer)}.");
-			}
 
-			if (string.IsNullOrEmpty(str))
+			if (string.IsNullOrEmpty(obj))
 			{
 				return null;
 			}
 
 
 #if NETCOREAPP3_0
-			var objInfo = JsonSerializer.Deserialize<SerializedObjectInfo>(str);
+			var objInfo = JsonSerializer.Deserialize<SerializedObjectInfo>(obj);
 #else
-			var objInfo = JsonConvert.DeserializeObject<SerializedObjectInfo>(str);
+			var objInfo = JsonConvert.DeserializeObject<SerializedObjectInfo>(obj);
 #endif
 
 			var type = Type.GetType(objInfo.TypeName);
@@ -65,9 +60,8 @@ namespace Sakura.AspNetCore.Mvc
 		/// </summary>
 		/// <param name="obj">The object to be serializing.</param>
 		/// <returns>The serialized object.</returns>
-		public object Serialize(object obj)
+		public string Serialize(object obj)
 		{
-
 			if (obj == null)
 			{
 				return string.Empty;
