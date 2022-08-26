@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
+		<LangVersion>latest</LangVersion>
 		<Description>This package add the data type compatibility for ASP.NET Core TempData feature.</Description>
 		<AssemblyTitle>ASP.NET Core TempData Extension Library</AssemblyTitle>
 		<VersionPrefix>1.1.0</VersionPrefix>
@@ -19,7 +20,7 @@
 		<RepositoryUrl>https://github.com/sgjsakura/AspNetCore.git</RepositoryUrl>
 		<RootNamespace>Sakura.AspNetCore.Mvc</RootNamespace>
 		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-		<Version>1.1.2</Version>
+		<Version>1.2.1</Version>
 	</PropertyGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">

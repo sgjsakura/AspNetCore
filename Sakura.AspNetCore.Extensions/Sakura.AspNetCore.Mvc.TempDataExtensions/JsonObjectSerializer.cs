@@ -1,5 +1,10 @@
 ﻿using System;
+using System.IO;
+using System.Text.Encodings.Web;
+
 using JetBrains.Annotations;
+
+using Microsoft.AspNetCore.Html;
 
 #if NETCOREAPP3_0
 using System.Text.Json;
@@ -10,7 +15,7 @@ using Newtonsoft.Json;
 namespace Sakura.AspNetCore.Mvc
 {
 	/// <summary>
-	///     Default <see cref="IObjectSerializer" /> using <see cref="JsonConvert" /> Service.
+	///     Default <see cref="IObjectSerializer" /> using ASP.NET Core in-built JSON serialization Service.
 	/// </summary>
 	[UsedImplicitly(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature)]
 	public class JsonObjectSerializer : IObjectSerializer
@@ -22,22 +27,37 @@ namespace Sakura.AspNetCore.Mvc
 		/// <returns>The deserialized object.</returns>
 		public object Deserialize(object obj)
 		{
-			var arr = obj as string[];
+			if (obj is not string str)
+			{
+				throw new InvalidOperationException(
+					$"Non-string value is not supported for {nameof(JsonObjectSerializer)}.");
+			}
 
-			// argument check
-			if (arr == null || arr.Length != 2)
-				throw new InvalidOperationException();
+			if (string.IsNullOrEmpty(str))
+			{
+				return null;
+			}
 
-			var typeName = arr[0];
-			var data = arr[1];
-
-			var type = Type.GetType(typeName);
 
 #if NETCOREAPP3_0
-			return JsonSerializer.Deserialize(data, type);
+			var objInfo = JsonSerializer.Deserialize<SerializedObjectInfo>(str);
 #else
-			return JsonConvert.DeserializeObject(data, type);
+			var objInfo = JsonConvert.DeserializeObject<SerializedObjectInfo>(str);
 #endif
+
+			var type = Type.GetType(objInfo.TypeName);
+
+			if (type == typeof(IHtmlContent))
+			{
+				return new HtmlString(objInfo.Value);
+			}
+
+#if NETCOREAPP3_0
+			return JsonSerializer.Deserialize(objInfo.Value, type);
+#else
+			return JsonConvert.DeserializeObject(objInfo.Value, type);
+#endif
+
 		}
 
 		/// <summary>
@@ -47,15 +67,42 @@ namespace Sakura.AspNetCore.Mvc
 		/// <returns>The serialized object.</returns>
 		public object Serialize(object obj)
 		{
+
+			if (obj == null)
+			{
+				return string.Empty;
+			}
+
 			var typeName = obj.GetType().AssemblyQualifiedName;
 
-#if NETCOREAPP3_0
-			var data = JsonSerializer.Serialize(obj);
-#else
-			var data = JsonConvert.SerializeObject(obj);
-#endif
+			// Special handling for HTML Content.
+			if (obj is IHtmlContent htmlContent)
+			{
+				var builder = new HtmlContentBuilder();
+				// ReSharper disable once MustUseReturnValue
+				builder.AppendHtml(htmlContent);
 
-			return new[] {typeName, data};
+				using var sb = new StringWriter();
+				builder.WriteTo(sb, HtmlEncoder.Default);
+
+				typeName = typeof(IHtmlContent).AssemblyQualifiedName;
+				obj = sb.ToString();
+				;
+			}
+
+#if NETCOREAPP3_0
+			return JsonSerializer.Serialize(new SerializedObjectInfo
+			{
+				TypeName = typeName,
+				Value = JsonSerializer.Serialize(obj)
+			});
+#else
+			return JsonConvert.SerializeObject(new SerializedObjectInfo
+			{
+				TypeName = typeName,
+				Value = JsonConvert.SerializeObject(obj)
+			});
+#endif
 		}
 	}
 }
