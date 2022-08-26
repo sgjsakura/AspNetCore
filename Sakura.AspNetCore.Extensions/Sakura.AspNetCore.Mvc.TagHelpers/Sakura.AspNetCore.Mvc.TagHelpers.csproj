@@ -26,24 +26,24 @@
   </PropertyGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="1.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="1.0.4" />
 	</ItemGroup>
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="1.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="1.0.4" />
   </ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="1.0.4" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.0' ">
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="1.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="1.0.4" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.1' ">
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.1.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="1.0.4" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.0' ">
