@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
+
 using Microsoft.AspNetCore.Razor.TagHelpers;
+
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Sakura.AspNetCore.Mvc.TagHelpers
 {
@@ -9,20 +11,27 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 	///     Add CSS class name to the element conditionally.
 	/// </summary>
 	[HtmlTargetElement(Attributes = ConditionalClassPrefix + "*")]
+	[HtmlTargetElement(Attributes = AllConditionalClassAttributeName)]
 	[UsedImplicitly(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature)]
 	public class ConditionalClassTagHelper : TagHelper
 	{
 		/// <summary>
-		///     The prefix for all attributes will be storeed in <see cref="ConditionalClasses" /> dictionary. This field is
+		///     The prefix for all attributes will be stored in <see cref="ConditionalClasses" /> dictionary. This field is
 		///     constant.
 		/// </summary>
 		[PublicAPI] public const string ConditionalClassPrefix = "asp-conditional-class-";
+
+
+		/// <summary>
+		///     The attribute name for setting the entire <see cref="ConditionalClasses" /> dictionary. This field is constant.
+		/// </summary>
+		[PublicAPI] public const string AllConditionalClassAttributeName = "asp-conditional-classes";
 
 		/// <summary>
 		///     Get or set the dictionary that stores all the conditional class definitions.
 		/// </summary>
 		[UsedImplicitly(ImplicitUseKindFlags.Assign | ImplicitUseKindFlags.Access)]
-		[HtmlAttributeName(DictionaryAttributePrefix = ConditionalClassPrefix)]
+		[HtmlAttributeName(AllConditionalClassAttributeName, DictionaryAttributePrefix = ConditionalClassPrefix)]
 		public IDictionary<string, bool> ConditionalClasses { get; set; } = new Dictionary<string, bool>();
 
 
@@ -36,8 +45,8 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		{
 			// Get all items
 			var allItems = (from i in ConditionalClasses
-				where i.Value
-				select i.Key).ToList();
+							where i.Value
+							select i.Key).ToList();
 
 			// No actions if no items
 			if (allItems.Count == 0)

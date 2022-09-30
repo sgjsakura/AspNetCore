@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29409.12
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakura.AspNetCore.Authentication.ExternalCookie", "Sakura.AspNetCore.Authentication.ExternalCookie\Sakura.AspNetCore.Authentication.ExternalCookie.csproj", "{590CF0F1-94D9-452E-850B-F4317948F964}"
 EndProject
@@ -28,6 +28,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakura.AspNetCore.DynamicLocalizer", "Sakura.AspNetCore.DynamicLocalizer\Sakura.AspNetCore.DynamicLocalizer.csproj", "{A622B3F3-458E-4813-95F9-2AD4BDDC8A49}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakura.EntityFrameworkCore.FromSqlExtensions", "Sakura.EntityFrameworkCore.FromSqlExtensions\Sakura.EntityFrameworkCore.FromSqlExtensions.csproj", "{56143555-9A12-4FD0-9447-A6831C7FEB17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakura.AspNetCore.Mvc.VisualStyles", "Sakura.AspNetCore.Mvc.VisualStyles\Sakura.AspNetCore.Mvc.VisualStyles.csproj", "{79EB3475-55AB-4546-A043-83CFD5DB3723}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +89,10 @@ Global
 		{56143555-9A12-4FD0-9447-A6831C7FEB17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56143555-9A12-4FD0-9447-A6831C7FEB17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56143555-9A12-4FD0-9447-A6831C7FEB17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79EB3475-55AB-4546-A043-83CFD5DB3723}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79EB3475-55AB-4546-A043-83CFD5DB3723}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79EB3475-55AB-4546-A043-83CFD5DB3723}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79EB3475-55AB-4546-A043-83CFD5DB3723}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,11 +4,11 @@
     <Description>ASP.NET Core MVC Extensions Library provides addtional tag helpers and utility for simplify ASP.NET Core web application development.</Description>
     <AssemblyTitle>ASP.NET Core MVC Extensions Library</AssemblyTitle>
     <Authors>Iris Sakura</Authors>
-    <TargetFrameworks>netstandard1.6;net451;netstandard2.0;netcoreapp2.0;netcoreapp2.1;netcoreapp3.0</TargetFrameworks>
+    <TargetFrameworks>netstandard1.6;netstandard2.0;netcoreapp2.0;netcoreapp2.1;netcoreapp3.0</TargetFrameworks>
     <AssemblyName>Sakura.AspNetCore.Mvc.TagHelpers</AssemblyName>
     <PackageId>Sakura.AspNetCore.Mvc.TagHelpers</PackageId>
     <PackageTags>ASP.NET;ASP.NETCore;MVC;MVCCore;TagHelper;Enum;Flags;OptionLabel;Select;Option</PackageTags>
-    <PackageReleaseNotes>Fix a problem for EnumSelectTagHelper</PackageReleaseNotes>
+    <PackageReleaseNotes>Add all attribute for ConditionalClassTagHelper</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/sgjsakura/AspNetCore</PackageProjectUrl>
     <PackageLicenseUrl></PackageLicenseUrl>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
@@ -16,7 +16,7 @@
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/sgjsakura/AspNetCore.git</RepositoryUrl>
-    <Version>1.4.2</Version>
+    <Version>1.4.3</Version>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
   </PropertyGroup>
 
@@ -28,11 +28,6 @@
 	<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="1.0.0" />
 	</ItemGroup>
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
-    <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="1.0.0" />
-  </ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.0.0" />
