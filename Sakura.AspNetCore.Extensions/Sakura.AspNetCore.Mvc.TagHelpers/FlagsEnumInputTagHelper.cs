@@ -1,5 +1,6 @@
 ﻿using System;
 using JetBrains.Annotations;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
@@ -26,9 +27,10 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		///     Creates a new <see cref="InputTagHelper" />.
 		/// </summary>
 		[UsedImplicitly(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature)]
-		public FlagsEnumInputTagHelper(IHtmlGenerator htmlGenerator)
+		public FlagsEnumInputTagHelper(IHtmlGenerator htmlGenerator, IHtmlHelper htmlHelper)
 		{
 			HtmlGenerator = htmlGenerator;
+			HtmlHelper = htmlHelper;
 		}
 
 		/// <inheritdoc />
@@ -42,6 +44,18 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 		/// </summary>
 		[PublicAPI]
 		protected IHtmlGenerator HtmlGenerator { get; }
+
+		/// <summary>
+		///     The <see cref="IHtmlHelper" /> Service object.
+		/// </summary>
+		[PublicAPI]
+		protected IHtmlHelper HtmlHelper { get; }
+
+		/// <summary>
+		///     The <see cref="ViewContext" /> Service object.
+		/// </summary>
+		[ViewContext]
+		public ViewContext ViewContext { get; set; }
 
 		/// <summary>
 		///     Get or set the model expression to retrieve the enum flag value from model.
@@ -74,7 +88,6 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 				throw new InvalidOperationException(
 					$"The model expression type must be enum flag when {EnumFlagValueAttributeName} is specified");
 
-
 			// Get base type and remove nullable
 			var type = EnumFlagFor.ModelExplorer.ModelType;
 			type = Nullable.GetUnderlyingType(type) ?? type;
@@ -85,8 +98,28 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 				throw new InvalidOperationException(
 					$"The value of the {EnumFlagValueAttributeName} attribute is not a valid enum flag item.");
 
+			var name = "";
+			if (ViewContext != null)
+			{
+				((IViewContextAware)HtmlHelper).Contextualize(ViewContext);
+
+				// Now you can use the HtmlFieldPrefix if set
+				name = ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix;
+				if (!string.IsNullOrEmpty(name))
+				{
+					name += ".";
+				}
+			}
+
+			name += EnumFlagFor.Name;
+
+			// Set id if possible
+			if (ViewContext != null)
+			{
+				output.Attributes.SetAttribute("id", HtmlHelper.GenerateIdFromName($"{name}.{enumName}"));
+			}
 			// Set name and value
-			output.Attributes.SetAttribute("name", EnumFlagFor.Name);
+			output.Attributes.SetAttribute("name", name);
 			output.Attributes.SetAttribute("value", enumName);
 
 			// Set checked attribute
