@@ -9,26 +9,32 @@
 		<Company>Iris Sakura</Company>
 		<Product>Sakura.AspNetCore.Extensions</Product>
 		<Description>This package provide dynamic style localiazation resource accesing ability.</Description>
-		<PackageReleaseNotes>Update to support ASP.NET Core 3.0</PackageReleaseNotes>
+		<PackageReleaseNotes>Update framework reference usage.</PackageReleaseNotes>
 		<PackageLicenseUrl></PackageLicenseUrl>
 		<PackageProjectUrl>https://github.com/sgjsakura/AspNetCore</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/sgjsakura/AspNetCore.git</RepositoryUrl>
 		<PackageTags>ASP.NET;ASP.NETCore;MVC;MVCCore;Localization</PackageTags>
-		<Version>2.1.0</Version>
+		<Version>2.2.0</Version>
 		<PackageLicenseFile></PackageLicenseFile>
 		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<DocumentationFile>bin\Release\netstandard1.6\Sakura.AspNetCore.DynamicLocalizer.xml</DocumentationFile>
+	<PropertyGroup>
+	  <WarningLevel>9999</WarningLevel>
+	  <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
 	</PropertyGroup>
 
-	<ItemGroup Condition=" $(TargetFramework) != 'netcoreapp3.0 '">
+	<ItemGroup Condition=" $(TargetFramework) == 'netstandard1.6' ">
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Localization" Version="1.0.0" />
 	</ItemGroup>
 
-	<ItemGroup Condition=" $(TargetFramework) == 'netcoreapp3.0 '">
+	<ItemGroup Condition=" $(TargetFramework) == 'netcoreapp3.0' ">
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="JetBrains.Annotations" Version="2024.3.0" />
 	</ItemGroup>
 
 </Project>

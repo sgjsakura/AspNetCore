@@ -3,32 +3,31 @@ using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
-namespace Sakura.AspNetCore.Localization.Internal
+namespace Sakura.AspNetCore.Localization.Internal;
+
+/// <summary>
+///     Provide the dynamic style implementation for <see cref="IHtmlLocalizer" /> object.
+/// </summary>
+public class DynamicViewLocalizer : DynamicHtmlLocalizer, IDynamicViewLocalizer, IViewContextAware
 {
 	/// <summary>
-	///     Provide the dynamic style implementation for <see cref="IHtmlLocalizer" /> object.
+	///     Initialize a new instance of <see cref="DynamicViewLocalizer" /> object.
 	/// </summary>
-	public class DynamicViewLocalizer : DynamicHtmlLocalizer, IDynamicViewLocalizer, IViewContextAware
+	/// <param name="localizer">The internal <see cref="IViewLocalizer" /> object.</param>
+	[UsedImplicitly]
+	public DynamicViewLocalizer(IViewLocalizer localizer)
+		: base(localizer)
 	{
-		/// <summary>
-		///     Initialize a new instance of <see cref="DynamicViewLocalizer" /> object.
-		/// </summary>
-		/// <param name="localizer">The internal <see cref="IViewLocalizer" /> object.</param>
-		[UsedImplicitly]
-		public DynamicViewLocalizer(IViewLocalizer localizer)
-			: base(localizer)
-		{
-			Localizer = localizer;
-		}
+		Localizer = localizer;
+	}
 
-		/// <inheritdoc />
-		public new IViewLocalizer Localizer { get; }
+	/// <inheritdoc />
+	public new IViewLocalizer Localizer { get; }
 
-		/// <inheritdoc />
-		void IViewContextAware.Contextualize(ViewContext viewContext)
-		{
-			if (Localizer is IViewContextAware viewLocalizer)
-				viewLocalizer.Contextualize(viewContext);
-		}
+	/// <inheritdoc />
+	void IViewContextAware.Contextualize(ViewContext viewContext)
+	{
+		if (Localizer is IViewContextAware viewLocalizer)
+			viewLocalizer.Contextualize(viewContext);
 	}
 }

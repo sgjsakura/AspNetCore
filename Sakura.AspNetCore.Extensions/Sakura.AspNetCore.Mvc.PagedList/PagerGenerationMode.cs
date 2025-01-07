@@ -1,18 +1,17 @@
-﻿namespace Sakura.AspNetCore.Mvc
+﻿namespace Sakura.AspNetCore.Mvc;
+
+/// <summary>
+///     Define the HTML generation mode of a pager related tag.
+/// </summary>
+public enum PagerGenerationMode
 {
 	/// <summary>
-	///     Define the HTML generation mode of a pager related tag.
+	///     Generate full pager, including all pager items and the container.
 	/// </summary>
-	public enum PagerGenerationMode
-	{
-		/// <summary>
-		///     Generate full pager, including all pager items and the container.
-		/// </summary>
-		Full,
+	Full,
 
-		/// <summary>
-		///     Generate pager items only, containers will not be generated.
-		/// </summary>
-		ListOnly
-	}
+	/// <summary>
+	///     Generate pager items only, containers will not be generated.
+	/// </summary>
+	ListOnly
 }

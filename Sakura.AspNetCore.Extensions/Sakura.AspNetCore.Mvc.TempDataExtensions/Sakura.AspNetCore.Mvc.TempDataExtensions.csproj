@@ -42,6 +42,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="JetBrains.Annotations" Version="2024.3.0" />
 		<PackageReference Include="Microsoft.Extensions.Options" Version="1.0.0" />
 	</ItemGroup>
 

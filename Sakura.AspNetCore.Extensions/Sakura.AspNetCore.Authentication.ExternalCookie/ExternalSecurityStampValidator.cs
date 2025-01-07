@@ -4,28 +4,27 @@ using JetBrains.Annotations;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 
-namespace Sakura.AspNetCore.Authentication
+namespace Sakura.AspNetCore.Authentication;
+
+/// <inheritdoc />
+/// <summary>
+///     Provide default implementation for <see cref="T:Microsoft.AspNetCore.Identity.ISecurityStampValidator" /> service.
+/// </summary>
+[UsedImplicitly]
+public class ExternalSecurityStampValidator : ISecurityStampValidator
 {
-	/// <inheritdoc />
 	/// <summary>
-	///     Provide default implementation for <see cref="T:Microsoft.AspNetCore.Identity.ISecurityStampValidator" /> service.
+	///     Validates a security stamp of an identity as an asynchronous operation, and rebuilds the identity if the validation
+	///     succeeds, otherwise rejects
+	///     the identity.
 	/// </summary>
-	[UsedImplicitly]
-	public class ExternalSecurityStampValidator : ISecurityStampValidator
+	/// <param name="context">
+	///     The context containing the <see cref="ClaimsPrincipal" />
+	///     and <see cref="AuthenticationProperties" /> to validate.
+	/// </param>
+	/// <returns>The <see cref="Task" /> that represents the asynchronous validation operation.</returns>
+	public Task ValidateAsync(CookieValidatePrincipalContext context)
 	{
-		/// <summary>
-		///     Validates a security stamp of an identity as an asynchronous operation, and rebuilds the identity if the validation
-		///     succeeds, otherwise rejects
-		///     the identity.
-		/// </summary>
-		/// <param name="context">
-		///     The context containing the <see cref="ClaimsPrincipal" />
-		///     and <see cref="AuthenticationProperties" /> to validate.
-		/// </param>
-		/// <returns>The <see cref="Task" /> that represents the asynchronous validation operation.</returns>
-		public Task ValidateAsync(CookieValidatePrincipalContext context)
-		{
-			return Task.FromResult(0);
-		}
+		return Task.FromResult(0);
 	}
 }

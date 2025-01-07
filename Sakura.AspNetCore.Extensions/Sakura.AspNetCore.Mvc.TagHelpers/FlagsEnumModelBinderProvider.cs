@@ -2,26 +2,25 @@
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace Sakura.AspNetCore.Mvc.TagHelpers
+namespace Sakura.AspNetCore.Mvc.TagHelpers;
+
+/// <inheritdoc />
+/// <summary>
+///     An <see cref="IModelBinderProvider" /> used to provider <see cref="FlagsEnumModelBinder" /> instances.
+/// </summary>
+public class FlagsEnumModelBinderProvider : IModelBinderProvider
 {
 	/// <inheritdoc />
 	/// <summary>
-	///     An <see cref="IModelBinderProvider" /> used to provider <see cref="FlagsEnumModelBinder" /> instances.
+	///     Creates a <see cref="IModelBinder" /> based on <see cref="ModelBinderProviderContext" />.
 	/// </summary>
-	public class FlagsEnumModelBinderProvider : IModelBinderProvider
+	/// <param name="context">The <see cref="ModelBinderProviderContext" />.</param>
+	/// <returns>An <see cref="IModelBinder" />.</returns>
+	public IModelBinder GetBinder([NotNull] ModelBinderProviderContext context)
 	{
-		/// <inheritdoc />
-		/// <summary>
-		///     Creates a <see cref="IModelBinder" /> based on <see cref="ModelBinderProviderContext" />.
-		/// </summary>
-		/// <param name="context">The <see cref="ModelBinderProviderContext" />.</param>
-		/// <returns>An <see cref="IModelBinder" />.</returns>
-		public IModelBinder GetBinder([NotNull] ModelBinderProviderContext context)
-		{
-			if (context == null)
-				throw new ArgumentNullException(nameof(context));
+		if (context == null)
+			throw new ArgumentNullException(nameof(context));
 
-			return context.Metadata.IsFlagsEnum ? new FlagsEnumModelBinder() : null;
-		}
+		return context.Metadata.IsFlagsEnum ? new FlagsEnumModelBinder() : null;
 	}
 }

@@ -8,28 +8,28 @@ using Microsoft.Extensions.Options;
 #endif
 
 // ReSharper disable once CheckNamespace
-namespace Microsoft.AspNet.Builder
+namespace Microsoft.AspNet.Builder;
+
+/// <summary>
+///     Provide extension methods for <see cref="IApplicationBuilder" />. This class is static.
+/// </summary>
+public static class ApplicationBuilderExtensions
 {
 	/// <summary>
-	///     Provide extension methods for <see cref="IApplicationBuilder" />. This class is static.
+	///     Configure a application to enable all cookie-related authentication schemes.
 	/// </summary>
-	public static class ApplicationBuilderExtensions
-	{
-		/// <summary>
-		///     Configure a application to enable all cookie-related authentication schemes.
-		/// </summary>
-		/// <param name="app">The <see cref="IApplicationBuilder" /> object.</param>
-		/// <exception cref="ArgumentNullException">The <paramref name="app" /> is <c>null</c>.</exception>
+	/// <param name="app">The <see cref="IApplicationBuilder" /> object.</param>
+	/// <exception cref="ArgumentNullException">The <paramref name="app" /> is <c>null</c>.</exception>
 #if NETSTANDARD2_0 || NETCOREAPP3_0
-		[PublicAPI]
-		[Obsolete("This API is obsolete. Plase use UseAuthentication method provided by ASP.NET Core 2 directly.")]
-		public static void UseAllCookies([NotNull] this IApplicationBuilder app)
-		{
-			if (app == null)
-				throw new ArgumentNullException(nameof(app));
+	[PublicAPI]
+	[Obsolete("This API is obsolete. Plase use UseAuthentication method provided by ASP.NET Core 2 directly.")]
+	public static void UseAllCookies([NotNull] this IApplicationBuilder app)
+	{
+		if (app == null)
+			throw new ArgumentNullException(nameof(app));
 
-			app.UseAuthentication();
-		}
+		app.UseAuthentication();
+	}
 #else
 		[PublicAPI]
 		public static void UseAllCookies([NotNull] this IApplicationBuilder app)
@@ -48,5 +48,4 @@ namespace Microsoft.AspNet.Builder
 		}
 	
 #endif
-	}
 }

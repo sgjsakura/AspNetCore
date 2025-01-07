@@ -2,19 +2,17 @@
 using JetBrains.Annotations;
 using Sakura.AspNetCore.Mvc.Internal;
 
-namespace Sakura.AspNetCore.Mvc
+namespace Sakura.AspNetCore.Mvc;
+
+/// <summary>
+///     Define the necessary feature for a pager item link generator.
+/// </summary>
+[TypeConverter(typeof(PagerItemLinkGeneratorConverter))]
+public interface IPagerItemLinkGenerator
 {
 	/// <summary>
-	///     Define the necessary feature for a pager item link generator.
+	///     Generate the link url for the specified <see cref="PagerItem" />.
 	/// </summary>
-	[TypeConverter(typeof(PagerItemLinkGeneratorConverter))]
-	public interface IPagerItemLinkGenerator
-	{
-		/// <summary>
-		///     Generate the link url for the specified <see cref="PagerItem" />.
-		/// </summary>
-		/// <param name="context">The generation context.</param>
-		[CanBeNull]
-		string GenerateLink([NotNull] PagerItemGenerationContext context);
-	}
+	/// <param name="context">The generation context.</param>
+	string? GenerateLink([NotNull] PagerItemGenerationContext context);
 }

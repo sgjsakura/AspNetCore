@@ -23,15 +23,16 @@
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
   </PropertyGroup>
 
-	<ItemGroup>
-	</ItemGroup>
-
 	<ItemGroup Condition="$(TargetFramework) == 'netstandard1.0'">
 	  <PackageReference Include="Microsoft.AspNetCore.Html.Abstractions" Version="1.0.0" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$(TargetFramework) == 'netcoreapp3.0'">
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="JetBrains.Annotations" Version="2024.3.0" />
 	</ItemGroup>
 
 </Project>

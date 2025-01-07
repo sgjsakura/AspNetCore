@@ -11,31 +11,31 @@ using Microsoft.AspNetCore.Builder;
 
 // ReSharper disable once CheckNamespace
 
-namespace Microsoft.Extensions.DependencyInjection
+namespace Microsoft.Extensions.DependencyInjection;
+
+/// <summary>
+///     Provide helper methods to adding external signing-in service to application. This class is static.
+/// </summary>
+public static class ServiceCollectionExtensions
 {
 	/// <summary>
-	///     Provide helper methods to adding external signing-in service to application. This class is static.
+	///     Add external signing-in manager service for application.
 	/// </summary>
-	public static class ServiceCollectionExtensions
+	/// <param name="services">The <see cref="IServiceCollection" /> instance.</param>
+	/// <param name="setupOptions">A setup method for configuring identity options.</param>
+	[PublicAPI]
+	public static void AddExternalSignInManager([NotNull] this IServiceCollection services,
+		Action<IdentityOptions> setupOptions = null)
 	{
-		/// <summary>
-		///     Add external signing-in manager service for application.
-		/// </summary>
-		/// <param name="services">The <see cref="IServiceCollection" /> instance.</param>
-		/// <param name="setupOptions">A setup method for configuring identity options.</param>
-		[PublicAPI]
-		public static void AddExternalSignInManager([NotNull] this IServiceCollection services,
-			Action<IdentityOptions> setupOptions = null)
-		{
-			if (services == null)
-				throw new ArgumentNullException(nameof(services));
+		if (services == null)
+			throw new ArgumentNullException(nameof(services));
 
-			services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-			services.TryAddSingleton<ISecurityStampValidator, ExternalSecurityStampValidator>();
-			services.TryAddScoped<ExternalSignInManager>();
+		services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+		services.TryAddSingleton<ISecurityStampValidator, ExternalSecurityStampValidator>();
+		services.TryAddScoped<ExternalSignInManager>();
 
-			if (setupOptions != null)
-				services.Configure(setupOptions);
+		if (setupOptions != null)
+			services.Configure(setupOptions);
 
 #if NETSTANDARD2_0
 
@@ -45,6 +45,5 @@ namespace Microsoft.Extensions.DependencyInjection
 				.AddCookie(IdentityConstants.TwoFactorUserIdScheme)
 				.AddCookie(IdentityConstants.TwoFactorRememberMeScheme);
 #endif
-		}
 	}
 }

@@ -9,8 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 
-namespace Sakura.AspNetCore.Authentication
-{
+namespace Sakura.AspNetCore.Authentication;
 #if NETSTANDARD2_0 || NETCOREAPP3_0
 
 	public partial class ExternalSignInManager
@@ -121,4 +120,3 @@ namespace Sakura.AspNetCore.Authentication
 	}
 
 #endif
-}

@@ -1,0 +1,8 @@
+﻿<Project>
+    <PropertyGroup>
+        <LangVersion>latest</LangVersion>
+        <Nullable>enable</Nullable>
+        <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+        <WarningLevel>9999</WarningLevel>
+    </PropertyGroup>
+</Project>

@@ -6,44 +6,44 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace Sakura.AspNetCore.Mvc.TagHelpers
+namespace Sakura.AspNetCore.Mvc.TagHelpers;
+
+/// <inheritdoc />
+/// <summary>
+///     Provide common implementations for both <see cref="T:Sakura.AspNetCore.Mvc.TagHelpers.AuthorizeTagHelper" /> and
+///     <see cref="T:Sakura.AspNetCore.Mvc.TagHelpers.AuthorizeAttributeTagHelper" />.
+/// </summary>
+public abstract class AuthorizeTagHelperBase : TagHelper
 {
-	/// <inheritdoc />
 	/// <summary>
-	///     Provide common implementations for both <see cref="T:Sakura.AspNetCore.Mvc.TagHelpers.AuthorizeTagHelper" /> and
-	///     <see cref="T:Sakura.AspNetCore.Mvc.TagHelpers.AuthorizeAttributeTagHelper" />.
+	///     Initialize a new instance of <see cref="AuthorizeTagHelperBase" />.
 	/// </summary>
-	public abstract class AuthorizeTagHelperBase : TagHelper
+	/// <param name="authorizationService">The <see cref="IAuthorizationService" /> instance.</param>
+	protected AuthorizeTagHelperBase(IAuthorizationService authorizationService)
 	{
-		/// <summary>
-		///     Initialize a new instance of <see cref="AuthorizeTagHelperBase" />.
-		/// </summary>
-		/// <param name="authorizationService">The <see cref="IAuthorizationService" /> instance.</param>
-		protected AuthorizeTagHelperBase(IAuthorizationService authorizationService)
-		{
-			AuthorizationService = authorizationService;
-		}
+		AuthorizationService = authorizationService;
+	}
 
-		private IAuthorizationService AuthorizationService { get; }
+	private IAuthorizationService AuthorizationService { get; }
 
-		/// <summary>
-		///     Get the authoization policy name which current user must melt in order to see the content.
-		/// </summary>
-		public abstract string Policy { get; set; }
+	/// <summary>
+	///     Get the authorization policy name which current user must melt in order to see the content.
+	/// </summary>
+	public abstract string Policy { get; set; }
 
-		/// <summary>
-		///     Get or set the additional resource used to authoirzation check if necessary.
-		/// </summary>
-		/// <seealso cref="IAuthorizationService.AuthorizeAsync(ClaimsPrincipal, object, string)" />
-		public abstract object Resource { get; set; }
+	/// <summary>
+	///     Get or set the additional resource used to authorization check if necessary.
+	/// </summary>
+	/// <seealso cref="IAuthorizationService.AuthorizeAsync(ClaimsPrincipal, object, string)" />
+	public abstract object Resource { get; set; }
 
-		/// <summary>
-		///     Get or set the view context for this tag helper.
-		/// </summary>
-		[HtmlAttributeNotBound]
-		[ViewContext]
-		[UsedImplicitly(ImplicitUseKindFlags.Assign)]
-		public ViewContext ViewContext { get; set; }
+	/// <summary>
+	///     Get or set the view context for this tag helper.
+	/// </summary>
+	[HtmlAttributeNotBound]
+	[ViewContext]
+	[UsedImplicitly(ImplicitUseKindFlags.Assign)]
+	public ViewContext ViewContext { get; set; }
 
 #if NETSTANDARD2_0 || NETCOREAPP2_1 || NETCOREAPP3_0
 		/// <summary>
@@ -55,29 +55,27 @@ namespace Sakura.AspNetCore.Mvc.TagHelpers
 			var result = await AuthorizationService.AuthorizeAsync(ViewContext.HttpContext.User, Resource, Policy);
 			return result.Succeeded;
 		}
-
 #else
-		/// <summary>
-		///     Get a value that indicates if the current user is authorized.
-		/// </summary>
-		/// <returns>If the current user is authorized, returns <c>true</c>; otherwise, returns <c>false</c>.</returns>
-		protected Task<bool> IsAuthorizedAsync()
-		{
-			return AuthorizationService.AuthorizeAsync(ViewContext.HttpContext.User, Resource, Policy);
-		}
+	/// <summary>
+	///     Get a value that indicates if the current user is authorized.
+	/// </summary>
+	/// <returns>If the current user is authorized, returns <c>true</c>; otherwise, returns <c>false</c>.</returns>
+	protected Task<bool> IsAuthorizedAsync()
+	{
+		return AuthorizationService.AuthorizeAsync(ViewContext.HttpContext.User, Resource, Policy);
+	}
 
 #endif
 
-		#region Overrides of TagHelper
+	#region Overrides of TagHelper
 
-		/// <inheritdoc />
-		public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
-		{
-			// If the authroization rule is not melt, do not output anything.
-			if (!await IsAuthorizedAsync())
-				output.SuppressOutput();
-		}
-
-		#endregion
+	/// <inheritdoc />
+	public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
+	{
+		// If the authroization rule is not melt, do not output anything.
+		if (!await IsAuthorizedAsync())
+			output.SuppressOutput();
 	}
+
+	#endregion
 }
