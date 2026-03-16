@@ -38,7 +38,7 @@
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' != 'netcoreapp3.0' ">
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="1.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="1.0.4" />
 		<PackageReference Include="Microsoft.AspNetCore.Razor.Runtime" Version="1.0.0" />
 	</ItemGroup>
 
