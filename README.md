@@ -36,23 +36,148 @@ Provide new tag helpers in order to simplify MVC code writing. For more details,
 
 *Nuget Package Name: `Sakura.AspNetCore.Mvc.TempDataExtensions`*
 
-This project provides the `EnhancedSessionStateTempDataProvider` service provider, with can replace the original `SessionBasedTempDataProvider`, in order to enhance the type compatibility for session data. The original TempData provider can only work with primitive types, arrays, and one-level plain-objects, objects with complex properties are not supported. The `EnhancedSessionStateTempDataProvider` can successfully work with most data objects with arbitray level structures.
+This project provides the `EnhancedSessionStateTempDataProvider` service provider, with can replace the original [`SessionStateTempDataProvider`](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.sessionstatetempdataprovider?view=aspnetcore-10.0), in order to enhance the type compatibility for session data. The original TempData provider can only work with primitive types, arrays, and one-level plain-objects, objects with complex properties are not supported. The `EnhancedSessionStateTempDataProvider` can successfully work with most data objects with arbitray level structures.
 
  Internally, it uses certain serializer techinque to convert complex data into string value, and store it together with its type full name. When application loading its content, it will deserialize the string to recover the object data structure. The default implmementation uses `JsonObjectSerializer`, and you may also replace it with your own implementation if necessary.
 
 
-### ASP.NET Core MVC Messages Package
+### ASP.NET Core MVC Messages Packages
 
-*Nuget Package Name: `Sakura.AspNetCore.Mvc.Messages`*
+#### NuGet Packages
 
-This project add the feature of common operation message response in web applications, as well as tag helpers to simplify message presentations. The detailed features includes:
+* `Sakura.AspNetCore.Messages.Abstractions`
+* `Sakura.AspNetCore.Messages`
+* `Sakura.AspNetCore.Mvc.Messages`
 
-* `OperationMessage` definitions and different `OperationMessageLevel` enum items.
-* `IOperationMessageAccessor` service, which can be inject in both views and controllers to access operation message data.
-* `MessageTagHelper` helper class, and you may use `asp-message-list` attribute on `div` element to generate message list UI, with various styles and additional layout options can be specified.
-* `IOperationMessageHtmlGenerator` service, wich is used internally for generating message list UI, and default bootstrap style generator are built-in implemented.
+This project enhances the common [Post/Redirect/Get (PRG)](https://en.wikipedia.org/wiki/Post/Redirect/Get) pattern by providing a streamlined way to display operation feedback (e.g., success or error messages) in web applications.
 
-*NOTE: To use this package, your `ITempDataProvider` implementation must have the ability to store and load `ICollection<OperationMessage>` instance. Defaultly, the ASP.NET5 `SessionStateTempDataProvider` cannot support data operation of complex objects. You may change into another `ITempDataProvider` implementation, or just use `EnhancedSessionStateTempDataProvider` in the `ASP.NET TempData Extension Package` project.
+---
+
+#### Component Breakdown
+
+1. Sakura.AspNetCore.Messages.Abstractions
+
+Defines the core messaging contracts:
+
+* **`OperationMessage`**: The data structure for messages and the `OperationMessageLevel` enum members.
+* **`IOperationMessageAccessor`**: The service contract for accessing operation messages within the current context.
+
+2. Sakura.AspNetCore.Messages
+
+Provides the core implementation:
+
+* [`DefaultOperationMessageAccessor`](https://github.com/sgjsakura/AspNetCore/blob/master/Sakura.AspNetCore.Extensions/Sakura.AspNetCore.Messages/DefaultOperationMessageAccessor.cs): An implementation of `IOperationMessageAccessor` based on [`TempData`](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/app-state?view=aspnetcore-10.0#tempdata), allowing data to persist across requests until it is read.
+* [`OperationMessageOptions`](https://github.com/sgjsakura/AspNetCore/blob/master/Sakura.AspNetCore.Extensions/Sakura.AspNetCore.Messages/OperationMessageOptions.cs): Allows customization of the `DefaultOperationMessageAccessor`'s behavior.
+
+> **Note**: The default [`SessionStateTempDataProvider`](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.sessionstatetempdataprovider?view=aspnetcore-10.0) in ASP.NET Core **does not** support storing complex types (like the `ICollection<OperationMessage>` used by this library). To resolve this, you can use `Sakura.AspNetCore.Mvc.TempDataExtensions` or implement a custom `ITempDataProvider`.
+
+3. Sakura.AspNetCore.Mvc.Messages
+
+Provides MVC-specific UI components using **Bootstrap** alerts or toasts:
+
+* **`MessageTagHelper`**: A TagHelper that uses the `operation-message-list` attribute on `div` elements to generate the message UI. It supports various styles and layout options.
+* **`IOperationMessageHtmlGenerator`**: An internal service for generating the HTML UI. It includes a built-in Bootstrap style generator.
+* **`BootstrapIconMapper`**: Maps `OperationMessageLevel` to specific [Bootstrap Icons](https://icons.getbootstrap.com/).
+
+---
+
+#### Quick Start
+
+1. Install Packages
+
+Add the following packages to your project:
+
+```powershell
+dotnet add package Sakura.AspNetCore.Mvc.Messages
+dotnet add package Sakura.AspNetCore.Mvc.TempDataExtensions
+```
+
+*(The Abstractions and Core packages will be included automatically as dependencies.)*
+
+2. Install Bootstrap Icons
+
+This library relies on Bootstrap Icons for visual indicators. Please refer to the [Official Documentation](https://icons.getbootstrap.com/#install) for installation instructions.
+
+3. Configure Services
+
+In your `Program.cs` or `Startup.cs`:
+
+```csharp
+using Sakura.AspNetCore.Mvc.Implementations;
+
+// ...
+
+public void ConfigureServices(IServiceCollection services)
+{
+    // Add operation message services with Bootstrap 5 styling
+    services.AddOperationMessages()
+        .UseBootstrap5Alerts(options =>
+        {
+            options.ContentLayout = Bootstrap5AlertMessageContentLayout.SingleRow;
+            options.DismissAriaLabel = "Dismiss";
+            options.Dismissible = true;
+            options.ShowIcon = true;
+        })
+        .UseBootstrapIcons(options =>
+        {
+            options.IconStyle = BootstrapIconStyle.Normal;
+            options.UseCircleForExclamation = false;
+        });
+
+    services.AddSession();
+    
+    // Add enhanced TempData support for complex object serialization
+    services.AddEnhancedTempData(options => options.EnableHtmlContentSerialization());
+}
+
+```
+
+#### 4. Register TagHelpers
+
+Add the library's TagHelpers to your `_ViewImports.cshtml`:
+
+```razor
+@addTagHelper *, Sakura.AspNetCore.Mvc.Messages
+```
+
+#### 5. Add the Message Container
+
+Place the container in your layout file (e.g., `_Layout.cshtml`) where you want messages to appear:
+
+```html
+<div class="container">
+    <operation-message-list></operation-message-list>
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
+
+```
+
+#### 6. Usage in Controllers
+
+Inject `IOperationMessageAccessor` into your controller and add messages before redirecting:
+
+```csharp
+public class MyController(IOperationMessageAccessor messageAccessor) : Controller
+{
+    [HttpPost("Delete")]
+    public async Task<IActionResult> DeleteItemAsync(int id)
+    {
+        // Your business logic...
+        
+        // Add a success message
+        messageAccessor.Add(OperationMessageLevel.Success, "Success", "The item has been deleted successfully.");
+        
+        return RedirectToAction("Index");
+    }
+}
+
+```
+
+**Done!** Your application will now automatically display operation messages after a redirect.
+
+
 
 ### ASP.NET Core PagedList Packages
 
